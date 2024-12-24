@@ -17,6 +17,7 @@ const WebSocketComponent = ({ wsUrl, onMessage }) => {
             };
 
             ws.onmessage = (event) => {
+                console.log('WebSocket received:', event.data);
                 const message = JSON.parse(event.data);
                 onMessage(message);
             };

@@ -5,7 +5,7 @@
     "description": "Frontend for the Healthcare App",
     "main": "src/index.js",
     "scripts": {
-      "start": "WDS_SOCKET_PORT=0 react-scripts start",
+      "start": "react-scripts start",
       "build": "react-scripts build",
       "test": "react-scripts test",
       "eject": "react-scripts eject"

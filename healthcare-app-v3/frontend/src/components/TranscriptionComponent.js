@@ -10,6 +10,8 @@ const TranscriptionComponent = () => {
             console.warn('Malformed message received:', message);
             return;
         }
+        console.log('Handling WebSocket message:', message);
+
 
         switch (message.topic) {
             case 'transcription.word.transcribed':
@@ -32,12 +34,27 @@ const TranscriptionComponent = () => {
             console.error('Error starting transcription:', err);
         }
     };
+    const stopTranscription = async () => {
+        try {
+            const response = await fetch('/api/stopTranscription', { method: 'POST' });
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log('Stopped transcription:', data);
+        } catch (err) {
+            console.error('Error stopping transcription:', err);
+        }
+    };
 
     return (
-        <div>
+<div>
             <h1>Transcription</h1>
             <p>{transcription}</p>
-            <button onClick={startTranscription}>Start Transcription</button>
+            <div>
+                <button onClick={startTranscription}>Start Transcription</button>
+                <button onClick={stopTranscription} style={{ marginLeft: '10px' }}>Stop Transcription</button>
+            </div>
             <WebSocketComponent wsUrl={wsUrl} onMessage={handleWebSocketMessage} />
         </div>
     );

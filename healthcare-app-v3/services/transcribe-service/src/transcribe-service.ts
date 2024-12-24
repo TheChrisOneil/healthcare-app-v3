@@ -21,7 +21,7 @@ class TranscribeService {
     while (retries > 0) {
       try {
         const nc = await connect({ servers: "nats://nats-server:4222" });
-        console.log("Connected to NATS");
+        console.log("transcribe-service: Connected to NATS");
         return nc;
       } catch (error) {
         console.error("Failed to connect to NATS. Retrying...", error);
@@ -99,7 +99,7 @@ class TranscribeService {
           })
         )
       );
-      console.log(`Published word: ${word}`);
+      console.log(`transcribe-service: Published word: ${word}`);
       await new Promise((resolve) => setTimeout(resolve, 1000));
     }
   }
