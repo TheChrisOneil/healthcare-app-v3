@@ -1,0 +1,19 @@
+{
+    "name": "transcribe-service",
+    "version": "1.0.0",
+    "description": "Handles transcription tasks and publishes transcription events to NATS.",
+    "main": "dist/transcribe-service.js",
+    "scripts": {
+      "start": "node dist/transcribe-service.js",
+      "build": "tsc"
+    },
+    "dependencies": {
+      "nats": "^2.10.0"
+    },
+    "devDependencies": {
+      "typescript": "^5.0.0"
+    },
+    "author": "Your Name",
+    "license": "MIT"
+  }
+  

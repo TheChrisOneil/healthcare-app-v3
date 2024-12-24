@@ -1,0 +1,90 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+storage/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Docker
+.docker/
+*.env
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Project specific
+logs/
+*.log
+temp/
+tmp/
+
+# System
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+*.sql
+*.dump
+
+# PostgreSQL
+*.psql
+pg_data/
+**/postgres-data/
+postgresql/
+pgdata/
+*.backup
+*.bak
+dump.rdb
+
+# Database config
+database.ini
+db.config
+database.yml
+*.db.config
+
+# Credentials
+.pgpass
+.my.cnf
+.env.db
+db.env
+
+# Data directories
+data/
+dbdata/

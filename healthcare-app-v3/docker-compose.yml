@@ -1,0 +1,65 @@
+version: "3.8"
+services:
+  nats-server:
+    image: nats:2.9.3
+    ports:
+      - "4222:4222"
+    command: "-js"
+    networks:
+      - app-network
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+    ports:
+      - "3000:3000"
+      - "8080:8080"
+    depends_on:
+      - nats-server
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - api-gateway
+      - frontend
+    networks:
+      - app-network
+
+  transcribe-service:
+    build:
+      context: ./services/transcribe-service
+    depends_on:
+      - nats-server
+    volumes:
+      - ./storage/recordings:/app/storage/recordings
+      - ./storage/transcriptions:/app/storage/transcriptions
+    networks:
+      - app-network
+
+  foo-agent:
+    build:
+      context: ./services/foo-agent
+    depends_on:
+      - nats-server
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3001:3000"
+    depends_on:
+      - api-gateway
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

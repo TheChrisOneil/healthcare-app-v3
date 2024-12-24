@@ -1,0 +1,20 @@
+{
+    "name": "foo-agent",
+    "version": "1.0.0",
+    "description": "A generic agent for processing input events and publishing results via NATS.",
+    "main": "dist/foo-agent.js",
+    "scripts": {
+      "start": "node dist/foo-agent.js",
+      "build": "tsc",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+      "nats": "^2.10.0"
+    },
+    "devDependencies": {
+      "typescript": "^5.0.0"
+    },
+    "author": "Your Name",
+    "license": "MIT"
+  }
+  
