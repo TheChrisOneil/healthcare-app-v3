@@ -6,18 +6,18 @@ import {
 import * as fs from "fs";
 import * as stream from "stream";
 import * as dotenv from "dotenv";
-import os from "os";
 import path from "path";
+import logger from "./logger";
 
 // Load environment variables from .env file
 dotenv.config({ path: '.env' }); // Load from root directory
 
-console.log("NATS_SERVER:", process.env.NATS_SERVER);
-console.log("OPENAI_API_KEY:", process.env.OPENAI_API_KEY);
-console.log("AWS_REGION:", process.env.AWS_REGION);
-console.log("AWS_ACCESS_KEY_ID:", process.env.AWS_ACCESS_KEY_ID);
-console.log("AWS_SECRET_ACCESS_KEY:", process.env.AWS_SECRET_ACCESS_KEY);
-console.log("AUDIO_FILE_PATH:", process.env.AUDIO_FILE_PATH);
+
+logger.info("Environment Variables Loaded", {
+  NATS_SERVER: process.env.NATS_SERVER,
+  AWS_REGION: process.env.AWS_REGION,
+  AUDIO_FILE_PATH: process.env.AUDIO_FILE_PATH,
+});
 
 
 interface TranscriptionEvent {
@@ -67,7 +67,7 @@ class TranscribeService {
       console.log("Successfully initialized NATS connection.");
       this.subscribeToEvents();
     } catch (error) {
-      console.error("Initialization failed:", error);
+      logger.error("Initialization failed:", error);
     }
   }
 
@@ -76,10 +76,10 @@ class TranscribeService {
     while (retries > 0) {
       try {
         const nc = await connect({ servers: "nats://nats-server:4222" });
-        console.log("transcribe-service: Connected to NATS");
+        logger.info("Connected to NATS.");
         return nc;
       } catch (error) {
-        console.error("Failed to connect to NATS. Retrying...", error);
+        logger.warn(`Failed to connect to NATS. Retries left: ${retries - 1}`, error);
         retries--;
         await new Promise((res) => setTimeout(res, 5000));
       }
@@ -89,7 +89,7 @@ class TranscribeService {
 
   private subscribeToEvents() {
     if (!this.nc) {
-      console.error("NATS connection not established");
+      logger.error("NATS connection not established.");
       return;
     }
 
@@ -109,26 +109,52 @@ class TranscribeService {
     this.nc.subscribe("transcription.session.stopped", {
       callback: (err: Error | null, msg: Msg) => {
         if (err) {
-          console.error("Error receiving transcription stopped event:", err);
+          logger.error("Error receiving transcription stopped event:", err);
           return;
         }
         const data = JSON.parse(sc.decode(msg.data)) as { sessionId: string };
         this.stopTranscription(data.sessionId);
       },
     });
+
+    this.nc.subscribe("transcription.session.paused", {
+      callback: (err: Error | null, msg: Msg) => {
+        if (err) {
+          logger.error("Error receiving transcription paused event:", err);
+          return;
+        }
+        logger.info(`Transcription session paused: ${this.sessionId}`);
+        this.transcriptionActive = false;
+        // Logic to save state
+      },
+    });
+
+    this.nc.subscribe("transcription.session.resumed", {
+      callback: (err: Error | null, msg: Msg) => {
+        if (err) {
+          logger.error("Error receiving transcription resumed event:", err);
+          return;
+        }
+        console.log(`Transcription session resumed: ${this.sessionId}`);
+        this.transcriptionActive = true;
+        this.streamAudioFile(); // Restart streaming
+      },
+    });
   }
+
+  
 
   private startTranscription(sessionId: string) {
     this.sessionId = sessionId;
     this.transcriptionActive = true;
-    console.log(`Transcription session started: ${sessionId}`);
+    logger.info(`Transcription session started: ${sessionId}`);
     this.streamAudioFile();
   }
 
   private stopTranscription(sessionId: string) {
     if (this.sessionId === sessionId) {
       this.transcriptionActive = false;
-      console.log(`Transcription session stopped: ${sessionId}`);
+      logger.info(`Transcription session stopped: ${sessionId}`);
     }
   }
 
@@ -192,13 +218,24 @@ class TranscribeService {
 
       console.log("Streaming complete.");
     } catch (error) {
-      console.error("Error during streaming:", error);
+      logger.error("Error during streaming:", error);
     } finally {
       if (this.nc) {
-        console.log("Closing transcription session.");
+        logger.info("Closing transcription session.");
       }
     }
   }
+
+  private handleError = (error: Error) => {
+    console.error("Transcription service encountered an error:", error);
+    if (this.nc) {
+      const sc = StringCodec();
+      this.nc.publish(
+        "transcription.error",
+        sc.encode(JSON.stringify({ sessionId: this.sessionId, error: error.message }))
+      );
+    }
+  };
 }
 
 // Start the Transcribe Service

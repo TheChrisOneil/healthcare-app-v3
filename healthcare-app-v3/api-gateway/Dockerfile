@@ -10,6 +10,9 @@ COPY package.json ./
 # Install dependencies
 RUN npm install
 
+# Set up logging directory
+RUN mkdir -p /app/logs && chmod 755 /app/logs
+
 # Copy the rest of the application code
 COPY . .
 

@@ -9,7 +9,8 @@
       "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
-      "nats": "^2.10.0"
+      "nats": "^2.10.0",
+      "winston": "^3.3.3"
     },
     "devDependencies": {
       "typescript": "^5.0.0"

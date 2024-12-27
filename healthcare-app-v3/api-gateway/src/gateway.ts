@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import { connect, NatsConnection, StringCodec, Msg, Subscription } from "nats";
 import { WebSocketServer, WebSocket } from "ws";
+import logger from "./logger";
 
 // Define interfaces for events
 interface TranscriptionStartedEvent {
@@ -24,13 +25,14 @@ const initNATS = async (): Promise<NatsConnection> => {
     while (retries > 0) {
       try {
         const nc = await connect({ servers: "nats://nats-server:4222" });
-        console.log("api-gateway: Connected to NATS");
+        logger.info("Connected to NATS");
         return nc;
       } catch (error) {
         console.error(`api-gateway: Failed to connect to NATS. Retries left: ${retries - 1}`, error);
         retries--;
   
         if (retries === 0) {
+          logger.error("Unable to connect to NATS after multiple attempts");
           throw new Error("api-gateway: Unable to connect to NATS after multiple attempts.");
         }
   
@@ -48,20 +50,20 @@ const initWebSocketServer = (nc: any) => {
   const wss = new WebSocketServer({ port: 8080 });
 
   wss.on("connection", (ws: WebSocket) => {
-    console.log("api-gateway: WebSocket client connected");
+    logger.info("WebSocket client connected");
 
     // Subscribe to transcription topics
     console.log("api-gateway: Subscribing to Transcription events...");
     const subscription: Subscription = nc.subscribe("transcription.word.transcribed", {
       callback: (err: Error | null, msg: Msg) => {
         if (err) {
-          console.error("api-gateway: WebSocket subscription to transcription error:", err);
+          logger.error("WebSocket subscription error", { error: err });
           return;
         }
 
         const topic = msg.subject;
         const data = sc.decode(msg.data);
-        console.log("api-gateway: Received message from NATS:", topic, data);
+        logger.debug("Received message from NATS", { topic, data });
 
         // Forward message to WebSocket client
         ws.send(JSON.stringify({ topic, data: JSON.parse(data) }));
@@ -69,13 +71,12 @@ const initWebSocketServer = (nc: any) => {
     });
 
     ws.on("close", () => {
-      console.log("api-gateway: WebSocket client disconnected");
-      console.log("api-gateway: Unsubscribe from Transcription events");
+      logger.info("WebSocket client disconnected");
       subscription.unsubscribe();
     });
   });
 
-  console.log("api-gateway: WebSocket server listening on port 8080");
+  logger.info("WebSocket server listening on port 8080");
 };
 
 // Set up Express endpoints
@@ -89,7 +90,7 @@ const setupRoutes = (nc: any) => {
 
     nc.publish("transcription.session.started", sc.encode(JSON.stringify(event)));
     res.status(200).send({ message: "Transcription started", sessionId: event.sessionId });
-    console.log("api-gateway: Transcription started");
+    logger.info("Transcription started", { sessionId: event.sessionId });
   });
 
   app.post("/api/stopTranscription", (req: Request, res: Response) => {
@@ -99,7 +100,7 @@ const setupRoutes = (nc: any) => {
 
     nc.publish("transcription.session.stopped", sc.encode(JSON.stringify(event)));
     res.status(200).send({ message: "Transcription stopped", sessionId: event.sessionId });
-    console.log("api-gateway: Transcription stopped");
+    logger.info("Transcription stopped", { sessionId: event.sessionId });
   });
 
   app.listen(port, () => console.log(`api-gateway: API Gateway running on port ${port}`));
@@ -113,5 +114,5 @@ const main = async () => {
 };
 
 main().catch((err) => {
-  console.error("api-gateway: Failed to initialize API Gateway:", err);
+  logger.error("Failed to initialize API Gateway", { error: err });
 });

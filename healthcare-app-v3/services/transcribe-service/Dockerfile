@@ -15,6 +15,9 @@ RUN npm install
 RUN mkdir -p /app/storage/audioTestFiles /app/storage/recordings /app/storage/transcriptions \
     && chmod 755 /app/storage/audioTestFiles /app/storage/recordings /app/storage/transcriptions
 
+# Set up logging directory
+RUN mkdir -p /app/logs && chmod 755 /app/logs
+
 # Debug: List the contents of the /app/storage directory
 RUN ls -l /app/storage || echo "Storage directory not found"
 
