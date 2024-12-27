@@ -31,7 +31,6 @@ services:
       - frontend
     networks:
       - app-network
-
   transcribe-service:
     build:
       context: ./services/transcribe-service
@@ -40,6 +39,7 @@ services:
     volumes:
       - ./storage/recordings:/app/storage/recordings
       - ./storage/transcriptions:/app/storage/transcriptions
+      - ./storage/audioTestFiles:/app/storage/audioTestFiles
     networks:
       - app-network
 

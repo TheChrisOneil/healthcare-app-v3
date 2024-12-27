@@ -32,6 +32,11 @@ yarn-error.log
 .env.test.local
 .env.production.local
 
+# storage
+storage/recodings/*
+storage/transcriptions/*
+
+
 # Docker
 .docker/
 *.env
