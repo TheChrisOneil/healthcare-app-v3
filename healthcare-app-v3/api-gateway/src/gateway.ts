@@ -2,17 +2,19 @@ import express, { Request, Response } from "express";
 import { connect, NatsConnection, StringCodec, Msg, Subscription } from "nats";
 import { WebSocketServer, WebSocket } from "ws";
 import logger from "./logger";
+import { TranscriptionEvent, TranscriptionWord } from "shared-interfaces/transcription"; // Using compiler options to manage local vs docker paths
+import dotenv from "dotenv";
 
-// Define interfaces for events
-interface TranscriptionStartedEvent {
-  sessionId: string;
-}
+// Load environment variables from .env file
+dotenv.config({ path: '.env' }); // Load from root directory
 
-interface TranscriptionWordEvent {
-  sessionId: string;
-  word: string;
-  timestamp: string;
-}
+logger.info("Environment Variables Loaded", {
+  NATS_SERVER: process.env.NATS_SERVER,
+  AWS_REGION: process.env.AWS_REGION,
+  AUDIO_FILE_PATH: process.env.AUDIO_FILE_PATH,
+  LOG_LEVEL: process.env.LOG_LEVEL,
+});
+
 
 const app = express();
 const port = 3000;
@@ -84,7 +86,7 @@ const setupRoutes = (nc: any) => {
   const sc = StringCodec();
 
   app.post("/api/startTranscription", (req: Request, res: Response) => {
-    const event: TranscriptionStartedEvent = {
+    const event: TranscriptionEvent = {
       sessionId: "abc123",
     };
 
@@ -94,7 +96,7 @@ const setupRoutes = (nc: any) => {
   });
 
   app.post("/api/stopTranscription", (req: Request, res: Response) => {
-    const event: TranscriptionStartedEvent = {
+    const event: TranscriptionEvent = {
       sessionId: "abc123",
     };
 
@@ -103,7 +105,7 @@ const setupRoutes = (nc: any) => {
     logger.info("Transcription stopped", { sessionId: event.sessionId });
   });
 
-  app.listen(port, () => console.log(`api-gateway: API Gateway running on port ${port}`));
+  app.listen(port, () => logger.info(`api-gateway: API Gateway running on port ${port}`));
 };
 
 // Main initialization

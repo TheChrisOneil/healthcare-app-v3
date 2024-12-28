@@ -10,11 +10,17 @@ services:
 
   api-gateway:
     build:
-      context: ./api-gateway
+      context: .
+      dockerfile: ./api-gateway/Dockerfile
     ports:
-      - "3000:3000"
-      - "8080:8080"
+      - "3000:3000" # API or app port for api-gateway
+      - "8080:8080" # Websocket port for api-gateway
+      - "9229:9229" # Debugger port for api-gateway
+    env_file: 
+      - ./api-gateway/.env #Set environment variables dev only
+    
     volumes:
+      - ./shared-interfaces:/app/shared-interfaces
       - ./logs:/app/logs
     logging:
       driver: json-file
@@ -38,21 +44,30 @@ services:
       - frontend
     networks:
       - app-network
+  
   transcribe-service:
     build:
-      context: ./services/transcribe-service
+      context: .
+      dockerfile: ./services/transcribe-service/Dockerfile
+    env_file: 
+      - ./services/transcribe-service/.env #Set environment variables dev only
+    
     depends_on:
       - nats-server
     volumes:
       - ./storage/recordings:/app/storage/recordings
       - ./storage/transcriptions:/app/storage/transcriptions
       - ./storage/audioTestFiles:/app/storage/audioTestFiles
+      - ./shared-interfaces:/app/shared-interfaces
       - ./logs:/app/logs
+    ports:
+      - "3002:3000" # API or app port for transcribe-service BE SURE matches the port in the Dockerfile
+      - "9232:9229" # Debugger port for service-one BE SURE matches the port in the Dockerfile & package.json
     logging:
       driver: json-file
       options:
         max-size: "10m"
-        max-file: "5" 
+        max-file: "5"
     networks:
       - app-network
 

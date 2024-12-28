@@ -8,34 +8,24 @@ import * as stream from "stream";
 import * as dotenv from "dotenv";
 import path from "path";
 import logger from "./logger";
+import {
+  TranscriptionEvent,
+  TranscriptResult,
+  TranscriptEvent,
+  TranscriptResponse,
+  TranscriptionError,
+  TranscriptionWord,
+} from "shared-interfaces/transcription"; // Using compiler options to manage local vs docker paths
 
 // Load environment variables from .env file
 dotenv.config({ path: '.env' }); // Load from root directory
-
 
 logger.info("Environment Variables Loaded", {
   NATS_SERVER: process.env.NATS_SERVER,
   AWS_REGION: process.env.AWS_REGION,
   AUDIO_FILE_PATH: process.env.AUDIO_FILE_PATH,
+  LOG_LEVEL: process.env.LOG_LEVEL,
 });
-
-
-interface TranscriptionEvent {
-  sessionId: string;
-}
-
-interface TranscriptResult {
-  IsPartial: boolean;
-  Alternatives?: { Transcript: string }[];
-}
-
-interface TranscriptEvent {
-  Transcript?: { Results: TranscriptResult[] };
-}
-
-interface TranscriptResponse {
-  TranscriptResultStream?: AsyncIterable<TranscriptEvent>;
-}
 
 
 
@@ -64,10 +54,10 @@ class TranscribeService {
   private async init() {
     try {
       this.nc = await this.initNATS();
-      console.log("Successfully initialized NATS connection.");
+      logger.info("Successfully initialized NATS connection.");
       this.subscribeToEvents();
     } catch (error) {
-      logger.error("Initialization failed:", error);
+      this.handleError(error instanceof Error ? error : new Error(String(error)));
     }
   }
 
@@ -98,7 +88,7 @@ class TranscribeService {
     this.nc.subscribe("transcription.session.started", {
       callback: (err: Error | null, msg: Msg) => {
         if (err) {
-          console.error("Error receiving transcription started event:", err);
+          logger.error("Error receiving transcription started event:", err);
           return;
         }
         const data = JSON.parse(sc.decode(msg.data)) as { sessionId: string };
@@ -135,7 +125,7 @@ class TranscribeService {
           logger.error("Error receiving transcription resumed event:", err);
           return;
         }
-        console.log(`Transcription session resumed: ${this.sessionId}`);
+        logger.info(`Transcription session resumed: ${this.sessionId}`);
         this.transcriptionActive = true;
         this.streamAudioFile(); // Restart streaming
       },
@@ -218,7 +208,7 @@ class TranscribeService {
 
       console.log("Streaming complete.");
     } catch (error) {
-      logger.error("Error during streaming:", error);
+      this.handleError(error instanceof Error ? error : new Error(String(error)));
     } finally {
       if (this.nc) {
         logger.info("Closing transcription session.");

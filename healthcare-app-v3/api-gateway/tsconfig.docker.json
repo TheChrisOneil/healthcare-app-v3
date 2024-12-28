@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "lib": ["es2018"],
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+      "baseUrl": "./",
+      "paths": {
+        "shared-interfaces/*": ["/app/shared-interfaces/src/*"]
+      },
+      "outDir": "./dist", // Since the rootDir is set to "../", the outDir is set to "./dist/foo/src/*.js
+      "rootDir": "../"  // This rootDir is needed to ensure that the TypeScript compiler can find the shared-interfaces package.
+    },
+    "include": ["src/**/*", "../shared-interfaces/src/**/*"],
+    "exclude": ["node_modules", "dist"]
+  }
+  

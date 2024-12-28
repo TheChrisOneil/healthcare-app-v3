@@ -8,12 +8,12 @@
         "skipLibCheck": true,
       "baseUrl": "./",
       "paths": {
-        "shared-interfaces/*": ["../../shared-interfaces/src/*"]
+        "shared-interfaces/*": ["/app/shared-interfaces/src/*"]
       },
       "outDir": "./dist",
-      "rootDir": "../../"
+      "rootDir": "../"
     },
-    "include": ["src/**/*", "../../shared-interfaces/src/**/*"],
+    "include": ["src/**/*", "../shared-interfaces/src/**/*"],
     "exclude": ["node_modules", "dist"]
   }
   

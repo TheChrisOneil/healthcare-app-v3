@@ -4,23 +4,29 @@ FROM node:18
 # Set the working directory
 WORKDIR /app
 
-# Copy package files
-COPY package.json ./
+# Copy only package.json and package-lock.json to leverage caching
+COPY ./api-gateway/package*.json ./
 
 # Install dependencies
-RUN npm install
-
-# Set up logging directory
-RUN mkdir -p /app/logs && chmod 755 /app/logs
+RUN npm install --silent
 
 # Copy the rest of the application code
-COPY . .
+COPY ./api-gateway/src ./src
+
+# Copy the shared interfaces code
+COPY ./shared-interfaces/src ./shared-interfaces/src
+
+# Use Docker-specific tsconfig for build
+COPY ./api-gateway/tsconfig.docker.json ./tsconfig.json
+
+# Create logs directory
+RUN mkdir -p /app/logs && chmod 755 /app/logs
 
 # Compile TypeScript to JavaScript
 RUN npm run build
 
-# Expose the ports for REST and WebSocket
-EXPOSE 3000 8080
+# Expose necessary ports
+EXPOSE 3000 8080 9229
 
-# Command to start the API Gateway
+# Command to start the service
 CMD ["npm", "start"]

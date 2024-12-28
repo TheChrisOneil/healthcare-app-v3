@@ -2,17 +2,22 @@
     "name": "api-gateway",
     "version": "1.0.0",
     "description": "API Gateway for managing REST and WebSocket connections",
-    "main": "dist/gateway.js",
+    "main": "dist/app/src/gateway.js",
     "scripts": {
-      "start": "node dist/gateway.js",
-      "build": "tsc"
+      "start": "node dist/app/src/gateway.js",
+      "start:debug": "node --inspect=0.0.0.0:9229 dist/app/src/gateway.js",
+      "build": "tsc",
+      "dev": "nodemon --watch ./src --watch ../shared-interfaces/src --exec ts-node  ./src/api-gateway.js",
+      "dev:docker": "nodemon --watch ./src --watch /app/shared-interfaces/src --exec ts-node  ./src/api-gateway.js",
+      "test": "jest"
     },
     "dependencies": {
       "express": "^4.18.2",
       "nats": "^2.10.0",
       "ws": "^8.13.0",
       "dotenv": "^16.0.3",
-      "winston": "^3.3.3"
+      "winston": "^3.3.3",
+      "moment-timezone": "^0.5.46"
     },
     "devDependencies": {
       "typescript": "^5.0.0",
