@@ -21,9 +21,7 @@ services:
     
     volumes:
       - ./shared-interfaces:/app/shared-interfaces
-      - ./api-gateway/src:/app/src # Add this line to mount the source code for watching changes
       - ./logs:/app/logs
-    command: ["npm", "run", "dev:docker"]
     logging:
       driver: json-file
       options:
@@ -61,12 +59,13 @@ services:
       - ./storage/transcriptions:/app/storage/transcriptions
       - ./storage/audioTestFiles:/app/storage/audioTestFiles
       - ./shared-interfaces:/app/shared-interfaces
-      - ./services/transcribe-service/src:/app/src
       - ./logs:/app/logs
     ports:
       - "3002:3000" # API or app port for transcribe-service BE SURE matches the port in the Dockerfile
       - "9232:9229" # Debugger port for service-one BE SURE matches the port in the Dockerfile & package.json
     command: ["npm", "run", "dev:docker"]
+    environment:
+      NODE_OPTIONS: "--inspect=0.0.0.0:9232"
     logging:
       driver: json-file
       options:

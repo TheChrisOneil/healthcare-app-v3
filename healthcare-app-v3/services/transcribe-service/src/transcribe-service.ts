@@ -16,6 +16,7 @@ import {
   TranscriptionError,
   TranscriptionWord,
 } from "shared-interfaces/transcription"; // Using compiler options to manage local vs docker paths
+import { log } from "console";
 
 // Load environment variables from .env file
 dotenv.config({ path: '.env' }); // Load from root directory
@@ -55,6 +56,8 @@ class TranscribeService {
     try {
       this.nc = await this.initNATS();
       logger.info("Successfully initialized NATS connection.");
+      logger.info("Subscribing to transcription events.");
+
       this.subscribeToEvents();
     } catch (error) {
       this.handleError(error instanceof Error ? error : new Error(String(error)));
@@ -186,7 +189,7 @@ class TranscribeService {
             if (result.IsPartial) continue;
 
             const transcript = result.Alternatives?.[0]?.Transcript || "";
-            console.log("Received transcript:", transcript);
+            logger.debug("Received transcript:", transcript);
 
             // Publish to NATS
             if (this.nc) {
@@ -206,7 +209,7 @@ class TranscribeService {
         }
       }
 
-      console.log("Streaming complete.");
+      logger.info("Streaming complete.");
     } catch (error) {
       this.handleError(error instanceof Error ? error : new Error(String(error)));
     } finally {

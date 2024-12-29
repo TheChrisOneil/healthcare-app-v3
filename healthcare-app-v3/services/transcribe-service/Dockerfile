@@ -19,6 +19,9 @@ COPY ./services/transcribe-service/src ./src
 # Use Docker-specific tsconfig for build
 COPY services/transcribe-service/tsconfig.docker.json ./tsconfig.json
 
+# Copy nodemon.json for development
+COPY services/transcribe-service/nodemon.docker.json ./nodemon.json
+
 # Set up logging directory
 RUN mkdir -p /app/logs && chmod 755 /app/logs
 
@@ -30,4 +33,4 @@ RUN npm run build
 EXPOSE 3002 9230
 
 # Command to start the service
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev:watch"]

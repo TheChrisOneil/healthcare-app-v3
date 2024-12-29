@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+	  {
+		"label": "Run All Containers",
+		"type": "shell",
+		"command": "docker-compose -f ${workspaceFolder}/healthcare-app-v3/docker-compose.debug.transcribe.yml up --build -d",
+		"problemMatcher": [],
+		"detail": "Starts all services using docker-compose."
+	  },
+	  {
+		"label": "Run All Containers",
+		"type": "shell",
+		"command": "docker-compose -f ${workspaceFolder}/healthcare-app-v3/docker-compose.debug.transcribe.yml up --build -d",
+		"problemMatcher": [],
+		"detail": "Starts all services using docker-compose."
+	  }
+	]
+  }

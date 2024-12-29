@@ -19,6 +19,9 @@ COPY ./shared-interfaces/src ./shared-interfaces/src
 # Use Docker-specific tsconfig for build
 COPY ./api-gateway/tsconfig.docker.json ./tsconfig.json
 
+# Copy nodemon.json for development
+COPY ./api-gateway/nodemon.docker.json ./nodemon.json
+
 # Create logs directory
 RUN mkdir -p /app/logs && chmod 755 /app/logs
 

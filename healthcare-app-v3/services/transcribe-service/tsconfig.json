@@ -11,7 +11,8 @@
         "shared-interfaces/*": ["../../shared-interfaces/src/*"]
       },
       "outDir": "./dist",
-      "rootDir": "../../"
+      "rootDir": "../../",
+      "sourceMap": true // Enable source mapping
     },
     "include": ["src/**/*", "../../shared-interfaces/src/**/*"],
     "exclude": ["node_modules", "dist"]

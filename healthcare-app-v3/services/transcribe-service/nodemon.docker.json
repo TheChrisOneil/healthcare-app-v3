@@ -1,0 +1,11 @@
+{
+    "watch": ["src", "app/shared-interfaces/src"],
+    "ext": "ts",
+    "exec": "ts-node  ./src/transcribe-service.ts",
+    "ignore": ["dist", "node_modules"],
+    "env": {
+      "NODE_ENV": "development",
+      "LOG_LEVEL": "debug"
+    },
+    "delay": "100"
+  }
