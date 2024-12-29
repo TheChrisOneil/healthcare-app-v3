@@ -13,6 +13,6 @@
     "outDir": "./dist",
     "rootDir": "../"
   },
-  "include": ["src/**/*", "../shared-interfaces/src/**/*"],
+  "include": ["src/**/*", "../shared-interfaces/src/**/*", "src/swagger-config.ts"],
   "exclude": ["node_modules", "dist"]
 }

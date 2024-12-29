@@ -6,6 +6,8 @@ import { TranscriptionEvent, TranscriptionWord } from "shared-interfaces/transcr
 import dotenv from "dotenv";
 import axios from "axios";
 import os from "os";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocs from "./swagger-config";
 
 // Load environment variables from .env file
 dotenv.config({ path: '.env' }); // Load from root directory
@@ -20,6 +22,14 @@ logger.info("Environment Variables Loaded, if empty you will have issues", {
 
 const app = express();
 const port = 3000;
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Add Swagger UI
+app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+logger.info("Swagger UI available at /api/api-docs");
 
 // Initialize NATS
 const initNATS = async (): Promise<NatsConnection> => {
@@ -115,6 +125,39 @@ const initWebSocketServer = (nc: any) => {
 const setupRoutes = (nc: any) => {
   const sc = StringCodec();
 
+
+  /**
+ * @swagger
+ * /api/startTranscription:
+ *   post:
+ *     summary: Start a transcription session
+ *     tags: [Transcription]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               sessionId:
+ *                 type: string
+ *                 description: The unique ID of the transcription session.
+ *                 example: "abc123"
+ *     responses:
+ *       200:
+ *         description: Transcription session started successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Transcription started
+ *                 sessionId:
+ *                   type: string
+ *                   example: abc123
+ */
   app.post("/api/startTranscription", (req: Request, res: Response) => {
     const event: TranscriptionEvent = {
       sessionId: "abc123",
@@ -125,6 +168,38 @@ const setupRoutes = (nc: any) => {
     logger.info("Transcription started", { sessionId: event.sessionId });
   });
 
+  /**
+ * @swagger
+ * /api/stopTranscription:
+ *   post:
+ *     summary: Stop a transcription session
+ *     tags: [Transcription]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               sessionId:
+ *                 type: string
+ *                 description: The unique ID of the transcription session.
+ *                 example: "abc123"
+ *     responses:
+ *       200:
+ *         description: Transcription session stopped successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Transcription stopped
+ *                 sessionId:
+ *                   type: string
+ *                   example: abc123
+ */
   app.post("/api/stopTranscription", (req: Request, res: Response) => {
     const event: TranscriptionEvent = {
       sessionId: "abc123",
@@ -135,14 +210,42 @@ const setupRoutes = (nc: any) => {
     logger.info("Transcription stopped", { sessionId: event.sessionId });
   });
 
-  app.post("/api/stopTranscription", (req: Request, res: Response) => {
-    const event: TranscriptionEvent = { sessionId: "abc123" };
 
-    nc.publish("transcription.session.stopped", sc.encode(JSON.stringify(event)));
-    res.status(200).send({ message: "Transcription stopped", sessionId: event.sessionId });
-    logger.info("Transcription stopped", { sessionId: event.sessionId });
-  });
-
+/**
+ * @swagger
+ * /api/status:
+ *   get:
+ *     summary: Get the status of all services
+ *     tags: [Status]
+ *     responses:
+ *       200:
+ *         description: The status of all services.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 gateway:
+ *                   type: object
+ *                   properties:
+ *                     name:
+ *                       type: string
+ *                       example: "api-gateway"
+ *                     status:
+ *                       type: string
+ *                       example: "UP"
+ *                 services:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       name:
+ *                         type: string
+ *                         example: "transcribe-service"
+ *                       status:
+ *                         type: string
+ *                         example: "UP"
+ */
   app.get("/api/status", async (req: Request, res: Response) => {
     const services = [
       { name: "transcribe-service", url: "http://transcribe-service:3002/status" },

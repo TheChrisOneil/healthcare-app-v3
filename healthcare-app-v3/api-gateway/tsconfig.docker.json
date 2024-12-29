@@ -8,7 +8,8 @@
         "skipLibCheck": true,
       "baseUrl": "./",
       "paths": {
-        "shared-interfaces/*": ["/app/shared-interfaces/src/*"]
+        "shared-interfaces/*": ["/app/shared-interfaces/src/*"],
+        "swagger/*": ["/app/swagger/*"]
       },
       "outDir": "./dist", // Since the rootDir is set to "../", the outDir is set to "./dist/foo/src/*.js
       "rootDir": "../"  // This rootDir is needed to ensure that the TypeScript compiler can find the shared-interfaces package.
