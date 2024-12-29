@@ -92,10 +92,10 @@ const initWebSocketServer = (nc: any) => {
   const wss = new WebSocketServer({ port: 8080 });
 
   wss.on("connection", (ws: WebSocket) => {
-    logger.info("WebSocket client connected");
+    logger.debug("WebSocket client connected");
 
     // Subscribe to transcription topics
-    console.log("api-gateway: Subscribing to Transcription events...");
+    logger.debug("Subscribing to Transcription events...");
     const subscription: Subscription = nc.subscribe("transcription.word.transcribed", {
       callback: (err: Error | null, msg: Msg) => {
         if (err) {
@@ -112,9 +112,27 @@ const initWebSocketServer = (nc: any) => {
       },
     });
 
+        // Subscribe to `aof.word.highlighted` events
+        const aofSubscription: Subscription = nc.subscribe("aof.word.highlighted", {
+          callback: (err: Error | null, msg: Msg) => {
+            if (err) {
+              logger.error("WebSocket subscription error for AOF", { error: err });
+              return;
+            }
+    
+            const topic = msg.subject;
+            const data = sc.decode(msg.data);
+            logger.debug("Received AOF message from NATS", { topic, data });
+    
+            // Forward AOF messages to WebSocket client
+            ws.send(JSON.stringify({ topic, data: JSON.parse(data) }));
+          },
+        });
+
     ws.on("close", () => {
       logger.info("WebSocket client disconnected");
       subscription.unsubscribe();
+      aofSubscription.unsubscribe();
     });
   });
 
@@ -249,6 +267,7 @@ const setupRoutes = (nc: any) => {
   app.get("/api/status", async (req: Request, res: Response) => {
     const services = [
       { name: "transcribe-service", url: "http://transcribe-service:3002/status" },
+      { name: "aof-service", url: "http://aof-service:3003/status" },
       { name: "api-gateway", url: "" },
     ];
 
