@@ -1,3 +1,5 @@
+import express, { Request, Response } from "express";
+import os from "os";
 import { connect, NatsConnection, Msg, StringCodec } from "nats";
 import {
   TranscribeStreamingClient,
@@ -21,14 +23,46 @@ import { log } from "console";
 // Load environment variables from .env file
 dotenv.config({ path: '.env' }); // Load from root directory
 
-logger.info("Environment Variables Loaded", {
+logger.info("Environment Variables Loaded, if empty you have an issue", {
   NATS_SERVER: process.env.NATS_SERVER,
   AWS_REGION: process.env.AWS_REGION,
   AUDIO_FILE_PATH: process.env.AUDIO_FILE_PATH,
   LOG_LEVEL: process.env.LOG_LEVEL,
 });
 
+// Set up Express app for the /status endpoint
+const app = express();
+const port = 3002; // HTTP server port for the service
 
+app.get("/status", (req: Request, res: Response) => {
+  const memoryUsage = process.memoryUsage();
+  const uptime = process.uptime();
+
+  res.status(200).json({
+    service: {
+      name: "transcribe-service",
+      version: "1.0.0",
+      status: "UP",
+      uptime,
+    },
+    system: {
+      loadAverage: os.loadavg(),
+      totalMemory: os.totalmem(),
+      freeMemory: os.freemem(),
+      memoryUsage: {
+        rss: memoryUsage.rss,
+        heapTotal: memoryUsage.heapTotal,
+        heapUsed: memoryUsage.heapUsed,
+        external: memoryUsage.external,
+      },
+    },
+  });
+});
+
+// Start the Express server
+app.listen(port, () => {
+  logger.info(`Transcribe service status endpoint running on port ${port}`);
+});
 
 class TranscribeService {
   private nc: NatsConnection | undefined;

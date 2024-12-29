@@ -4,27 +4,35 @@
     "description": "API Gateway for managing REST and WebSocket connections",
     "main": "dist/app/src/gateway.js",
     "scripts": {
-      "start": "node dist/app/src/gateway.js",
-      "start:debug": "node --inspect=0.0.0.0:9229 dist/app/src/gateway.js",
-      "build": "tsc",
-      "dev": "nodemon --watch ./src --watch ../shared-interfaces/src --exec ts-node  ./src/api-gateway.js",
-      "dev:docker": "nodemon --watch ./src --watch /app/shared-interfaces/src --exec ts-node  ./src/api-gateway.js",
-      "test": "jest"
+        "start": "node dist/app/src/gateway.js",
+        "start:debug": "node --inspect=0.0.0.0:9229 dist/app/src/gateway.js",
+        "build": "tsc",
+        "dev": "nodemon --watch ./src --watch ../shared-interfaces/src --exec ts-node  ./src/gateway.js",
+        "dev:docker": "kill-port 9232 && nodemon --config nodemon.json",
+        "test": "jest"
     },
     "dependencies": {
-      "express": "^4.18.2",
-      "nats": "^2.10.0",
-      "ws": "^8.13.0",
-      "dotenv": "^16.0.3",
-      "winston": "^3.3.3",
-      "moment-timezone": "^0.5.46"
+        "axios": "^1.7.9",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "moment-timezone": "^0.5.46",
+        "nats": "^2.10.0",
+        "winston": "^3.3.3",
+        "ws": "^8.13.0"
     },
     "devDependencies": {
-      "typescript": "^5.0.0",
-      "@types/express": "^4.17.17",
-      "@types/ws": "^8.5.3"
+        "@types/express": "^4.17.17",
+        "@types/fs-extra": "^9.0.13",
+        "@types/jest": "^29.5.10",
+        "@types/node": "^18.15.11",
+        "@types/ws": "^8.5.3",
+        "jest": "^29.6.1",
+        "kill-port": "^2.0.1",
+        "nodemon": "^3.0.1",
+        "ts-jest": "^29.1.1",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.0.0"
     },
     "author": "Your Name",
     "license": "MIT"
-  }
-  
+}

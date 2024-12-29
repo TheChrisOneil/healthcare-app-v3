@@ -14,11 +14,13 @@
   "dependencies": {
     "@aws-sdk/client-transcribe-streaming": "^3.56.0",
     "dotenv": "^16.0.3",
+    "express": "^4.21.2",
     "moment-timezone": "^0.5.46",
     "nats": "^2.8.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "@types/express": "^5.0.0",
     "@types/fs-extra": "^9.0.13",
     "@types/jest": "^29.5.10",
     "@types/node": "^18.15.11",

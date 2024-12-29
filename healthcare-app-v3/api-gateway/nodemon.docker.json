@@ -1,7 +1,7 @@
 {
     "watch": ["src", "app/shared-interfaces/src"],
     "ext": "ts",
-    "exec": "ts-node  ./src/api-gateway.js",
+    "exec": "ts-node  ./src/gateway.ts",
     "ignore": ["dist", "node_modules"],
     "env": {
       "NODE_ENV": "development",
