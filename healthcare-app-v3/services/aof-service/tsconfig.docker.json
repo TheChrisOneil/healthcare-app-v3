@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "lib": ["es2018"],
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+      "baseUrl": "./",
+      "paths": {
+        "shared-interfaces/*": ["/app/shared-interfaces/src/*"]
+      },
+      "outDir": "./dist",
+      "rootDir": "../"
+    },
+    "include": ["src/**/*", "../shared-interfaces/src/**/*"],
+    "exclude": ["node_modules", "dist"]
+  }
+  

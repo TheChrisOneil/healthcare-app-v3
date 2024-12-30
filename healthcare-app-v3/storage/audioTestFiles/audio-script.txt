@@ -1,0 +1,126 @@
+
+Doctor: [Warmly]
+Hi, Sarah. I’m Dr. Michaels. I understand you’ve been feeling unwell for some time. Why don’t we start with what’s been going on?
+
+Patient: [Sighs heavily]
+I’m just so tired… all the time. I can barely get out of bed some mornings. My energy crashes in the afternoon, and by evening, I’m just done. I used to love running and yoga, but now I feel like I’m dragging myself through the day.
+
+And it’s not just the fatigue. I’ve been having these awful headaches, and my stomach… it’s like, every meal feels like a gamble. I’m bloated, I feel sick, and nothing helps.
+
+Doctor: [Nods empathetically]
+That sounds incredibly difficult. It’s clear this is affecting your quality of life. Have you noticed when these issues started or what might have triggered them?
+
+Patient:
+It’s been about a year, I think. Maybe longer. It got worse after my job got more stressful. I’ve also been eating out a lot because I don’t have the energy to cook. I know I’ve gained weight, but I just don’t know where to start anymore.
+
+Doctor: [Leans in slightly]
+Thank you for sharing that, Sarah. It takes a lot to open up about how you’re feeling. Based on what you’ve told me, I suspect your symptoms could be related to chronic stress and inflammation, possibly combined with some food sensitivities and hormonal imbalances.
+
+Let’s dig deeper to understand the root cause. I’ll recommend some tests—blood work to check your thyroid, adrenal function, and inflammation markers, as well as a stool test to evaluate your gut health. Does that sound okay?
+
+Patient: [Nods hesitantly]
+Yeah, I guess… but what do I do until then? I can’t keep feeling like this.
+
+Doctor:
+We’ll get you some relief while we’re investigating. First, I want to start you on a low-inflammatory diet—avoiding gluten, dairy, and processed sugar for now. I’ll give you a meal plan and some easy recipes to try.
+
+For your energy, we’ll add a high-quality multivitamin and magnesium glycinate to help with stress and sleep. I’ll also prescribe a low dose of ashwagandha to support your adrenal health. It’s an herbal adaptogen that can help your body manage stress better.
+
+For the headaches and digestive issues, I’ll give you a probiotic and a prescription for Pantoprazole, just for temporary relief while we balance your gut.
+
+Finally, I recommend 10 minutes of mindfulness or deep breathing each day. It sounds simple, but it’s a powerful way to reduce stress and support your body’s healing process.
+
+Patient: [Looks hopeful but uncertain]
+It sounds like a lot… but I’ll try. I just don’t know if I can stick to all of it.
+
+Doctor:
+One step at a time. You don’t have to do this perfectly—progress is what matters. We’ll meet again in two weeks to go over your test results and adjust the plan as needed. You’re not in this alone, Sarah.
+
+Patient: [Tearing up slightly]
+Thank you. I’ve just felt so stuck for so long. It’s good to feel like there’s a way forward.
+
+Doctor: [Smiling gently]
+There is. We’ll get to the root cause together. You’re already on the right track just by being here.
+
+End Scene
+
+This script offers a mix of emotional expression, medical terminology, and structured dialogue for your AI transcription training. Let me know if you need adjustments.
+
+
+
+
+
+
+
+
+Doctor using SSML
+
+
+<speak>
+Hi, Sarah. I’m Dr. Michaels. <break time="500ms"/> I understand you’ve been feeling unwell for some time. <break time="300ms"/> Why don’t we start with what’s been going on?
+</speak>
+
+<speak>
+That sounds incredibly difficult. <break time="300ms"/> It’s clear this is affecting your quality of life. <break time="500ms"/> Have you noticed when these issues started or what might have triggered them?
+</speak>
+
+<speak>
+Thank you for sharing that, Sarah. <break time="500ms"/> It takes a lot to open up about how you’re feeling. <break time="500ms"/> Based on what you’ve told me, I suspect your symptoms could be related to <emphasis level="moderate">chronic stress and inflammation</emphasis>, possibly combined with some food sensitivities and hormonal imbalances.
+</speak>
+
+<speak>
+Let’s dig deeper to understand the root cause. <break time="300ms"/> I’ll recommend some tests—<emphasis level="moderate">blood work</emphasis> to check your thyroid, adrenal function, and inflammation markers, as well as a <emphasis level="moderate">stool test</emphasis> to evaluate your gut health. <break time="500ms"/> Does that sound okay?
+</speak>
+
+<speak>
+We’ll get you some relief while we’re investigating. <break time="300ms"/> First, I want to start you on a <emphasis level="moderate">low-inflammatory diet</emphasis>—avoiding gluten, dairy, and processed sugar for now. <break time="500ms"/> I’ll give you a meal plan and some easy recipes to try.
+</speak>
+
+<speak>
+For your energy, we’ll add a <emphasis level="moderate">high-quality multivitamin</emphasis> and <emphasis level="moderate">magnesium glycinate</emphasis> to help with stress and sleep. <break time="300ms"/> I’ll also prescribe a low dose of ashwagandha to support your adrenal health. <break time="500ms"/> It’s an herbal adaptogen that can help your body manage stress better.
+</speak>
+
+<speak>
+For the headaches and digestive issues, I’ll give you a <emphasis level="moderate">probiotic</emphasis> and a prescription for <emphasis level="moderate">Pantoprazole</emphasis>, just for temporary relief while we balance your gut.
+</speak>
+
+<speak>
+Finally, I recommend <emphasis level="strong">10 minutes of mindfulness</emphasis> or deep breathing each day. <break time="300ms"/> It sounds simple, but it’s a powerful way to reduce stress and support your body’s healing process.
+</speak>
+
+<speak>
+One step at a time. <break time="300ms"/> You don’t have to do this perfectly—<emphasis level="moderate">progress is what matters</emphasis>. <break time="500ms"/> We’ll meet again in two weeks to go over your test results and adjust the plan as needed. <break time="300ms"/> You’re not in this alone, Sarah.
+</speak>
+
+<speak>
+There is. <break time="300ms"/> We’ll get to the root cause together. <break time="300ms"/> You’re already on the right track just by being here.
+</speak>
+
+
+patient using SSML
+
+
+
+<speak>
+I’m just so tired... <break time="300ms"/> all the time. <break time="300ms"/> I can barely get out of bed some mornings. <break time="500ms"/> My energy crashes in the afternoon, and by evening, I’m just <emphasis level="strong">done</emphasis>. <break time="500ms"/> I used to love running and yoga, but now I feel like I’m dragging myself through the day.
+</speak>
+
+<speak>
+And it’s not just the fatigue. <break time="300ms"/> I’ve been having these <emphasis level="moderate">awful headaches</emphasis>, and my stomach... <break time="500ms"/> it’s like, every meal feels like a gamble. <break time="500ms"/> I’m bloated, I feel sick, and <emphasis level="strong">nothing helps</emphasis>.
+</speak>
+
+<speak>
+It’s been about a year, I think. <break time="500ms"/> Maybe longer. <break time="300ms"/> It got worse after my job got more stressful. <break time="500ms"/> I’ve also been eating out a lot because I don’t have the energy to cook. <break time="500ms"/> I know I’ve gained weight, but I just don’t know where to start anymore.
+</speak>
+
+<speak>
+Yeah, I guess… <break time="500ms"/> but what do I do until then? <break time="300ms"/> I can’t keep feeling like this.
+</speak>
+
+<speak>
+It sounds like a lot... <break time="300ms"/> but I’ll try. <break time="500ms"/> I just don’t know if I can stick to all of it.
+</speak>
+
+<speak>
+Thank you. <break time="500ms"/> I’ve just felt so stuck for so long. <break time="500ms"/> It’s good to feel like there’s a way forward.
+</speak>

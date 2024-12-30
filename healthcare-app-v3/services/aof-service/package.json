@@ -1,0 +1,39 @@
+{
+  "name": "aof-service",
+  "version": "1.0.0",
+  "description": "AWS aof-service integrated with NATS messaging.",
+  "main": "dist/app/src/aof-service.js",
+  "scripts": {
+    "start": "node dist/app/src/aof-service.js",
+    "start:debug": "node --inspect=0.0.0.0:9233 dist/app/src/aof-service.js",
+    "build": "tsc",
+    "dev": "nodemon --watch ./src --watch ../../shared-interfaces/src --exec ts-node  ./src/aof-service.ts",
+    "dev:docker": "kill-port 9233 && nodemon --config nodemon.json",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@aws-sdk/client-transcribe-streaming": "^3.56.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.21.2",
+    "moment-timezone": "^0.5.46",
+    "nats": "^2.8.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^29.5.10",
+    "@types/node": "^18.15.11",
+    "jest": "^29.6.1",
+    "kill-port": "^2.0.1",
+    "nodemon": "^3.0.1",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "Buzz",
+  "license": "MIT"
+}

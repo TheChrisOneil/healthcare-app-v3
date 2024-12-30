@@ -102,7 +102,7 @@ class TranscribeService {
     let retries = 5;
     while (retries > 0) {
       try {
-        const nc = await connect({ servers: "nats://nats-server:4222" });
+        const nc = await connect({ servers: process.env.NATS_SERVER || "nats://nats-server:4222" });
         logger.info("Connected to NATS.");
         return nc;
       } catch (error) {
@@ -114,62 +114,149 @@ class TranscribeService {
     throw new Error("Unable to connect to NATS after multiple attempts.");
   }
 
+  // private subscribeToEvents() {
+  //   if (!this.nc) {
+  //     logger.error("NATS connection not established.");
+  //     return;
+  //   }
+
+  //   const sc = StringCodec();
+
+  //   // Subscribe to transcription events
+  //   // Channel: transcription.session.started  
+  //   this.nc.subscribe("transcription.session.started", {
+  //     callback: (err: Error | null, msg: Msg) => {
+  //       if (err) {
+  //         logger.error("Error receiving transcription started event:", err);
+  //         return;
+  //       }
+  //       const data = JSON.parse(sc.decode(msg.data)) as { sessionId: string };
+  //       this.startTranscription(data.sessionId);
+                
+  //       // Notify DAG downstream services of start
+  //       this.nc?.publish("service.control.aof", sc.encode("start"));
+  //     },
+  //   });
+
+  //   this.nc.subscribe("transcription.session.stopped", {
+  //     callback: (err: Error | null, msg: Msg) => {
+  //       if (err) {
+  //         logger.error("Error receiving transcription stopped event:", err);
+  //         return;
+  //       }
+  //       const data = JSON.parse(sc.decode(msg.data)) as { sessionId: string };
+  //       this.stopTranscription(data.sessionId);
+        
+  //       // Notify DAG downstream services of stop
+  //       this.nc?.publish("service.control.aof", sc.encode("stop"));
+  //     },
+  //   });
+
+  //   this.nc.subscribe("transcription.session.paused", {
+  //     callback: (err: Error | null, msg: Msg) => {
+  //       if (err) {
+  //         logger.error("Error receiving transcription paused event:", err);
+  //         return;
+  //       }
+  //       logger.info(`Transcription session paused: ${this.sessionId}`);
+  //       this.transcriptionActive = false;
+  //       // Logic to save state
+
+                      
+  //       // Notify DAG downstream services of start
+  //       this.nc?.publish("service.control.aof", sc.encode("pause"));
+  //     },
+  //   });
+
+  //   this.nc.subscribe("transcription.session.resumed", {
+  //     callback: (err: Error | null, msg: Msg) => {
+  //       if (err) {
+  //         logger.error("Error receiving transcription resumed event:", err);
+  //         return;
+  //       }
+
+                      
+  //       // Notify DAG downstream services of start
+  //       this.nc?.publish("service.control.aof", sc.encode("resume"));
+  //       logger.info(`Transcription session resumed: ${this.sessionId}`);
+  //       this.transcriptionActive = true;
+  //       this.streamAudioFile(); // Restart streaming
+  //     },
+  //   });
+  // }
+
   private subscribeToEvents() {
     if (!this.nc) {
       logger.error("NATS connection not established.");
       return;
     }
-
+  
     const sc = StringCodec();
-
-    this.nc.subscribe("transcription.session.started", {
-      callback: (err: Error | null, msg: Msg) => {
-        if (err) {
-          logger.error("Error receiving transcription started event:", err);
+    const queueGroup = "transcribe-workers"; // Define the queue group name
+  
+    // Subscription: transcription.session.started
+    this.nc.subscribe("command.transcribe.start", {
+      queue: queueGroup,
+      callback: (_err, msg) => {
+        if (_err) {
+          logger.error("Error receiving transcription started event:", _err);
           return;
         }
         const data = JSON.parse(sc.decode(msg.data)) as { sessionId: string };
         this.startTranscription(data.sessionId);
+
       },
     });
-
-    this.nc.subscribe("transcription.session.stopped", {
-      callback: (err: Error | null, msg: Msg) => {
-        if (err) {
-          logger.error("Error receiving transcription stopped event:", err);
+  
+    // Subscription: transcription.session.stopped
+    this.nc.subscribe("command.transcribe.stop", {
+      queue: queueGroup,
+      callback: (_err, msg) => {
+        if (_err) {
+          logger.error("Error receiving transcription stopped event:", _err);
           return;
         }
         const data = JSON.parse(sc.decode(msg.data)) as { sessionId: string };
         this.stopTranscription(data.sessionId);
+  
+        // Notify DAG downstream services of stop
+        this.nc?.publish("service.control.aof", sc.encode("stop"));
       },
     });
-
-    this.nc.subscribe("transcription.session.paused", {
-      callback: (err: Error | null, msg: Msg) => {
-        if (err) {
-          logger.error("Error receiving transcription paused event:", err);
+  
+    // Subscription: transcription.session.paused
+    this.nc.subscribe("command.transcribe.pause", {
+      queue: queueGroup,
+      callback: (_err, msg) => {
+        if (_err) {
+          logger.error("Error receiving transcription paused event:", _err);
           return;
         }
         logger.info(`Transcription session paused: ${this.sessionId}`);
         this.transcriptionActive = false;
-        // Logic to save state
+  
+        // Notify DAG downstream services of pause
+        this.nc?.publish("service.control.aof", sc.encode("pause"));
       },
     });
-
-    this.nc.subscribe("transcription.session.resumed", {
-      callback: (err: Error | null, msg: Msg) => {
-        if (err) {
-          logger.error("Error receiving transcription resumed event:", err);
+  
+    // Subscription: transcription.session.resumed
+    this.nc.subscribe("transcription.session.resume", {
+      queue: queueGroup,
+      callback: (_err, msg) => {
+        if (_err) {
+          logger.error("Error receiving transcription resumed event:", _err);
           return;
         }
         logger.info(`Transcription session resumed: ${this.sessionId}`);
         this.transcriptionActive = true;
-        this.streamAudioFile(); // Restart streaming
+        this.streamAudioFile();
+  
+        // Notify DAG downstream services of resume
+        this.nc?.publish("service.control.aof", sc.encode("resume"));
       },
     });
   }
-
-  
 
   private startTranscription(sessionId: string) {
     this.sessionId = sessionId;

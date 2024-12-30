@@ -85,6 +85,50 @@ const getGatewayStatus = (): Record<string, any> => {
   };
 };
 
+// Initialize mesaage subscriptions for UX updates
+// Design Note: This is a simple example. In a production system, you would likely have separate queues for each worker.
+// Design Note: This service cares providing all the messages espeically the AOF.
+// Design Note: If a queue group member disconnects (e.g., API Gateway restarts), NATS tracks the last delivered message
+//  and resumes delivery to new members of the same queue group when they reconnect.
+const initSubscriptions = (nc: NatsConnection, ws: WebSocket) => {
+  const sc = StringCodec();
+
+  // Define durable queue name
+  const durableQueueName = "api-gateway-durable-workers";
+
+  const subscriptions: Subscription[] = [
+    // AOF Messages
+    nc.subscribe("aof.word.highlighted", {
+      queue: durableQueueName, // Durable queue group
+      callback: (err: Error | null, msg: Msg) => {
+        if (err) {
+          logger.error("Error in AOF message", err);
+          return;
+        }
+        const data = sc.decode(msg.data);
+        logger.debug("AOF message received", { topic: msg.subject, data });
+        ws.send(JSON.stringify({ topic: msg.subject, data: JSON.parse(data) }));
+      },
+    }),
+
+    // Transcription Messages
+    nc.subscribe("transcription.word.transcribed", {
+      queue: durableQueueName, // Durable queue group
+      callback: (err: Error | null, msg: Msg) => {
+        if (err) {
+          logger.error("Error in transcription message", err);
+          return;
+        }
+        const data = sc.decode(msg.data);
+        logger.debug("Transcription message received", { topic: msg.subject, data });
+        ws.send(JSON.stringify({ topic: msg.subject, data: JSON.parse(data) }));
+      },
+    }),
+  ];
+  return subscriptions;
+  logger.info("Subscriptions initialized with durable queue groups.");
+};
+
 
 // Initialize WebSocket Server
 const initWebSocketServer = (nc: any) => {
@@ -96,204 +140,133 @@ const initWebSocketServer = (nc: any) => {
 
     // Subscribe to transcription topics
     logger.debug("Subscribing to Transcription events...");
-    const subscription: Subscription = nc.subscribe("transcription.word.transcribed", {
-      callback: (err: Error | null, msg: Msg) => {
-        if (err) {
-          logger.error("WebSocket subscription error", { error: err });
-          return;
-        }
-
-        const topic = msg.subject;
-        const data = sc.decode(msg.data);
-        logger.debug("Received message from NATS", { topic, data });
-
-        // Forward message to WebSocket client
-        ws.send(JSON.stringify({ topic, data: JSON.parse(data) }));
-      },
-    });
-
-        // Subscribe to `aof.word.highlighted` events
-        const aofSubscription: Subscription = nc.subscribe("aof.word.highlighted", {
-          callback: (err: Error | null, msg: Msg) => {
-            if (err) {
-              logger.error("WebSocket subscription error for AOF", { error: err });
-              return;
-            }
-    
-            const topic = msg.subject;
-            const data = sc.decode(msg.data);
-            logger.debug("Received AOF message from NATS", { topic, data });
-    
-            // Forward AOF messages to WebSocket client
-            ws.send(JSON.stringify({ topic, data: JSON.parse(data) }));
-          },
-        });
+    const subscriptions = initSubscriptions(nc, ws);
 
     ws.on("close", () => {
       logger.info("WebSocket client disconnected");
-      subscription.unsubscribe();
-      aofSubscription.unsubscribe();
+      subscriptions.forEach((sub) => sub.unsubscribe());
     });
   });
 
   logger.info("WebSocket server listening on port 8080");
 };
 
+
 // Set up Express endpoints
-const setupRoutes = (nc: any) => {
+const setupRoutes = (nc: NatsConnection) => {
   const sc = StringCodec();
 
-
   /**
- * @swagger
- * /api/startTranscription:
- *   post:
- *     summary: Start a transcription session
- *     tags: [Transcription]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               sessionId:
- *                 type: string
- *                 description: The unique ID of the transcription session.
- *                 example: "abc123"
- *     responses:
- *       200:
- *         description: Transcription session started successfully.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Transcription started
- *                 sessionId:
- *                   type: string
- *                   example: abc123
- */
-  app.post("/api/startTranscription", (req: Request, res: Response) => {
-    const event: TranscriptionEvent = {
-      sessionId: "abc123",
-    };
+   * @swagger
+   * /api/controlTranscribeService:
+   *   post:
+   *     summary: Send a command to control the Transcribe Service
+   *     tags: [Transcription Control]
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             properties:
+   *               command:
+   *                 type: string
+   *                 enum: [start, pause, resume, stop]
+   *                 description: The command to send to the transcribe service.
+   *               sessionId:
+   *                 type: string
+   *                 description: The unique session ID.
+   *     responses:
+   *       200:
+   *         description: Command sent successfully.
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 message:
+   *                   type: string
+   *                   example: "Command sent"
+   *                 sessionId:
+   *                   type: string
+   *                   example: "abc123"
+   */
+  app.post("/api/controlTranscribeService", (req: Request, res: Response) => {
+    const { command, sessionId } = req.body;
 
-    nc.publish("transcription.session.started", sc.encode(JSON.stringify(event)));
-    res.status(200).send({ message: "Transcription started", sessionId: event.sessionId });
-    logger.info("Transcription started", { sessionId: event.sessionId });
+    if (!command || !sessionId) {
+      return res.status(400).json({ error: "Invalid request payload" });
+    }
+
+    const validCommands = ["start", "pause", "resume", "stop"];
+    if (!validCommands.includes(command)) {
+      return res
+        .status(400)
+        .json({ error: `Invalid command. Valid commands: ${validCommands.join(", ")}` });
+    }
+
+    const topic = `command.transcribe.${command}`;
+    nc.publish(topic, sc.encode(JSON.stringify({ sessionId, timestamp: new Date().toISOString() })));
+
+    res.status(200).json({ message: `Command '${command}' sent to Transcribe Service`, sessionId });
+    logger.info(`Command '${command}' sent to Transcribe Service`, { sessionId });
   });
 
   /**
- * @swagger
- * /api/stopTranscription:
- *   post:
- *     summary: Stop a transcription session
- *     tags: [Transcription]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               sessionId:
- *                 type: string
- *                 description: The unique ID of the transcription session.
- *                 example: "abc123"
- *     responses:
- *       200:
- *         description: Transcription session stopped successfully.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Transcription stopped
- *                 sessionId:
- *                   type: string
- *                   example: abc123
- */
-  app.post("/api/stopTranscription", (req: Request, res: Response) => {
-    const event: TranscriptionEvent = {
-      sessionId: "abc123",
-    };
-
-    nc.publish("transcription.session.stopped", sc.encode(JSON.stringify(event)));
-    res.status(200).send({ message: "Transcription stopped", sessionId: event.sessionId });
-    logger.info("Transcription stopped", { sessionId: event.sessionId });
-  });
-
-
-/**
- * @swagger
- * /api/status:
- *   get:
- *     summary: Get the status of all services
- *     tags: [Status]
- *     responses:
- *       200:
- *         description: The status of all services.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 gateway:
- *                   type: object
- *                   properties:
- *                     name:
- *                       type: string
- *                       example: "api-gateway"
- *                     status:
- *                       type: string
- *                       example: "UP"
- *                 services:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       name:
- *                         type: string
- *                         example: "transcribe-service"
- *                       status:
- *                         type: string
- *                         example: "UP"
- */
+   * @swagger
+   * /api/status:
+   *   get:
+   *     summary: Get the status of all services
+   *     tags: [Status]
+   *     responses:
+   *       200:
+   *         description: The status of all services.
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 gateway:
+   *                   type: object
+   *                   properties:
+   *                     name:
+   *                       type: string
+   *                       example: "api-gateway"
+   *                     status:
+   *                       type: string
+   *                       example: "UP"
+   *                 services:
+   *                   type: array
+   *                   items:
+   *                     type: object
+   *                     properties:
+   *                       name:
+   *                         type: string
+   *                         example: "transcribe-service"
+   *                       status:
+   *                         type: string
+   *                         example: "UP"
+   */
   app.get("/api/status", async (req: Request, res: Response) => {
     const services = [
       { name: "transcribe-service", url: "http://transcribe-service:3002/status" },
       { name: "aof-service", url: "http://aof-service:3003/status" },
-      { name: "api-gateway", url: "" },
     ];
 
     const serviceStatuses = await Promise.all(
       services.map(async (service) => {
-        if (service.name === "api-gateway") {
-          // Use the private function for API Gateway's status
-          return getGatewayStatus();
-        }
-
         try {
           const response = await axios.get(service.url);
           return { name: service.name, status: "UP", ...response.data };
         } catch (error) {
           const message = error instanceof Error ? error.message : String(error);
-          logger.error("Service health check failed", { service: service.name, error: message });
           return { name: service.name, status: "DOWN", error: message };
         }
       })
     );
 
-    res.status(200).json({
-      services: serviceStatuses,
-    });
+    res.status(200).json({ gateway: getGatewayStatus(), services: serviceStatuses });
   });
-
 
   app.listen(port, () => logger.info(`api-gateway: API Gateway running on port ${port}`));
 };

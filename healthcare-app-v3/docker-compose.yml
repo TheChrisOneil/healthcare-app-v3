@@ -32,6 +32,7 @@ services:
     depends_on:
       - nats-server
       - transcribe-service
+      - aof-service
     networks:
       - app-network
 
@@ -66,6 +67,31 @@ services:
     ports:
       - "3002:3000" # API or app port for transcribe-service BE SURE matches the port in the Dockerfile
       - "9232:9229" # Debugger port for service-one BE SURE matches the port in the Dockerfile & package.json
+    command: ["npm", "run", "dev:docker"]
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - app-network
+
+  aof-service:
+    build:
+      context: .
+      dockerfile: ./services/aof-service/Dockerfile
+    env_file: 
+      - ./services/aof-service/.env #Set environment variables dev only
+    
+    depends_on:
+      - nats-server
+    volumes:
+      - ./shared-interfaces:/app/shared-interfaces
+      - ./services/aof-service/src:/app/src
+      - ./logs:/app/logs
+    ports:
+      - "3003:3000" # API or app port for aof-service BE SURE matches the port in the Dockerfile
+      - "9233:9229" # Debugger port for service-one BE SURE matches the port in the Dockerfile & package.json
     command: ["npm", "run", "dev:docker"]
     logging:
       driver: json-file
