@@ -81,7 +81,7 @@ class TranscribeService {
       },
     });
     this.filename = "test_audio.pcm";
-    this.audioFilePath = process.env.AUDIO_FILE_PATH || "/tmp";
+    this.audioFilePath = process.env.TEST_AUDIO_FILE_PATH || "/tmp";
     this.audioFilePath = path.join(this.audioFilePath , this.filename)
     this.init();
   }
