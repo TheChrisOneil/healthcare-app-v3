@@ -35,6 +35,28 @@ yarn-error.log
 storage/recodings/*
 storage/transcriptions/*
 
+# Jest coverage reports
+coverage/
+
+# Jest cache directory
+jest-cache/
+.jest/
+
+# Jest test results
+jest-results.json
+
+# TypeScript test output (if compiled)
+tests/**/*.js
+tests/**/*.js.map
+tests/**/*.d.ts
+
+# Ignore test snapshots
+__snapshots__/
+
+# Temporary files
+*.test.log
+*.test.json
+*.test.yaml
 
 # Docker
 .docker/
