@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import { connect, NatsConnection, StringCodec, Msg, Subscription } from "nats";
 import { WebSocketServer, WebSocket } from "ws";
 import logger from "./logger";
-import { TranscriptionEvent, TranscriptionWord } from "shared-interfaces/transcription"; // Using compiler options to manage local vs docker paths
+import { SessionInitiation, TranscriptPreferences, AudioConfig } from "shared-interfaces/transcription"; // see tsconfig compiler options to manage local vs docker paths
 import dotenv from "dotenv";
 import axios from "axios";
 import os from "os";
@@ -154,63 +154,120 @@ const initWebSocketServer = (nc: any) => {
 
 // Set up Express endpoints
 const setupRoutes = (nc: NatsConnection) => {
+  // Valid commands for the transcription service
+  const validCommands = ["start", "pause", "resume", "stop"] as const;
+  type Command = typeof validCommands[number];
   const sc = StringCodec();
+/**
+ * @swagger
+ * /api/controlTranscribeService:
+ *   post:
+ *     summary: Send a command to control the Transcribe Service
+ *     tags: [Transcription Control]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               command:
+ *                 type: string
+ *                 enum: [start, pause, resume, stop]
+ *                 description: The command to send to the transcribe service.
+ *               sessionData:
+ *                 type: object
+ *                 properties:
+ *                   sessionId:
+ *                     type: string
+ *                   patientDID:
+ *                     type: string
+ *                   clinicianDID:
+ *                     type: string
+ *                   clinicName:
+ *                     type: string
+ *                   startTime:
+ *                     type: string
+ *                     format: date-time
+ *                   audioConfig:
+ *                     type: object
+ *                     properties:
+ *                       sampleRate:
+ *                         type: number
+ *                       channels:
+ *                         type: number
+ *                       encoding:
+ *                         type: string
+ *                   transcriptPreferences:
+ *                     type: object
+ *                     properties:
+ *                       language:
+ *                         type: string
+ *                       autoHighlight:
+ *                         type: boolean
+ *                       saveAudio:
+ *                         type: boolean
+ *     responses:
+ *       200:
+ *         description: Command sent successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 sessionId:
+ *                   type: string
+ */
+app.post("/api/controlTranscribeService", (req: Request, res: Response) => {
+  const { command, sessionData }: { command: Command; sessionData: SessionInitiation } = req.body;
 
-  /**
-   * @swagger
-   * /api/controlTranscribeService:
-   *   post:
-   *     summary: Send a command to control the Transcribe Service
-   *     tags: [Transcription Control]
-   *     requestBody:
-   *       required: true
-   *       content:
-   *         application/json:
-   *           schema:
-   *             type: object
-   *             properties:
-   *               command:
-   *                 type: string
-   *                 enum: [start, pause, resume, stop]
-   *                 description: The command to send to the transcribe service.
-   *               sessionId:
-   *                 type: string
-   *                 description: The unique session ID.
-   *     responses:
-   *       200:
-   *         description: Command sent successfully.
-   *         content:
-   *           application/json:
-   *             schema:
-   *               type: object
-   *               properties:
-   *                 message:
-   *                   type: string
-   *                   example: "Command sent"
-   *                 sessionId:
-   *                   type: string
-   *                   example: "abc123"
-   */
-  app.post("/api/controlTranscribeService", (req: Request, res: Response) => {
-    const { command, sessionId } = req.body;
+  // Validate command
+  if (!command || !validCommands.includes(command)) {
+    return res.status(400).json({
+      error: `Invalid command. Valid commands are: ${validCommands.join(", ")}`,
+    });
+  }
 
-    if (!command || !sessionId) {
-      return res.status(400).json({ error: "Invalid request payload" });
-    }
+  // Validate sessionData
+  if (
+    !sessionData ||
+    !sessionData.sessionId ||
+    !sessionData.patientDID ||
+    !sessionData.clinicianDID ||
+    !sessionData.clinicName ||
+    !sessionData.startTime ||
+    !sessionData.audioConfig?.sampleRate ||
+    !sessionData.audioConfig?.channels ||
+    !sessionData.audioConfig?.encoding ||
+    !sessionData.audioConfig?.languageCode ||
+    !sessionData.transcriptPreferences?.language ||
+    sessionData.transcriptPreferences.autoHighlight === undefined ||
+    sessionData.transcriptPreferences.saveAudio === undefined
+  ) {
+    return res.status(400).json({ error: "Invalid sessionData payload" });
+  }
 
-    const validCommands = ["start", "pause", "resume", "stop"];
-    if (!validCommands.includes(command)) {
-      return res
-        .status(400)
-        .json({ error: `Invalid command. Valid commands: ${validCommands.join(", ")}` });
-    }
+  // Create the topic and payload
+  const topic = `command.transcribe.${command}`;
+  const payload = {
+    ...sessionData,
+    timestamp: new Date().toISOString(),
+  };
 
-    const topic = `command.transcribe.${command}`;
-    nc.publish(topic, sc.encode(JSON.stringify({ sessionId, timestamp: new Date().toISOString() })));
+  // Publish to NATS
+  nc.publish(topic, sc.encode(JSON.stringify(payload)));
 
-    res.status(200).json({ message: `Command '${command}' sent to Transcribe Service`, sessionId });
-    logger.info(`Command '${command}' sent to Transcribe Service`, { sessionId });
+  // Log the action
+  logger.info(`Command '${command}' sent to Transcribe Service`, { sessionId: sessionData.sessionId, payload });
+
+  // Respond to the client
+  res.status(200).json({
+    message: `Command '${command}' sent to Transcribe Service`,
+    sessionId: sessionData.sessionId,
   });
+});
 
   /**
    * @swagger

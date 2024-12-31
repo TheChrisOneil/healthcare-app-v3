@@ -1,0 +1,6068 @@
+[
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:37:12.354Z",
+    "transcript": "Hi Sarah, I'm Doctor Michaels. I understand you've been feeling unwell for some time.",
+    "words": [
+      {
+        "word": "Hi",
+        "start": 0.245,
+        "end": 0.605,
+        "confidence": 0.9972,
+        "metadata": {
+          "wordOffset": 0,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "Sarah",
+        "start": 0.605,
+        "end": 0.925,
+        "confidence": 0.996,
+        "metadata": {
+          "wordOffset": 1,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 0.925,
+        "end": 0.925,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 2,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I'm",
+        "start": 1.125,
+        "end": 1.365,
+        "confidence": 0.9985,
+        "metadata": {
+          "wordOffset": 3,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "Doctor",
+        "start": 1.365,
+        "end": 1.795,
+        "confidence": 0.993,
+        "metadata": {
+          "wordOffset": 4,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "Michaels",
+        "start": 1.965,
+        "end": 2.725,
+        "confidence": 0.9987,
+        "metadata": {
+          "wordOffset": 5,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 2.725,
+        "end": 2.725,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 6,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I",
+        "start": 2.965,
+        "end": 3.365,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 7,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "understand",
+        "start": 3.365,
+        "end": 3.525,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 8,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "you've",
+        "start": 3.525,
+        "end": 3.725,
+        "confidence": 0.9983,
+        "metadata": {
+          "wordOffset": 9,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "been",
+        "start": 3.725,
+        "end": 3.925,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 10,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "feeling",
+        "start": 3.925,
+        "end": 4.165,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 11,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "unwell",
+        "start": 4.165,
+        "end": 4.605,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 12,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "for",
+        "start": 4.605,
+        "end": 4.765,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 13,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "some",
+        "start": 4.765,
+        "end": 4.925,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 14,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "time",
+        "start": 4.925,
+        "end": 5.395,
+        "confidence": 0.9991,
+        "metadata": {
+          "wordOffset": 15,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 5.395,
+        "end": 5.395,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 16,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.8223705882352942,
+    "metadata": {
+      "wordCount": 17,
+      "hasCorrections": false,
+      "chunkOffset": 0
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:37:25.228Z",
+    "transcript": "Why don't we start with what's been going on? I'm just so tired all the time. I can barely get out of bed some mornings. My energy crashes in the afternoon, and by evening I'm just done. I used to love running and yoga, but now I feel like I'm dragging myself through the day, and it's not just the fatigue. I've been having these awful headaches in my stomach. It's like every meal feels like a gamble. I'm bloated. I feel sick, and nothing helps.",
+    "words": [
+      {
+        "word": "Why",
+        "start": 5.685,
+        "end": 5.805,
+        "confidence": 0.9967,
+        "metadata": {
+          "wordOffset": 17,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "don't",
+        "start": 5.805,
+        "end": 5.965,
+        "confidence": 0.9983,
+        "metadata": {
+          "wordOffset": 18,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "we",
+        "start": 5.965,
+        "end": 6.165,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 19,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "start",
+        "start": 6.165,
+        "end": 6.285,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 20,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "with",
+        "start": 6.285,
+        "end": 6.475,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 21,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "what's",
+        "start": 6.475,
+        "end": 6.725,
+        "confidence": 0.9976,
+        "metadata": {
+          "wordOffset": 22,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "been",
+        "start": 6.725,
+        "end": 6.885,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 23,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "going",
+        "start": 6.885,
+        "end": 7.085,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 24,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "on",
+        "start": 7.085,
+        "end": 7.445,
+        "confidence": 0.9993,
+        "metadata": {
+          "wordOffset": 25,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "?",
+        "start": 7.445,
+        "end": 7.445,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 26,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I'm",
+        "start": 7.605,
+        "end": 7.805,
+        "confidence": 0.9898,
+        "metadata": {
+          "wordOffset": 27,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "just",
+        "start": 7.805,
+        "end": 8.005,
+        "confidence": 0.9972,
+        "metadata": {
+          "wordOffset": 28,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "so",
+        "start": 8.005,
+        "end": 8.165,
+        "confidence": 0.9975,
+        "metadata": {
+          "wordOffset": 29,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "tired",
+        "start": 8.165,
+        "end": 8.825,
+        "confidence": 0.9905,
+        "metadata": {
+          "wordOffset": 30,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "all",
+        "start": 9.055,
+        "end": 9.325,
+        "confidence": 0.9986,
+        "metadata": {
+          "wordOffset": 31,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "the",
+        "start": 9.325,
+        "end": 9.525,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 32,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "time",
+        "start": 9.525,
+        "end": 9.965,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 33,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 9.965,
+        "end": 9.965,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 34,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I",
+        "start": 10.325,
+        "end": 10.445,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 35,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "can",
+        "start": 10.445,
+        "end": 10.525,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 36,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "barely",
+        "start": 10.525,
+        "end": 10.925,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 37,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "get",
+        "start": 10.925,
+        "end": 11.045,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 38,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "out",
+        "start": 11.045,
+        "end": 11.165,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 39,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "of",
+        "start": 11.165,
+        "end": 11.325,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 40,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "bed",
+        "start": 11.325,
+        "end": 11.555,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 41,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "some",
+        "start": 11.555,
+        "end": 11.725,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 42,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "mornings",
+        "start": 11.725,
+        "end": 12.205,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 43,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 12.205,
+        "end": 12.205,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 44,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "My",
+        "start": 12.605,
+        "end": 12.995,
+        "confidence": 0.9973,
+        "metadata": {
+          "wordOffset": 45,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "energy",
+        "start": 12.995,
+        "end": 13.125,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 46,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "crashes",
+        "start": 13.125,
+        "end": 13.645,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 47,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "in",
+        "start": 13.645,
+        "end": 13.765,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 48,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "the",
+        "start": 13.765,
+        "end": 14.245,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 49,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "afternoon",
+        "start": 14.245,
+        "end": 14.485,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 50,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 14.485,
+        "end": 14.485,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 51,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "and",
+        "start": 14.565,
+        "end": 14.725,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 52,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "by",
+        "start": 14.725,
+        "end": 14.925,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 53,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "evening",
+        "start": 14.925,
+        "end": 15.375,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 54,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I'm",
+        "start": 15.375,
+        "end": 15.645,
+        "confidence": 0.9968,
+        "metadata": {
+          "wordOffset": 55,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "just",
+        "start": 15.645,
+        "end": 16.005,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 56,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "done",
+        "start": 16.005,
+        "end": 16.515,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 57,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 16.515,
+        "end": 16.515,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 58,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I",
+        "start": 16.845,
+        "end": 17.005,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 59,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "used",
+        "start": 17.005,
+        "end": 17.205,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 60,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 17.205,
+        "end": 17.365,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 61,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "love",
+        "start": 17.365,
+        "end": 17.645,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 62,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "running",
+        "start": 17.645,
+        "end": 17.965,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 63,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "and",
+        "start": 17.965,
+        "end": 18.075,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 64,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "yoga",
+        "start": 18.075,
+        "end": 18.605,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 65,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 18.605,
+        "end": 18.605,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 66,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "but",
+        "start": 19.005,
+        "end": 19.195,
+        "confidence": 0.9984,
+        "metadata": {
+          "wordOffset": 67,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "now",
+        "start": 19.195,
+        "end": 19.365,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 68,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I",
+        "start": 19.365,
+        "end": 19.555,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 69,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "feel",
+        "start": 19.555,
+        "end": 19.725,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 70,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "like",
+        "start": 19.725,
+        "end": 19.835,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 71,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I'm",
+        "start": 19.835,
+        "end": 20.005,
+        "confidence": 0.9983,
+        "metadata": {
+          "wordOffset": 72,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "dragging",
+        "start": 20.005,
+        "end": 20.685,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 73,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "myself",
+        "start": 20.685,
+        "end": 20.885,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 74,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "through",
+        "start": 20.885,
+        "end": 21.045,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 75,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "the",
+        "start": 21.045,
+        "end": 21.245,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 76,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "day",
+        "start": 21.245,
+        "end": 21.675,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 77,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 21.675,
+        "end": 21.675,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 78,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "and",
+        "start": 21.915,
+        "end": 22.005,
+        "confidence": 0.9971,
+        "metadata": {
+          "wordOffset": 79,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "it's",
+        "start": 22.005,
+        "end": 22.245,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 80,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "not",
+        "start": 22.245,
+        "end": 22.445,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 81,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "just",
+        "start": 22.445,
+        "end": 22.605,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 82,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "the",
+        "start": 22.605,
+        "end": 22.705,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 83,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "fatigue",
+        "start": 22.705,
+        "end": 23.395,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 84,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 23.395,
+        "end": 23.395,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 85,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I've",
+        "start": 23.565,
+        "end": 23.725,
+        "confidence": 0.9982,
+        "metadata": {
+          "wordOffset": 86,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "been",
+        "start": 23.725,
+        "end": 23.925,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 87,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "having",
+        "start": 23.925,
+        "end": 24.205,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 88,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "these",
+        "start": 24.205,
+        "end": 24.485,
+        "confidence": 0.9991,
+        "metadata": {
+          "wordOffset": 89,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "awful",
+        "start": 24.485,
+        "end": 24.925,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 90,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "headaches",
+        "start": 24.925,
+        "end": 25.455,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 91,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "in",
+        "start": 25.455,
+        "end": 25.595,
+        "confidence": 0.9967,
+        "metadata": {
+          "wordOffset": 92,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "my",
+        "start": 25.595,
+        "end": 25.685,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 93,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "stomach",
+        "start": 25.685,
+        "end": 26.285,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 94,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 26.285,
+        "end": 26.285,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 95,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "It's",
+        "start": 26.725,
+        "end": 26.965,
+        "confidence": 0.9958,
+        "metadata": {
+          "wordOffset": 96,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "like",
+        "start": 26.965,
+        "end": 27.245,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 97,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "every",
+        "start": 27.245,
+        "end": 27.535,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 98,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "meal",
+        "start": 27.535,
+        "end": 27.845,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 99,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "feels",
+        "start": 27.845,
+        "end": 28.045,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 100,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "like",
+        "start": 28.045,
+        "end": 28.165,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 101,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "a",
+        "start": 28.165,
+        "end": 28.245,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 102,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "gamble",
+        "start": 28.245,
+        "end": 28.795,
+        "confidence": 0.9995,
+        "metadata": {
+          "wordOffset": 103,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 28.795,
+        "end": 28.795,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 104,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I'm",
+        "start": 29.045,
+        "end": 29.205,
+        "confidence": 0.9982,
+        "metadata": {
+          "wordOffset": 105,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "bloated",
+        "start": 29.205,
+        "end": 29.685,
+        "confidence": 0.9995,
+        "metadata": {
+          "wordOffset": 106,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 29.685,
+        "end": 29.685,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 107,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I",
+        "start": 29.805,
+        "end": 30.005,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 108,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "feel",
+        "start": 30.005,
+        "end": 30.165,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 109,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "sick",
+        "start": 30.165,
+        "end": 30.605,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 110,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 30.605,
+        "end": 30.605,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 111,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "and",
+        "start": 30.775,
+        "end": 31.005,
+        "confidence": 0.9976,
+        "metadata": {
+          "wordOffset": 112,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "nothing",
+        "start": 31.005,
+        "end": 31.325,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 113,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "helps",
+        "start": 31.325,
+        "end": 31.915,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 114,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 31.915,
+        "end": 31.915,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 115,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.8679949494949488,
+    "metadata": {
+      "wordCount": 99,
+      "hasCorrections": false,
+      "chunkOffset": 17
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:37:27.540Z",
+    "transcript": "That sounds incredibly difficult. It's clear this is affecting your quality of life.",
+    "words": [
+      {
+        "word": "That",
+        "start": 32.165,
+        "end": 32.365,
+        "confidence": 0.9972,
+        "metadata": {
+          "wordOffset": 116,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "sounds",
+        "start": 32.365,
+        "end": 32.565,
+        "confidence": 0.9993,
+        "metadata": {
+          "wordOffset": 117,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "incredibly",
+        "start": 32.565,
+        "end": 33.125,
+        "confidence": 0.9984,
+        "metadata": {
+          "wordOffset": 118,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "difficult",
+        "start": 33.125,
+        "end": 33.725,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 119,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 33.725,
+        "end": 33.725,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 120,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "It's",
+        "start": 33.925,
+        "end": 34.235,
+        "confidence": 0.9932,
+        "metadata": {
+          "wordOffset": 121,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "clear",
+        "start": 34.235,
+        "end": 34.445,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 122,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "this",
+        "start": 34.445,
+        "end": 34.565,
+        "confidence": 0.9993,
+        "metadata": {
+          "wordOffset": 123,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "is",
+        "start": 34.565,
+        "end": 34.805,
+        "confidence": 0.9991,
+        "metadata": {
+          "wordOffset": 124,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "affecting",
+        "start": 34.805,
+        "end": 35.125,
+        "confidence": 0.9981,
+        "metadata": {
+          "wordOffset": 125,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "your",
+        "start": 35.125,
+        "end": 35.325,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 126,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "quality",
+        "start": 35.325,
+        "end": 35.645,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 127,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "of",
+        "start": 35.645,
+        "end": 35.805,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 128,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "life",
+        "start": 35.805,
+        "end": 36.355,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 129,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 36.355,
+        "end": 36.355,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 130,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.8655933333333333,
+    "metadata": {
+      "wordCount": 15,
+      "hasCorrections": false,
+      "chunkOffset": 116
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:37:29.215Z",
+    "transcript": "Have you noticed when these issues started or what might have triggered them?",
+    "words": [
+      {
+        "word": "Have",
+        "start": 36.745,
+        "end": 36.905,
+        "confidence": 0.9987,
+        "metadata": {
+          "wordOffset": 131,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "you",
+        "start": 36.905,
+        "end": 37.095,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 132,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "noticed",
+        "start": 37.095,
+        "end": 37.415,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 133,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "when",
+        "start": 37.415,
+        "end": 37.545,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 134,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "these",
+        "start": 37.545,
+        "end": 37.865,
+        "confidence": 0.9995,
+        "metadata": {
+          "wordOffset": 135,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "issues",
+        "start": 37.865,
+        "end": 38.145,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 136,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "started",
+        "start": 38.145,
+        "end": 38.625,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 137,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "or",
+        "start": 38.625,
+        "end": 38.785,
+        "confidence": 0.9991,
+        "metadata": {
+          "wordOffset": 138,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "what",
+        "start": 38.785,
+        "end": 38.945,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 139,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "might",
+        "start": 38.945,
+        "end": 39.105,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 140,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "have",
+        "start": 39.105,
+        "end": 39.225,
+        "confidence": 0.9994,
+        "metadata": {
+          "wordOffset": 141,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "triggered",
+        "start": 39.225,
+        "end": 39.665,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 142,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "them",
+        "start": 39.665,
+        "end": 40.175,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 143,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "?",
+        "start": 40.175,
+        "end": 40.175,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 144,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.9281928571428573,
+    "metadata": {
+      "wordCount": 14,
+      "hasCorrections": false,
+      "chunkOffset": 131
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:37:35.090Z",
+    "transcript": "It's been about a year, I think, maybe longer. It got worse after my job got more stressful. I've also been eating out a lot because I don't have the energy to cook. I know I've gained weight, but I just don't know where to start anymore.",
+    "words": [
+      {
+        "word": "It's",
+        "start": 40.695,
+        "end": 40.925,
+        "confidence": 0.9962,
+        "metadata": {
+          "wordOffset": 145,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "been",
+        "start": 40.925,
+        "end": 41.085,
+        "confidence": 0.9995,
+        "metadata": {
+          "wordOffset": 146,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "about",
+        "start": 41.085,
+        "end": 41.245,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 147,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "a",
+        "start": 41.245,
+        "end": 41.405,
+        "confidence": 0.9991,
+        "metadata": {
+          "wordOffset": 148,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "year",
+        "start": 41.405,
+        "end": 41.645,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 149,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 41.645,
+        "end": 41.645,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 150,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I",
+        "start": 41.845,
+        "end": 42.085,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 151,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "think",
+        "start": 42.085,
+        "end": 42.455,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 152,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 42.455,
+        "end": 42.455,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 153,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "maybe",
+        "start": 42.685,
+        "end": 43.005,
+        "confidence": 0.9965,
+        "metadata": {
+          "wordOffset": 154,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "longer",
+        "start": 43.005,
+        "end": 43.525,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 155,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 43.525,
+        "end": 43.525,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 156,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "It",
+        "start": 43.805,
+        "end": 43.925,
+        "confidence": 0.9965,
+        "metadata": {
+          "wordOffset": 157,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "got",
+        "start": 43.925,
+        "end": 44.085,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 158,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "worse",
+        "start": 44.085,
+        "end": 44.325,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 159,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "after",
+        "start": 44.325,
+        "end": 44.605,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 160,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "my",
+        "start": 44.605,
+        "end": 44.765,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 161,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "job",
+        "start": 44.765,
+        "end": 45.045,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 162,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "got",
+        "start": 45.045,
+        "end": 45.165,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 163,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "more",
+        "start": 45.165,
+        "end": 45.445,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 164,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "stressful",
+        "start": 45.445,
+        "end": 45.935,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 165,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 45.935,
+        "end": 45.935,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 166,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I've",
+        "start": 46.245,
+        "end": 46.445,
+        "confidence": 0.9927,
+        "metadata": {
+          "wordOffset": 167,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "also",
+        "start": 46.445,
+        "end": 46.725,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 168,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "been",
+        "start": 46.725,
+        "end": 46.845,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 169,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "eating",
+        "start": 46.845,
+        "end": 47.125,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 170,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "out",
+        "start": 47.125,
+        "end": 47.285,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 171,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "a",
+        "start": 47.285,
+        "end": 47.405,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 172,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "lot",
+        "start": 47.405,
+        "end": 47.715,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 173,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "because",
+        "start": 47.715,
+        "end": 47.845,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 174,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I",
+        "start": 47.845,
+        "end": 47.965,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 175,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "don't",
+        "start": 47.965,
+        "end": 48.125,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 176,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "have",
+        "start": 48.125,
+        "end": 48.245,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 177,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "the",
+        "start": 48.245,
+        "end": 48.565,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 178,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "energy",
+        "start": 48.565,
+        "end": 48.685,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 179,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 48.685,
+        "end": 48.845,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 180,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "cook",
+        "start": 48.845,
+        "end": 49.155,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 181,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 49.155,
+        "end": 49.155,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 182,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I",
+        "start": 49.405,
+        "end": 49.565,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 183,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "know",
+        "start": 49.565,
+        "end": 49.685,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 184,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I've",
+        "start": 49.685,
+        "end": 49.845,
+        "confidence": 0.9986,
+        "metadata": {
+          "wordOffset": 185,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "gained",
+        "start": 49.845,
+        "end": 50.165,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 186,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "weight",
+        "start": 50.165,
+        "end": 50.405,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 187,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 50.405,
+        "end": 50.405,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 188,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "but",
+        "start": 50.605,
+        "end": 50.725,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 189,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I",
+        "start": 50.725,
+        "end": 50.845,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 190,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "just",
+        "start": 50.845,
+        "end": 51.005,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 191,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "don't",
+        "start": 51.005,
+        "end": 51.165,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 192,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "know",
+        "start": 51.165,
+        "end": 51.285,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 193,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "where",
+        "start": 51.285,
+        "end": 51.405,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 194,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 51.405,
+        "end": 51.605,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 195,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "start",
+        "start": 51.605,
+        "end": 52.045,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 196,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "anymore",
+        "start": 52.045,
+        "end": 52.595,
+        "confidence": 0.9995,
+        "metadata": {
+          "wordOffset": 197,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 52.595,
+        "end": 52.595,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 198,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.869872222222222,
+    "metadata": {
+      "wordCount": 54,
+      "hasCorrections": false,
+      "chunkOffset": 145
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:37:47.177Z",
+    "transcript": "Thank you for sharing that, Sarah. It takes a lot to open up about how you're feeling. Based on what you've told me, I suspect your symptoms could be related to chronic stress and inflammation, possibly combined with some food sensitivities and hormonal imbalances. Let's dig deeper to understand the root cause. I'll recommend some tests. Blood work to check your thyroid, adrenal function, and inflammation markers, as well as a stool test to evaluate your gut health.",
+    "words": [
+      {
+        "word": "Thank",
+        "start": 53.025,
+        "end": 53.245,
+        "confidence": 0.9987,
+        "metadata": {
+          "wordOffset": 199,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "you",
+        "start": 53.245,
+        "end": 53.365,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 200,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "for",
+        "start": 53.365,
+        "end": 53.485,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 201,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "sharing",
+        "start": 53.485,
+        "end": 53.885,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 202,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "that",
+        "start": 53.885,
+        "end": 53.965,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 203,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 53.965,
+        "end": 53.965,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 204,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "Sarah",
+        "start": 54.125,
+        "end": 54.565,
+        "confidence": 0.996,
+        "metadata": {
+          "wordOffset": 205,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 54.565,
+        "end": 54.565,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 206,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "It",
+        "start": 54.925,
+        "end": 55.115,
+        "confidence": 0.9985,
+        "metadata": {
+          "wordOffset": 207,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "takes",
+        "start": 55.115,
+        "end": 55.325,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 208,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "a",
+        "start": 55.325,
+        "end": 55.445,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 209,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "lot",
+        "start": 55.445,
+        "end": 55.645,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 210,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 55.645,
+        "end": 55.765,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 211,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "open",
+        "start": 55.765,
+        "end": 56.005,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 212,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "up",
+        "start": 56.005,
+        "end": 56.245,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 213,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "about",
+        "start": 56.245,
+        "end": 56.405,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 214,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "how",
+        "start": 56.405,
+        "end": 56.565,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 215,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "you're",
+        "start": 56.565,
+        "end": 56.805,
+        "confidence": 0.9978,
+        "metadata": {
+          "wordOffset": 216,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "feeling",
+        "start": 56.805,
+        "end": 57.325,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 217,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 57.325,
+        "end": 57.325,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 218,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "Based",
+        "start": 57.765,
+        "end": 57.965,
+        "confidence": 0.9169,
+        "metadata": {
+          "wordOffset": 219,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "on",
+        "start": 57.965,
+        "end": 58.125,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 220,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "what",
+        "start": 58.125,
+        "end": 58.205,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 221,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "you've",
+        "start": 58.205,
+        "end": 58.485,
+        "confidence": 0.9987,
+        "metadata": {
+          "wordOffset": 222,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "told",
+        "start": 58.485,
+        "end": 58.725,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 223,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "me",
+        "start": 58.725,
+        "end": 58.935,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 224,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 58.935,
+        "end": 58.935,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 225,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I",
+        "start": 59.235,
+        "end": 59.325,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 226,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "suspect",
+        "start": 59.325,
+        "end": 59.805,
+        "confidence": 0.999,
+        "metadata": {
+          "wordOffset": 227,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "your",
+        "start": 59.805,
+        "end": 59.925,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 228,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "symptoms",
+        "start": 59.925,
+        "end": 60.565,
+        "confidence": 0.9994,
+        "metadata": {
+          "wordOffset": 229,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "could",
+        "start": 60.565,
+        "end": 60.725,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 230,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "be",
+        "start": 60.725,
+        "end": 60.955,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 231,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "related",
+        "start": 60.955,
+        "end": 61.245,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 232,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 61.245,
+        "end": 61.325,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 233,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "chronic",
+        "start": 61.325,
+        "end": 61.885,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 234,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "stress",
+        "start": 61.885,
+        "end": 62.195,
+        "confidence": 0.9992,
+        "metadata": {
+          "wordOffset": 235,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "and",
+        "start": 62.195,
+        "end": 62.325,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 236,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "inflammation",
+        "start": 62.325,
+        "end": 63.255,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 237,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 63.255,
+        "end": 63.255,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 238,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "possibly",
+        "start": 63.525,
+        "end": 64.085,
+        "confidence": 0.9896,
+        "metadata": {
+          "wordOffset": 239,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "combined",
+        "start": 64.085,
+        "end": 64.525,
+        "confidence": 0.9993,
+        "metadata": {
+          "wordOffset": 240,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "with",
+        "start": 64.525,
+        "end": 64.685,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 241,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "some",
+        "start": 64.685,
+        "end": 64.885,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 242,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "food",
+        "start": 64.885,
+        "end": 65.045,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 243,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "sensitivities",
+        "start": 65.045,
+        "end": 66.045,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 244,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "and",
+        "start": 66.045,
+        "end": 66.125,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 245,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "hormonal",
+        "start": 66.125,
+        "end": 66.645,
+        "confidence": 0.9992,
+        "metadata": {
+          "wordOffset": 246,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "imbalances",
+        "start": 66.645,
+        "end": 67.675,
+        "confidence": 0.9995,
+        "metadata": {
+          "wordOffset": 247,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 67.675,
+        "end": 67.675,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 248,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "Let's",
+        "start": 68.045,
+        "end": 68.245,
+        "confidence": 0.9964,
+        "metadata": {
+          "wordOffset": 249,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "dig",
+        "start": 68.245,
+        "end": 68.565,
+        "confidence": 0.9987,
+        "metadata": {
+          "wordOffset": 250,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "deeper",
+        "start": 68.565,
+        "end": 68.845,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 251,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 68.845,
+        "end": 69.245,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 252,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "understand",
+        "start": 69.245,
+        "end": 69.365,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 253,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "the",
+        "start": 69.365,
+        "end": 69.435,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 254,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "root",
+        "start": 69.435,
+        "end": 69.765,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 255,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "cause",
+        "start": 69.765,
+        "end": 70.275,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 256,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 70.275,
+        "end": 70.275,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 257,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I'll",
+        "start": 70.465,
+        "end": 70.755,
+        "confidence": 0.9984,
+        "metadata": {
+          "wordOffset": 258,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "recommend",
+        "start": 70.755,
+        "end": 71.085,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 259,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "some",
+        "start": 71.085,
+        "end": 71.325,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 260,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "tests",
+        "start": 71.325,
+        "end": 71.955,
+        "confidence": 0.9989,
+        "metadata": {
+          "wordOffset": 261,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 71.955,
+        "end": 71.955,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 262,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "Blood",
+        "start": 72.385,
+        "end": 72.645,
+        "confidence": 0.9768,
+        "metadata": {
+          "wordOffset": 263,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "work",
+        "start": 72.645,
+        "end": 72.845,
+        "confidence": 0.9982,
+        "metadata": {
+          "wordOffset": 264,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 72.845,
+        "end": 73.005,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 265,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "check",
+        "start": 73.005,
+        "end": 73.165,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 266,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "your",
+        "start": 73.165,
+        "end": 73.245,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 267,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "thyroid",
+        "start": 73.245,
+        "end": 73.845,
+        "confidence": 0.9994,
+        "metadata": {
+          "wordOffset": 268,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 73.845,
+        "end": 73.845,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 269,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "adrenal",
+        "start": 74.045,
+        "end": 74.565,
+        "confidence": 0.997,
+        "metadata": {
+          "wordOffset": 270,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "function",
+        "start": 74.565,
+        "end": 74.925,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 271,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 74.925,
+        "end": 74.925,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 272,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "and",
+        "start": 75.005,
+        "end": 75.205,
+        "confidence": 0.9983,
+        "metadata": {
+          "wordOffset": 273,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "inflammation",
+        "start": 75.205,
+        "end": 75.805,
+        "confidence": 0.9985,
+        "metadata": {
+          "wordOffset": 274,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "markers",
+        "start": 75.805,
+        "end": 76.325,
+        "confidence": 0.9992,
+        "metadata": {
+          "wordOffset": 275,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 76.325,
+        "end": 76.325,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 276,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "as",
+        "start": 76.525,
+        "end": 76.685,
+        "confidence": 0.9987,
+        "metadata": {
+          "wordOffset": 277,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "well",
+        "start": 76.685,
+        "end": 76.805,
+        "confidence": 0.9995,
+        "metadata": {
+          "wordOffset": 278,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "as",
+        "start": 76.805,
+        "end": 76.925,
+        "confidence": 0.9995,
+        "metadata": {
+          "wordOffset": 279,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "a",
+        "start": 76.925,
+        "end": 76.965,
+        "confidence": 0.9982,
+        "metadata": {
+          "wordOffset": 280,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "stool",
+        "start": 76.965,
+        "end": 77.355,
+        "confidence": 0.9973,
+        "metadata": {
+          "wordOffset": 281,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "test",
+        "start": 77.355,
+        "end": 77.565,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 282,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 77.565,
+        "end": 77.645,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 283,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "evaluate",
+        "start": 77.645,
+        "end": 78.165,
+        "confidence": 0.9985,
+        "metadata": {
+          "wordOffset": 284,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "your",
+        "start": 78.165,
+        "end": 78.285,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 285,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "gut",
+        "start": 78.285,
+        "end": 78.605,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 286,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "health",
+        "start": 78.605,
+        "end": 79.035,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 287,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 79.035,
+        "end": 79.035,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 288,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.8648411111111105,
+    "metadata": {
+      "wordCount": 90,
+      "hasCorrections": false,
+      "chunkOffset": 199
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:37:51.572Z",
+    "transcript": "Does that sound OK? Yeah, I guess. But what do I do until then? I can't keep feeling like this. We'll get you some relief while we're investigating.",
+    "words": [
+      {
+        "word": "Does",
+        "start": 79.525,
+        "end": 79.685,
+        "confidence": 0.9989,
+        "metadata": {
+          "wordOffset": 289,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "that",
+        "start": 79.685,
+        "end": 79.915,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 290,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "sound",
+        "start": 79.915,
+        "end": 80.085,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 291,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "OK",
+        "start": 80.085,
+        "end": 80.555,
+        "confidence": 0.9982,
+        "metadata": {
+          "wordOffset": 292,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "?",
+        "start": 80.555,
+        "end": 80.555,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 293,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "Yeah",
+        "start": 80.805,
+        "end": 81.155,
+        "confidence": 0.997,
+        "metadata": {
+          "wordOffset": 294,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 81.155,
+        "end": 81.155,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 295,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I",
+        "start": 81.315,
+        "end": 81.485,
+        "confidence": 0.9993,
+        "metadata": {
+          "wordOffset": 296,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "guess",
+        "start": 81.485,
+        "end": 82.095,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 297,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 82.095,
+        "end": 82.095,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 298,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "But",
+        "start": 82.485,
+        "end": 82.605,
+        "confidence": 0.986,
+        "metadata": {
+          "wordOffset": 299,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "what",
+        "start": 82.605,
+        "end": 82.725,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 300,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "do",
+        "start": 82.725,
+        "end": 82.845,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 301,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I",
+        "start": 82.845,
+        "end": 83.005,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 302,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "do",
+        "start": 83.005,
+        "end": 83.285,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 303,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "until",
+        "start": 83.285,
+        "end": 83.485,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 304,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "then",
+        "start": 83.485,
+        "end": 83.965,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 305,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "?",
+        "start": 83.965,
+        "end": 83.965,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 306,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I",
+        "start": 84.245,
+        "end": 84.405,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 307,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "can't",
+        "start": 84.405,
+        "end": 84.685,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 308,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "keep",
+        "start": 84.685,
+        "end": 84.885,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 309,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "feeling",
+        "start": 84.885,
+        "end": 85.205,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 310,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "like",
+        "start": 85.205,
+        "end": 85.405,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 311,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "this",
+        "start": 85.405,
+        "end": 85.765,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 312,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 85.765,
+        "end": 85.765,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 313,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "We'll",
+        "start": 86.085,
+        "end": 86.245,
+        "confidence": 0.9966,
+        "metadata": {
+          "wordOffset": 314,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "get",
+        "start": 86.245,
+        "end": 86.365,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 315,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "you",
+        "start": 86.365,
+        "end": 86.525,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 316,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "some",
+        "start": 86.525,
+        "end": 86.605,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 317,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "relief",
+        "start": 86.605,
+        "end": 87.045,
+        "confidence": 0.9995,
+        "metadata": {
+          "wordOffset": 318,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "while",
+        "start": 87.045,
+        "end": 87.165,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 319,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "we're",
+        "start": 87.165,
+        "end": 87.445,
+        "confidence": 0.9983,
+        "metadata": {
+          "wordOffset": 320,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "investigating",
+        "start": 87.445,
+        "end": 88.195,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 321,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 88.195,
+        "end": 88.195,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 322,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.8227000000000002,
+    "metadata": {
+      "wordCount": 34,
+      "hasCorrections": false,
+      "chunkOffset": 289
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:37:53.219Z",
+    "transcript": "First, I want to start you on a low inflammatory diet.",
+    "words": [
+      {
+        "word": "First",
+        "start": 88.645,
+        "end": 89.155,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 323,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 89.155,
+        "end": 89.155,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 324,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I",
+        "start": 89.355,
+        "end": 89.485,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 325,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "want",
+        "start": 89.485,
+        "end": 89.605,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 326,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 89.605,
+        "end": 89.765,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 327,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "start",
+        "start": 89.765,
+        "end": 89.925,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 328,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "you",
+        "start": 89.925,
+        "end": 90.075,
+        "confidence": 0.9995,
+        "metadata": {
+          "wordOffset": 329,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "on",
+        "start": 90.075,
+        "end": 90.205,
+        "confidence": 0.9992,
+        "metadata": {
+          "wordOffset": 330,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "a",
+        "start": 90.205,
+        "end": 90.245,
+        "confidence": 0.9983,
+        "metadata": {
+          "wordOffset": 331,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "low",
+        "start": 90.245,
+        "end": 90.485,
+        "confidence": 0.9973,
+        "metadata": {
+          "wordOffset": 332,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "inflammatory",
+        "start": 90.485,
+        "end": 91.245,
+        "confidence": 0.9952,
+        "metadata": {
+          "wordOffset": 333,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "diet",
+        "start": 91.245,
+        "end": 91.755,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 334,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 91.755,
+        "end": 91.755,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 335,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.8453,
+    "metadata": {
+      "wordCount": 13,
+      "hasCorrections": false,
+      "chunkOffset": 323
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:37:54.888Z",
+    "transcript": "Avoiding gluten, dairy, and processed sugar for now.",
+    "words": [
+      {
+        "word": "Avoiding",
+        "start": 92.055,
+        "end": 92.445,
+        "confidence": 0.9931,
+        "metadata": {
+          "wordOffset": 336,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "gluten",
+        "start": 92.445,
+        "end": 92.925,
+        "confidence": 0.9995,
+        "metadata": {
+          "wordOffset": 337,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 92.925,
+        "end": 92.925,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 338,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "dairy",
+        "start": 93.085,
+        "end": 93.525,
+        "confidence": 0.9994,
+        "metadata": {
+          "wordOffset": 339,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 93.525,
+        "end": 93.525,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 340,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "and",
+        "start": 93.685,
+        "end": 94.085,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 341,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "processed",
+        "start": 94.085,
+        "end": 94.325,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 342,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "sugar",
+        "start": 94.325,
+        "end": 94.725,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 343,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "for",
+        "start": 94.725,
+        "end": 94.885,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 344,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "now",
+        "start": 94.885,
+        "end": 95.315,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 345,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 95.315,
+        "end": 95.315,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 346,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.7265,
+    "metadata": {
+      "wordCount": 11,
+      "hasCorrections": false,
+      "chunkOffset": 336
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:38:00.888Z",
+    "transcript": "I'll give you a meal plan and some easy recipes to try. For your energy, we'll add a high quality multivitamin and magnesium glycinate to help with stress and sleep. I'll also prescribe a low dose of Ashwaganda to support your adrenal health.",
+    "words": [
+      {
+        "word": "I'll",
+        "start": 95.605,
+        "end": 95.785,
+        "confidence": 0.9986,
+        "metadata": {
+          "wordOffset": 347,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "give",
+        "start": 95.785,
+        "end": 95.885,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 348,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "you",
+        "start": 95.885,
+        "end": 96.005,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 349,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "a",
+        "start": 96.005,
+        "end": 96.125,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 350,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "meal",
+        "start": 96.125,
+        "end": 96.365,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 351,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "plan",
+        "start": 96.365,
+        "end": 96.725,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 352,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "and",
+        "start": 96.725,
+        "end": 96.885,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 353,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "some",
+        "start": 96.885,
+        "end": 97.045,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 354,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "easy",
+        "start": 97.045,
+        "end": 97.285,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 355,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "recipes",
+        "start": 97.285,
+        "end": 97.845,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 356,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 97.845,
+        "end": 98.005,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 357,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "try",
+        "start": 98.005,
+        "end": 98.445,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 358,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 98.445,
+        "end": 98.445,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 359,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "For",
+        "start": 98.765,
+        "end": 98.905,
+        "confidence": 0.9961,
+        "metadata": {
+          "wordOffset": 360,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "your",
+        "start": 98.905,
+        "end": 99.365,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 361,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "energy",
+        "start": 99.365,
+        "end": 99.595,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 362,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 99.595,
+        "end": 99.595,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 363,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "we'll",
+        "start": 99.725,
+        "end": 99.845,
+        "confidence": 0.7648,
+        "metadata": {
+          "wordOffset": 364,
+          "hasCorrections": true
+        }
+      },
+      {
+        "word": "add",
+        "start": 99.845,
+        "end": 100.005,
+        "confidence": 0.9989,
+        "metadata": {
+          "wordOffset": 365,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "a",
+        "start": 100.005,
+        "end": 100.165,
+        "confidence": 0.999,
+        "metadata": {
+          "wordOffset": 366,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "high",
+        "start": 100.165,
+        "end": 100.365,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 367,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "quality",
+        "start": 100.365,
+        "end": 100.725,
+        "confidence": 0.9968,
+        "metadata": {
+          "wordOffset": 368,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "multivitamin",
+        "start": 100.725,
+        "end": 101.515,
+        "confidence": 0.9983,
+        "metadata": {
+          "wordOffset": 369,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "and",
+        "start": 101.515,
+        "end": 101.685,
+        "confidence": 0.999,
+        "metadata": {
+          "wordOffset": 370,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "magnesium",
+        "start": 101.685,
+        "end": 102.165,
+        "confidence": 0.9975,
+        "metadata": {
+          "wordOffset": 371,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "glycinate",
+        "start": 102.165,
+        "end": 103.005,
+        "confidence": 0.9934,
+        "metadata": {
+          "wordOffset": 372,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 103.005,
+        "end": 103.125,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 373,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "help",
+        "start": 103.125,
+        "end": 103.325,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 374,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "with",
+        "start": 103.325,
+        "end": 103.565,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 375,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "stress",
+        "start": 103.565,
+        "end": 103.795,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 376,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "and",
+        "start": 103.795,
+        "end": 104.045,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 377,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "sleep",
+        "start": 104.045,
+        "end": 104.445,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 378,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 104.445,
+        "end": 104.445,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 379,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I'll",
+        "start": 104.775,
+        "end": 104.965,
+        "confidence": 0.9981,
+        "metadata": {
+          "wordOffset": 380,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "also",
+        "start": 104.965,
+        "end": 105.285,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 381,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "prescribe",
+        "start": 105.285,
+        "end": 105.765,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 382,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "a",
+        "start": 105.765,
+        "end": 105.845,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 383,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "low",
+        "start": 105.845,
+        "end": 106.045,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 384,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "dose",
+        "start": 106.045,
+        "end": 106.245,
+        "confidence": 0.999,
+        "metadata": {
+          "wordOffset": 385,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "of",
+        "start": 106.245,
+        "end": 106.405,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 386,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "Ashwaganda",
+        "start": 106.405,
+        "end": 107.085,
+        "confidence": 0.981,
+        "metadata": {
+          "wordOffset": 387,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 107.085,
+        "end": 107.365,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 388,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "support",
+        "start": 107.365,
+        "end": 107.525,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 389,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "your",
+        "start": 107.525,
+        "end": 107.685,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 390,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "adrenal",
+        "start": 107.685,
+        "end": 108.165,
+        "confidence": 0.9993,
+        "metadata": {
+          "wordOffset": 391,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "health",
+        "start": 108.165,
+        "end": 108.675,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 392,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 108.675,
+        "end": 108.675,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 393,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.9088319148936167,
+    "metadata": {
+      "wordCount": 47,
+      "hasCorrections": true,
+      "chunkOffset": 347
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:38:02.649Z",
+    "transcript": "It's an herbal adaptogen that can help your body manage stress better.",
+    "words": [
+      {
+        "word": "It's",
+        "start": 109.165,
+        "end": 109.325,
+        "confidence": 0.9971,
+        "metadata": {
+          "wordOffset": 394,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "an",
+        "start": 109.325,
+        "end": 109.445,
+        "confidence": 0.9993,
+        "metadata": {
+          "wordOffset": 395,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "herbal",
+        "start": 109.445,
+        "end": 109.725,
+        "confidence": 0.9993,
+        "metadata": {
+          "wordOffset": 396,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "adaptogen",
+        "start": 109.725,
+        "end": 110.405,
+        "confidence": 0.93,
+        "metadata": {
+          "wordOffset": 397,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "that",
+        "start": 110.405,
+        "end": 110.565,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 398,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "can",
+        "start": 110.565,
+        "end": 110.725,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 399,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "help",
+        "start": 110.725,
+        "end": 110.885,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 400,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "your",
+        "start": 110.885,
+        "end": 111.085,
+        "confidence": 0.9995,
+        "metadata": {
+          "wordOffset": 401,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "body",
+        "start": 111.085,
+        "end": 111.365,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 402,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "manage",
+        "start": 111.365,
+        "end": 111.805,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 403,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "stress",
+        "start": 111.805,
+        "end": 112.125,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 404,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "better",
+        "start": 112.125,
+        "end": 112.675,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 405,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 112.675,
+        "end": 112.675,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 406,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.9172384615384617,
+    "metadata": {
+      "wordCount": 13,
+      "hasCorrections": false,
+      "chunkOffset": 394
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:38:06.841Z",
+    "transcript": "For the headaches and digestive issues, I'll give you a probiotic and a prescription for pantoprazole, just for temporary relief while we balance your gut.",
+    "words": [
+      {
+        "word": "For",
+        "start": 113.205,
+        "end": 113.405,
+        "confidence": 0.9977,
+        "metadata": {
+          "wordOffset": 407,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "the",
+        "start": 113.405,
+        "end": 113.515,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 408,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "headaches",
+        "start": 113.515,
+        "end": 113.845,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 409,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "and",
+        "start": 113.845,
+        "end": 113.965,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 410,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "digestive",
+        "start": 113.965,
+        "end": 114.615,
+        "confidence": 0.9991,
+        "metadata": {
+          "wordOffset": 411,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "issues",
+        "start": 114.615,
+        "end": 115.085,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 412,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 115.085,
+        "end": 115.085,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 413,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I'll",
+        "start": 115.195,
+        "end": 115.365,
+        "confidence": 0.9983,
+        "metadata": {
+          "wordOffset": 414,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "give",
+        "start": 115.365,
+        "end": 115.525,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 415,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "you",
+        "start": 115.525,
+        "end": 115.645,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 416,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "a",
+        "start": 115.645,
+        "end": 115.805,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 417,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "probiotic",
+        "start": 115.805,
+        "end": 116.445,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 418,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "and",
+        "start": 116.445,
+        "end": 116.605,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 419,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "a",
+        "start": 116.605,
+        "end": 116.725,
+        "confidence": 0.9983,
+        "metadata": {
+          "wordOffset": 420,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "prescription",
+        "start": 116.725,
+        "end": 117.285,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 421,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "for",
+        "start": 117.285,
+        "end": 117.355,
+        "confidence": 0.9988,
+        "metadata": {
+          "wordOffset": 422,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "pantoprazole",
+        "start": 117.355,
+        "end": 118.475,
+        "confidence": 0.9889,
+        "metadata": {
+          "wordOffset": 423,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 118.475,
+        "end": 118.475,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 424,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "just",
+        "start": 118.805,
+        "end": 119.105,
+        "confidence": 0.9969,
+        "metadata": {
+          "wordOffset": 425,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "for",
+        "start": 119.105,
+        "end": 119.325,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 426,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "temporary",
+        "start": 119.325,
+        "end": 119.765,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 427,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "relief",
+        "start": 119.765,
+        "end": 120.565,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 428,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "while",
+        "start": 120.565,
+        "end": 120.765,
+        "confidence": 0.9991,
+        "metadata": {
+          "wordOffset": 429,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "we",
+        "start": 120.765,
+        "end": 120.925,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 430,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "balance",
+        "start": 120.925,
+        "end": 121.245,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 431,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "your",
+        "start": 121.245,
+        "end": 121.405,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 432,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "gut",
+        "start": 121.405,
+        "end": 121.975,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 433,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 121.975,
+        "end": 121.975,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 434,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.8919178571428572,
+    "metadata": {
+      "wordCount": 28,
+      "hasCorrections": false,
+      "chunkOffset": 407
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:38:11.645Z",
+    "transcript": "Finally, I recommend 10 minutes of mindfulness or deep breathing each day. It sounds simple, but it's a powerful way to reduce stress and support your body's healing process.",
+    "words": [
+      {
+        "word": "Finally",
+        "start": 122.925,
+        "end": 123.445,
+        "confidence": 0.9989,
+        "metadata": {
+          "wordOffset": 435,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 123.445,
+        "end": 123.445,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 436,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I",
+        "start": 123.565,
+        "end": 123.845,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 437,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "recommend",
+        "start": 123.845,
+        "end": 124.265,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 438,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "10",
+        "start": 124.265,
+        "end": 124.645,
+        "confidence": 0.9985,
+        "metadata": {
+          "wordOffset": 439,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "minutes",
+        "start": 124.645,
+        "end": 124.925,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 440,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "of",
+        "start": 124.925,
+        "end": 125.125,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 441,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "mindfulness",
+        "start": 125.125,
+        "end": 125.725,
+        "confidence": 0.9988,
+        "metadata": {
+          "wordOffset": 442,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "or",
+        "start": 125.725,
+        "end": 126.035,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 443,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "deep",
+        "start": 126.035,
+        "end": 126.285,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 444,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "breathing",
+        "start": 126.285,
+        "end": 126.685,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 445,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "each",
+        "start": 126.685,
+        "end": 126.965,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 446,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "day",
+        "start": 126.965,
+        "end": 127.245,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 447,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 127.245,
+        "end": 127.245,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 448,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "It",
+        "start": 127.645,
+        "end": 127.795,
+        "confidence": 0.9981,
+        "metadata": {
+          "wordOffset": 449,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "sounds",
+        "start": 127.795,
+        "end": 128.085,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 450,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "simple",
+        "start": 128.085,
+        "end": 128.455,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 451,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 128.455,
+        "end": 128.455,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 452,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "but",
+        "start": 128.725,
+        "end": 128.805,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 453,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "it's",
+        "start": 128.805,
+        "end": 129.005,
+        "confidence": 0.9965,
+        "metadata": {
+          "wordOffset": 454,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "a",
+        "start": 129.005,
+        "end": 129.205,
+        "confidence": 0.999,
+        "metadata": {
+          "wordOffset": 455,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "powerful",
+        "start": 129.205,
+        "end": 129.725,
+        "confidence": 0.9993,
+        "metadata": {
+          "wordOffset": 456,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "way",
+        "start": 129.725,
+        "end": 129.885,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 457,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 129.885,
+        "end": 130.165,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 458,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "reduce",
+        "start": 130.165,
+        "end": 130.485,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 459,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "stress",
+        "start": 130.485,
+        "end": 130.795,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 460,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "and",
+        "start": 130.795,
+        "end": 131.135,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 461,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "support",
+        "start": 131.135,
+        "end": 131.365,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 462,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "your",
+        "start": 131.365,
+        "end": 131.525,
+        "confidence": 0.9995,
+        "metadata": {
+          "wordOffset": 463,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "body's",
+        "start": 131.525,
+        "end": 131.885,
+        "confidence": 0.9974,
+        "metadata": {
+          "wordOffset": 464,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "healing",
+        "start": 131.885,
+        "end": 132.485,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 465,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "process",
+        "start": 132.485,
+        "end": 132.995,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 466,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 132.995,
+        "end": 132.995,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 467,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.8782121212121216,
+    "metadata": {
+      "wordCount": 33,
+      "hasCorrections": false,
+      "chunkOffset": 435
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:38:13.944Z",
+    "transcript": "It sounds like a lot, but I'll try. I just don't know if I can stick to all of it.",
+    "words": [
+      {
+        "word": "It",
+        "start": 133.415,
+        "end": 133.645,
+        "confidence": 0.9969,
+        "metadata": {
+          "wordOffset": 468,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "sounds",
+        "start": 133.645,
+        "end": 133.885,
+        "confidence": 0.9965,
+        "metadata": {
+          "wordOffset": 469,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "like",
+        "start": 133.885,
+        "end": 134.005,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 470,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "a",
+        "start": 134.005,
+        "end": 134.165,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 471,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "lot",
+        "start": 134.165,
+        "end": 134.495,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 472,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ",",
+        "start": 134.495,
+        "end": 134.495,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 473,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "but",
+        "start": 134.815,
+        "end": 134.965,
+        "confidence": 0.9973,
+        "metadata": {
+          "wordOffset": 474,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I'll",
+        "start": 134.965,
+        "end": 135.205,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 475,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "try",
+        "start": 135.205,
+        "end": 135.615,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 476,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 135.615,
+        "end": 135.615,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 477,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I",
+        "start": 135.805,
+        "end": 136.005,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 478,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "just",
+        "start": 136.005,
+        "end": 136.165,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 479,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "don't",
+        "start": 136.165,
+        "end": 136.285,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 480,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "know",
+        "start": 136.285,
+        "end": 136.405,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 481,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "if",
+        "start": 136.405,
+        "end": 136.525,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 482,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I",
+        "start": 136.525,
+        "end": 136.645,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 483,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "can",
+        "start": 136.645,
+        "end": 136.845,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 484,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "stick",
+        "start": 136.845,
+        "end": 137.005,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 485,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 137.005,
+        "end": 137.125,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 486,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "all",
+        "start": 137.125,
+        "end": 137.245,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 487,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "of",
+        "start": 137.245,
+        "end": 137.405,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 488,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "it",
+        "start": 137.405,
+        "end": 137.885,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 489,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 137.885,
+        "end": 137.885,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 490,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.8690956521739132,
+    "metadata": {
+      "wordCount": 23,
+      "hasCorrections": false,
+      "chunkOffset": 468
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:38:14.666Z",
+    "transcript": "One step at a time.",
+    "words": [
+      {
+        "word": "One",
+        "start": 138.315,
+        "end": 138.645,
+        "confidence": 0.9978,
+        "metadata": {
+          "wordOffset": 491,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "step",
+        "start": 138.645,
+        "end": 138.845,
+        "confidence": 0.9984,
+        "metadata": {
+          "wordOffset": 492,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "at",
+        "start": 138.845,
+        "end": 138.925,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 493,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "a",
+        "start": 138.925,
+        "end": 139.125,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 494,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "time",
+        "start": 139.125,
+        "end": 139.635,
+        "confidence": 0.9995,
+        "metadata": {
+          "wordOffset": 495,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 139.635,
+        "end": 139.635,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 496,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.8325833333333335,
+    "metadata": {
+      "wordCount": 6,
+      "hasCorrections": false,
+      "chunkOffset": 491
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:38:18.650Z",
+    "transcript": "You don't have to do this perfectly. Progress is what matters. We'll meet again in 2 weeks to go over your test results and adjust the plan as needed.",
+    "words": [
+      {
+        "word": "You",
+        "start": 140.155,
+        "end": 140.335,
+        "confidence": 0.9983,
+        "metadata": {
+          "wordOffset": 497,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "don't",
+        "start": 140.335,
+        "end": 140.575,
+        "confidence": 0.9993,
+        "metadata": {
+          "wordOffset": 498,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "have",
+        "start": 140.575,
+        "end": 140.735,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 499,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 140.735,
+        "end": 140.855,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 500,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "do",
+        "start": 140.855,
+        "end": 141.015,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 501,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "this",
+        "start": 141.015,
+        "end": 141.215,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 502,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "perfectly",
+        "start": 141.215,
+        "end": 141.965,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 503,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 141.965,
+        "end": 141.965,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 504,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "Progress",
+        "start": 142.295,
+        "end": 142.775,
+        "confidence": 0.987,
+        "metadata": {
+          "wordOffset": 505,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "is",
+        "start": 142.775,
+        "end": 142.895,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 506,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "what",
+        "start": 142.895,
+        "end": 143.095,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 507,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "matters",
+        "start": 143.095,
+        "end": 143.705,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 508,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 143.705,
+        "end": 143.705,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 509,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "We'll",
+        "start": 144.055,
+        "end": 144.255,
+        "confidence": 0.9961,
+        "metadata": {
+          "wordOffset": 510,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "meet",
+        "start": 144.255,
+        "end": 144.495,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 511,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "again",
+        "start": 144.495,
+        "end": 144.655,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 512,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "in",
+        "start": 144.655,
+        "end": 144.775,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 513,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "2",
+        "start": 144.775,
+        "end": 144.995,
+        "confidence": 0.9927,
+        "metadata": {
+          "wordOffset": 514,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "weeks",
+        "start": 144.995,
+        "end": 145.335,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 515,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 145.335,
+        "end": 145.455,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 516,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "go",
+        "start": 145.455,
+        "end": 145.575,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 517,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "over",
+        "start": 145.575,
+        "end": 145.815,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 518,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "your",
+        "start": 145.815,
+        "end": 146.015,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 519,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "test",
+        "start": 146.015,
+        "end": 146.375,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 520,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "results",
+        "start": 146.375,
+        "end": 146.655,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 521,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "and",
+        "start": 146.655,
+        "end": 146.735,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 522,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "adjust",
+        "start": 146.735,
+        "end": 147.135,
+        "confidence": 0.9991,
+        "metadata": {
+          "wordOffset": 523,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "the",
+        "start": 147.135,
+        "end": 147.295,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 524,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "plan",
+        "start": 147.295,
+        "end": 147.455,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 525,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "as",
+        "start": 147.455,
+        "end": 147.655,
+        "confidence": 0.9984,
+        "metadata": {
+          "wordOffset": 526,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "needed",
+        "start": 147.655,
+        "end": 148.165,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 527,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 148.165,
+        "end": 148.165,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 528,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.9052437500000001,
+    "metadata": {
+      "wordCount": 32,
+      "hasCorrections": false,
+      "chunkOffset": 497
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:38:22.119Z",
+    "transcript": "You're not in this alone Sarah. Thank you. I've just felt so stuck for so long. It's good to feel like there's a way forward. There is.",
+    "words": [
+      {
+        "word": "You're",
+        "start": 148.695,
+        "end": 148.925,
+        "confidence": 0.9963,
+        "metadata": {
+          "wordOffset": 529,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "not",
+        "start": 148.925,
+        "end": 149.045,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 530,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "in",
+        "start": 149.045,
+        "end": 149.165,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 531,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "this",
+        "start": 149.165,
+        "end": 149.405,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 532,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "alone",
+        "start": 149.405,
+        "end": 149.725,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 533,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "Sarah",
+        "start": 149.725,
+        "end": 150.085,
+        "confidence": 0.8515,
+        "metadata": {
+          "wordOffset": 534,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 150.085,
+        "end": 150.085,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 535,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "Thank",
+        "start": 150.405,
+        "end": 150.565,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 536,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "you",
+        "start": 150.565,
+        "end": 150.895,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 537,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 150.895,
+        "end": 150.895,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 538,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "I've",
+        "start": 151.085,
+        "end": 151.285,
+        "confidence": 0.9946,
+        "metadata": {
+          "wordOffset": 539,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "just",
+        "start": 151.285,
+        "end": 151.485,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 540,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "felt",
+        "start": 151.485,
+        "end": 151.725,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 541,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "so",
+        "start": 151.725,
+        "end": 151.805,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 542,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "stuck",
+        "start": 151.805,
+        "end": 152.205,
+        "confidence": 0.9983,
+        "metadata": {
+          "wordOffset": 543,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "for",
+        "start": 152.205,
+        "end": 152.365,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 544,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "so",
+        "start": 152.365,
+        "end": 152.565,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 545,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "long",
+        "start": 152.565,
+        "end": 152.895,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 546,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 152.895,
+        "end": 152.895,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 547,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "It's",
+        "start": 153.045,
+        "end": 153.285,
+        "confidence": 0.9935,
+        "metadata": {
+          "wordOffset": 548,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "good",
+        "start": 153.285,
+        "end": 153.405,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 549,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 153.405,
+        "end": 153.525,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 550,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "feel",
+        "start": 153.525,
+        "end": 153.685,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 551,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "like",
+        "start": 153.685,
+        "end": 153.845,
+        "confidence": 0.9991,
+        "metadata": {
+          "wordOffset": 552,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "there's",
+        "start": 153.845,
+        "end": 154.005,
+        "confidence": 0.9962,
+        "metadata": {
+          "wordOffset": 553,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "a",
+        "start": 154.005,
+        "end": 154.115,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 554,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "way",
+        "start": 154.115,
+        "end": 154.365,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 555,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "forward",
+        "start": 154.365,
+        "end": 154.925,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 556,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 154.925,
+        "end": 154.925,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 557,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "There",
+        "start": 155.285,
+        "end": 155.445,
+        "confidence": 0.9963,
+        "metadata": {
+          "wordOffset": 558,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "is",
+        "start": 155.445,
+        "end": 156.035,
+        "confidence": 0.9968,
+        "metadata": {
+          "wordOffset": 559,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 156.035,
+        "end": 156.035,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 560,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.8381000000000001,
+    "metadata": {
+      "wordCount": 32,
+      "hasCorrections": false,
+      "chunkOffset": 529
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:38:23.144Z",
+    "transcript": "We'll get to the root cause together.",
+    "words": [
+      {
+        "word": "We'll",
+        "start": 156.455,
+        "end": 156.685,
+        "confidence": 0.9922,
+        "metadata": {
+          "wordOffset": 561,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "get",
+        "start": 156.685,
+        "end": 156.845,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 562,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "to",
+        "start": 156.845,
+        "end": 156.925,
+        "confidence": 0.9996,
+        "metadata": {
+          "wordOffset": 563,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "the",
+        "start": 156.925,
+        "end": 156.965,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 564,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "root",
+        "start": 156.965,
+        "end": 157.325,
+        "confidence": 0.9991,
+        "metadata": {
+          "wordOffset": 565,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "cause",
+        "start": 157.325,
+        "end": 157.675,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 566,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "together",
+        "start": 157.675,
+        "end": 158.195,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 567,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 158.195,
+        "end": 158.195,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 568,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.8737625,
+    "metadata": {
+      "wordCount": 8,
+      "hasCorrections": false,
+      "chunkOffset": 561
+    }
+  },
+  {
+    "sessionId": "abc123",
+    "sequence": null,
+    "timestamp": "2024-12-31T19:38:24.538Z",
+    "transcript": "You're already on the right track just by being here.",
+    "words": [
+      {
+        "word": "You're",
+        "start": 158.465,
+        "end": 158.845,
+        "confidence": 0.9952,
+        "metadata": {
+          "wordOffset": 569,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "already",
+        "start": 158.845,
+        "end": 159.085,
+        "confidence": 0.9997,
+        "metadata": {
+          "wordOffset": 570,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "on",
+        "start": 159.085,
+        "end": 159.165,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 571,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "the",
+        "start": 159.165,
+        "end": 159.315,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 572,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "right",
+        "start": 159.315,
+        "end": 159.605,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 573,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "track",
+        "start": 159.605,
+        "end": 160.005,
+        "confidence": 0.9998,
+        "metadata": {
+          "wordOffset": 574,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "just",
+        "start": 160.005,
+        "end": 160.285,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 575,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "by",
+        "start": 160.285,
+        "end": 160.485,
+        "confidence": 0.9999,
+        "metadata": {
+          "wordOffset": 576,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "being",
+        "start": 160.485,
+        "end": 160.765,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 577,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": "here",
+        "start": 160.765,
+        "end": 161.315,
+        "confidence": 1,
+        "metadata": {
+          "wordOffset": 578,
+          "hasCorrections": false
+        }
+      },
+      {
+        "word": ".",
+        "start": 161.315,
+        "end": 161.315,
+        "confidence": 0,
+        "metadata": {
+          "wordOffset": 579,
+          "hasCorrections": false
+        }
+      }
+    ],
+    "confidence": 0.9085636363636365,
+    "metadata": {
+      "wordCount": 11,
+      "hasCorrections": false,
+      "chunkOffset": 569
+    }
+  }
+]

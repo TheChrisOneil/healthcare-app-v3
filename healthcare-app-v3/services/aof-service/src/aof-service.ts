@@ -3,7 +3,7 @@ import os from "os";
 import { connect, NatsConnection, Msg, StringCodec } from "nats";
 import * as dotenv from "dotenv";
 import logger from "./logger";
-
+import { TranscriptionChunk } from "shared-interfaces/transcription"; 
 // Load environment variables from .env file
 dotenv.config({ path: ".env" });
 
@@ -93,8 +93,8 @@ class AOFService {
           logger.error("Error receiving transcribed word event:", err);
           return;
         }
-        const data = JSON.parse(sc.decode(msg.data)) as { word: string };
-        this.processWord(data.word);
+        const data = JSON.parse(sc.decode(msg.data)) as TranscriptionChunk;
+        this.processWord(data.transcript);
       },
     });
 
@@ -178,19 +178,35 @@ class AOFService {
       return;
     }
   
-    const highlightedWord = word.length > 8 ? `**${word}**` : word;
-    logger.info(`Processed word: ${highlightedWord}`);
+    // Split the input string by spaces and filter for words with 8 or more characters
+    const filteredWords = word.split(" ").filter((w) => w.length >= 8);
   
-    // Publish the processed word back to NATS
-    if (this.nc) {
-      const sc = StringCodec();
-      this.nc.publish(
-        "aof.word.highlighted",
-        sc.encode(JSON.stringify({ word: highlightedWord, timestamp: new Date().toISOString() }))
-      );
+    if (filteredWords.length === 0) {
+      logger.info("No words found with 8 or more characters.");
+      return;
     }
+  
+    // Process each filtered word
+    filteredWords.forEach((filteredWord) => {
+      const highlightedWord = `**${filteredWord}**`; // Highlight words
+  
+      logger.info(`Processed word: ${highlightedWord}`);
+  
+      // Publish the processed word back to NATS
+      if (this.nc) {
+        const sc = StringCodec();
+        this.nc.publish(
+          "aof.word.highlighted",
+          sc.encode(
+            JSON.stringify({
+              word: highlightedWord,
+              timestamp: new Date().toISOString(),
+            })
+          )
+        );
+      }
+    });
   }
-
 
   private handleError = (error: Error) => {
     logger.error("AOF service encountered an error:", error);

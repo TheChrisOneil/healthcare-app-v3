@@ -1,5 +1,8 @@
 import winston from "winston";
 import moment from "moment-timezone"; // Install moment-timezone: npm install moment-timezone
+import * as dotenv from "dotenv";
+// Load environment variables from .env file
+dotenv.config({ path: ".env" });
 
 const logger = winston.createLogger({
   level: process.env.LOG_LEVEL || "info",

@@ -12,11 +12,11 @@ const TranscriptionComponent = () => {
             return;
         }
         console.log('Handling WebSocket message:', message);
-
+            
 
         switch (message.topic) {
             case 'transcription.word.transcribed':
-                setTranscription((prev) => prev + ' ' + message.data.word);
+                setTranscription((prev) => prev + ' ' + message.data.transcript);
                 break;
             case 'aof.word.highlighted':
                 setHighlightedWords((prev) => [...prev, message.data.word]);
@@ -26,34 +26,49 @@ const TranscriptionComponent = () => {
         }
     };
 
-    const controlTranscribeService = async (command, sessionId) => {
+    const controlTranscribeService = async (command, sessionData) => {
         try {
-            const response = await fetch('/api/controlTranscribeService', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ command, sessionId }),
-            });
-    
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-    
-            const data = await response.json();
-            console.log(`${command} transcription:`, data);
+          const response = await fetch('/api/controlTranscribeService', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ command, sessionData }),
+          });
+      
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+      
+          const data = await response.json();
+          console.log(`${command} transcription:`, data);
         } catch (err) {
-            console.error(`Error executing ${command} command:`, err);
+          console.error(`Error executing ${command} command:`, err);
         }
+      };
+    // Mock data for SessionInitiation
+    const mockSessionData = {
+        sessionId: "abc123",
+        patientDID: "did:example:patient123",
+        clinicianDID: "did:example:clinician456",
+        clinicName: "Health Clinic",
+        startTime: new Date(),
+        audioConfig: {
+            sampleRate: 16000,
+            channels: 1,
+            encoding: "pcm",
+            languageCode: "en-US",
+            },
+        transcriptPreferences: {
+            language: "en-US",
+            autoHighlight: true,
+            saveAudio: false,
+        },
     };
-    
-    // Example usage
-    const sessionId = 'abc123'; // Replace with your session ID
-    
-    const startTranscription = () => controlTranscribeService('start', sessionId);
-    const stopTranscription = () => controlTranscribeService('stop', sessionId);
-    const pauseTranscription = () => controlTranscribeService('pause', sessionId);
-    const resumeTranscription = () => controlTranscribeService('resume', sessionId);
+    const startTranscription = () => controlTranscribeService('start', mockSessionData);
+    const stopTranscription = () => controlTranscribeService('stop', mockSessionData);
+    const pauseTranscription = () => controlTranscribeService('pause', mockSessionData);
+    const resumeTranscription = () => controlTranscribeService('resume', mockSessionData);
 
     return (
         <div style={{ padding: '20px' }}>

@@ -4,6 +4,9 @@ import { connect, NatsConnection, Msg, StringCodec } from "nats";
 import {
   TranscribeStreamingClient,
   StartStreamTranscriptionCommand,
+  LanguageCode,
+  MediaEncoding,
+  TranscriptResultStream
 } from "@aws-sdk/client-transcribe-streaming";
 import * as fs from "fs";
 import * as stream from "stream";
@@ -11,12 +14,11 @@ import * as dotenv from "dotenv";
 import path from "path";
 import logger from "./logger";
 import {
-  TranscriptionEvent,
-  TranscriptResult,
-  TranscriptEvent,
-  TranscriptResponse,
-  TranscriptionError,
-  TranscriptionWord,
+  SessionInitiation,
+  TranscriptionChunk,
+  TranscriptPreferences,
+  AudioConfig,
+  Transcribed
 } from "shared-interfaces/transcription"; // Using compiler options to manage local vs docker paths
 import { log } from "console";
 
@@ -27,6 +29,7 @@ logger.info("Environment Variables Loaded, if empty you have an issue", {
   NATS_SERVER: process.env.NATS_SERVER,
   AWS_REGION: process.env.AWS_REGION,
   AUDIO_FILE_PATH: process.env.AUDIO_FILE_PATH,
+  TRANSCRIBE_FILE_PATH: process.env.TRANSCRIBE_FILE_PATH,
   LOG_LEVEL: process.env.LOG_LEVEL,
 });
 
@@ -71,6 +74,12 @@ class TranscribeService {
   private sessionId: string | null = null;
   private audioFilePath: string;
   private filename: string;
+  private patientDID: string | null = null;
+  private clinicianDID: string | null = null;
+  private clinicName: string | null = null;
+  private startTime: Date | null = null;
+  private audioConfig: AudioConfig | null = null;
+  private preferences: TranscriptPreferences | null = null;
 
   constructor() {
     this.transcribeClient = new TranscribeStreamingClient({
@@ -114,77 +123,6 @@ class TranscribeService {
     throw new Error("Unable to connect to NATS after multiple attempts.");
   }
 
-  // private subscribeToEvents() {
-  //   if (!this.nc) {
-  //     logger.error("NATS connection not established.");
-  //     return;
-  //   }
-
-  //   const sc = StringCodec();
-
-  //   // Subscribe to transcription events
-  //   // Channel: transcription.session.started  
-  //   this.nc.subscribe("transcription.session.started", {
-  //     callback: (err: Error | null, msg: Msg) => {
-  //       if (err) {
-  //         logger.error("Error receiving transcription started event:", err);
-  //         return;
-  //       }
-  //       const data = JSON.parse(sc.decode(msg.data)) as { sessionId: string };
-  //       this.startTranscription(data.sessionId);
-                
-  //       // Notify DAG downstream services of start
-  //       this.nc?.publish("service.control.aof", sc.encode("start"));
-  //     },
-  //   });
-
-  //   this.nc.subscribe("transcription.session.stopped", {
-  //     callback: (err: Error | null, msg: Msg) => {
-  //       if (err) {
-  //         logger.error("Error receiving transcription stopped event:", err);
-  //         return;
-  //       }
-  //       const data = JSON.parse(sc.decode(msg.data)) as { sessionId: string };
-  //       this.stopTranscription(data.sessionId);
-        
-  //       // Notify DAG downstream services of stop
-  //       this.nc?.publish("service.control.aof", sc.encode("stop"));
-  //     },
-  //   });
-
-  //   this.nc.subscribe("transcription.session.paused", {
-  //     callback: (err: Error | null, msg: Msg) => {
-  //       if (err) {
-  //         logger.error("Error receiving transcription paused event:", err);
-  //         return;
-  //       }
-  //       logger.info(`Transcription session paused: ${this.sessionId}`);
-  //       this.transcriptionActive = false;
-  //       // Logic to save state
-
-                      
-  //       // Notify DAG downstream services of start
-  //       this.nc?.publish("service.control.aof", sc.encode("pause"));
-  //     },
-  //   });
-
-  //   this.nc.subscribe("transcription.session.resumed", {
-  //     callback: (err: Error | null, msg: Msg) => {
-  //       if (err) {
-  //         logger.error("Error receiving transcription resumed event:", err);
-  //         return;
-  //       }
-
-                      
-  //       // Notify DAG downstream services of start
-  //       this.nc?.publish("service.control.aof", sc.encode("resume"));
-  //       logger.info(`Transcription session resumed: ${this.sessionId}`);
-  //       this.transcriptionActive = true;
-  //       this.streamAudioFile(); // Restart streaming
-  //     },
-  //   });
-  // }
-
   private subscribeToEvents() {
     if (!this.nc) {
       logger.error("NATS connection not established.");
@@ -202,8 +140,38 @@ class TranscribeService {
           logger.error("Error receiving transcription started event:", _err);
           return;
         }
-        const data = JSON.parse(sc.decode(msg.data)) as { sessionId: string };
-        this.startTranscription(data.sessionId);
+        try {
+          // Decode and parse the message data
+          const sessionData = JSON.parse(sc.decode(msg.data)) as SessionInitiation;
+    
+          // Validate the sessionData structure (optional but recommended)
+          const { sessionId, patientDID, clinicianDID, clinicName, startTime, audioConfig, transcriptPreferences } = sessionData;
+    
+          if (
+            !sessionId ||
+            !patientDID ||
+            !clinicianDID ||
+            !clinicName ||
+            !startTime ||
+            !audioConfig?.sampleRate ||
+            !audioConfig?.channels ||
+            !audioConfig?.encoding ||
+            !transcriptPreferences?.language ||
+            transcriptPreferences.autoHighlight === undefined ||
+            transcriptPreferences.saveAudio === undefined
+          ) {
+            logger.error("Invalid session data received:", sessionData);
+            return;
+          }
+    
+          // Log the received session data
+          logger.info("Received transcription start event:", sessionData);
+    
+          // Start transcription with the full session data
+          this.startTranscription(sessionData);
+        } catch (error) {
+          logger.error("Error processing transcription start event:", error);
+        }
 
       },
     });
@@ -258,10 +226,28 @@ class TranscribeService {
     });
   }
 
-  private startTranscription(sessionId: string) {
-    this.sessionId = sessionId;
+  private startTranscription(sessionData: SessionInitiation) {
+    // Assign values to private variables
+    this.sessionId = sessionData.sessionId;
+    this.patientDID = sessionData.patientDID;
+    this.clinicianDID = sessionData.clinicianDID;
+    this.clinicName = sessionData.clinicName;
+    this.startTime = sessionData.startTime;
+    this.audioConfig = sessionData.audioConfig;
+    this.preferences = sessionData.transcriptPreferences;
+
     this.transcriptionActive = true;
-    logger.info(`Transcription session started: ${sessionId}`);
+
+    // Log the session start
+    logger.info("Transcription session started:", {
+      sessionId: this.sessionId,
+      patientDID: this.patientDID,
+      clinicianDID: this.clinicianDID,
+      clinicName: this.clinicName,
+      startTime: this.startTime,
+      audioConfig: this.audioConfig,
+      preferences: this.preferences,
+    });
     this.streamAudioFile();
   }
 
@@ -271,7 +257,10 @@ class TranscribeService {
       logger.info(`Transcription session stopped: ${sessionId}`);
     }
   }
-
+  /**
+   * Simulates a function to stream audio file to AWS Transcribe
+   * @returns 
+   */
   private async streamAudioFile() {
     if (!this.transcriptionActive) return;
 
@@ -292,44 +281,70 @@ class TranscribeService {
         }
       };
 
-      const command = new StartStreamTranscriptionCommand({
-        LanguageCode: "en-US",
-        MediaEncoding: "pcm",
-        MediaSampleRateHertz: 16000,
-        AudioStream: audioStreamGenerator(),
-      });
 
-      const response = await this.transcribeClient.send(command);
+  // Initialize the StartStreamTranscriptionCommand
+  const command = new StartStreamTranscriptionCommand({
+    LanguageCode:  (this.preferences?.language as LanguageCode) || "en-US",
+    MediaEncoding: (this.audioConfig?.encoding as MediaEncoding) || "pcm",
+    MediaSampleRateHertz: this.audioConfig?.sampleRate || 16000,
+    AudioStream: audioStreamGenerator(), // Assuming this method is implemented
+  });
 
-      for await (const event of response.TranscriptResultStream!) {
-        if (!this.transcriptionActive) break;
+    const response = await this.transcribeClient.send(command);
+    let chunkOffset = 0;
+    const transcriptionChunks: TranscriptionChunk[] = [];
+    for await (const event of response.TranscriptResultStream!) {
+      if (!this.transcriptionActive) break;
 
-        // Explicitly check for TranscriptEvent
-        if ("TranscriptEvent" in event && event.TranscriptEvent?.Transcript?.Results) {
-          for (const result of event.TranscriptEvent.Transcript.Results) {
-            if (result.IsPartial) continue;
+      if ("TranscriptEvent" in event && event.TranscriptEvent?.Transcript?.Results) {
+        for (const result of event.TranscriptEvent.Transcript.Results) {
+          if (result.IsPartial) continue;
 
-            const transcript = result.Alternatives?.[0]?.Transcript || "";
-            logger.debug("Received transcript:", transcript);
+          const words : Transcribed[] = result.Alternatives?.[0]?.Items?.map((item, index) => ({
+            word: item.Content,
+            start: item.StartTime || 0,
+            end: item.EndTime || 0,
+            confidence: item.Confidence || 0,
+            speaker: item.Speaker || undefined,
+            metadata: {
+              wordOffset: chunkOffset + index,
+              hasCorrections: (item.Confidence || 1) < 0.8,
+            },
+          })) || [];
 
-            // Publish to NATS
-            if (this.nc) {
-              const sc = StringCodec();
-              this.nc.publish(
-                "transcription.word.transcribed",
-                sc.encode(
-                  JSON.stringify({
-                    sessionId: this.sessionId,
-                    word: transcript,
-                    timestamp: new Date().toISOString(),
-                  })
-                )
-              );
-            }
+          const transcriptChunk: TranscriptionChunk = {
+            sessionId: this.sessionId!,
+            sequence: Number(result.ResultId || 0),
+            timestamp: new Date(),
+            transcript: result.Alternatives?.[0]?.Transcript || "",
+            words,
+            confidence: words.reduce((sum, word) => sum + word.confidence, 0) / words.length || 0,
+            speaker: words[0]?.speaker || undefined,
+            metadata: {
+              wordCount: words.length,
+              hasCorrections: words.some((word) => word.metadata.hasCorrections),
+              chunkOffset,
+            },
+          };
+
+          chunkOffset += words.length;
+          transcriptionChunks.push(transcriptChunk);
+          // Log the chunk
+          //logger.info("Transcription Chunk:", transcriptChunk);
+
+          // Publish the chunk to NATS
+          if (this.nc) {
+            const sc = StringCodec();
+            this.nc.publish(
+              "transcription.word.transcribed",
+              sc.encode(JSON.stringify(transcriptChunk))
+            );
           }
         }
       }
-
+    }
+    // Write transcription chunks to a file
+    this.writeTranscriptionToFile(transcriptionChunks);
       logger.info("Streaming complete.");
     } catch (error) {
       this.handleError(error instanceof Error ? error : new Error(String(error)));
@@ -339,6 +354,58 @@ class TranscribeService {
       }
     }
   }
+
+  private writeTranscriptionToFile(transcriptionChunks: TranscriptionChunk[]) {
+    if (!process.env.TRANSCRIBE_FILE_PATH) {
+      throw new Error("TRANSCRIBE_FILE_PATH environment variable is not set.");
+    }
+  
+    const filePath = path.join(process.env.TRANSCRIBE_FILE_PATH, `${this.sessionId}.json`);
+  
+    try {
+      fs.writeFileSync(filePath, JSON.stringify(transcriptionChunks, null, 2), "utf-8");
+      logger.info(`Transcription chunks written to file: ${filePath}`);
+    } catch (error : any) {
+      logger.error(`Error writing transcription to file: ${error.message}`);
+    }
+  }
+
+
+  private logDetailedTranscriptionEvent(event: TranscriptResultStream) {
+    try {
+      // Extract details from the event
+      const { TranscriptEvent } = event;
+  
+      if (TranscriptEvent?.Transcript?.Results) {
+        TranscriptEvent.Transcript.Results.forEach((result) => {
+          // Only log finalized results (not partial)
+          if (!result.IsPartial) {
+            result.Alternatives?.forEach((alternative) => {
+              // Extract speaker labels, offsets, and sequence number
+              const words = alternative.Items?.map((item) => ({
+                word: item.Content,
+                startTime: item.StartTime,
+                endTime: item.EndTime,
+                speaker: item.Speaker || "Unknown",
+                confidence: item.Confidence,
+              })) || [];
+  
+              logger.info("Finalized transcription result:", {
+                transcript: alternative.Transcript,
+                sequenceNumber: result.ResultId,
+                words,
+              });
+            });
+          }
+        });
+      } else {
+        logger.info("No transcript results available in the event.");
+      }
+    } catch (error) {
+      logger.error("Error processing transcription event:", error);
+    }
+  }
+  
 
   private handleError = (error: Error) => {
     console.error("Transcription service encountered an error:", error);
