@@ -17,9 +17,9 @@ dotenv.config({ path: '.env' }); // Load from root directory
 logger.info("Environment Variables Loaded", {
   NATS_SERVER: process.env.NATS_SERVER,
   AWS_REGION: process.env.AWS_REGION,
-  AUDIO_FILE_PATH: process.env.AUDIO_FILE_PATH,
+  TEST_AUDIO_FILE_PATH: process.env.TEST_AUDIO_FILE_PATH,
   LOG_LEVEL: process.env.LOG_LEVEL,
-  AUDIO_FILE_NAME: process.env.AUDIO_FILE_NAME,
+  TEST_AUDIO_FILE_NAME: process.env.TEST_AUDIO_FILE_NAME,
 });
 
 
@@ -98,8 +98,8 @@ async function streamAudioToNATS(nc: NatsConnection, sessionId: string) {
   logger.debug(`Starting audio streaming for session ${sessionId}`);
   const chunkSize = 1024 * 6; // 4 KB chunk size
   const audioSubject = "audio.stream.transcribe";
-  const audioFilePath = process.env.AUDIO_FILE_PATH || "/tmp";
-  const filename = process.env.AUDIO_FILE_NAME || "foobar.pcm";
+  const audioFilePath = process.env.TEST_AUDIO_FILE_PATH || "/tmp";
+  const filename = process.env.TEST_AUDIO_FILE_NAME || "foobar.pcm";
   const audioFilePathName = path.join(audioFilePath, filename);
   const sc = StringCodec();
   const audioStream = fs.createReadStream(audioFilePathName, { highWaterMark: chunkSize });

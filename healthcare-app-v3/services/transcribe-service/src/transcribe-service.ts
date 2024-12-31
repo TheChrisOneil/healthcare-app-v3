@@ -213,7 +213,9 @@ class TranscribeService {
           this.audioStream?.write(audioBuffer);
 
           // Stream to AWS Transcribe
-          await this.streamToAWS(audioBuffer, data.sequence);
+          // await this.streamToAWS(audioBuffer, data.sequence);
+          await this.processAudioChunk(audioBuffer, data.sequence);
+
         } catch (error) {
           logger.error("Failed to process audio stream message:", error);
         }
@@ -222,6 +224,59 @@ class TranscribeService {
 
     logger.info("Subscribed to audio.stream.transcribe.");
   }
+  private async processAudioChunk(audioBuffer: Buffer, sequence: number) {
+    try {
+      // Use retry logic for the AWS Transcribe streaming call
+      await this.retryWithBackoff(
+        () => this.streamToAWS(audioBuffer, sequence),
+        3, // Max retries
+        1000 // Initial delay (in milliseconds)
+      );
+    } catch (error) {
+      this.handleError(error instanceof Error ? error : new Error(String(error)));
+    }
+  }
+
+  private async retryWithBackoff(
+    operation: () => Promise<void>,
+    maxRetries: number,
+    delayMs: number
+  ): Promise<void> {
+    let attempt = 0;
+    while (attempt < maxRetries) {
+      try {
+        await operation();
+        return; // Exit once successful
+      } catch (error) {
+        attempt++;
+        if (attempt >= maxRetries) {
+          logger.error("Max retry attempts reached. Operation failed.", { error });
+          throw error; // Re-throw the error after exhausting retries
+        }
+  
+
+        if (error instanceof Error) {
+          if (error.message.includes("ThrottlingException: Rate exceeded")) {
+            logger.warn(`Retrying due to throttling (attempt ${attempt} of ${maxRetries})`);
+          } else if (error.name === "ERR_HTTP2_STREAM_CANCEL") {
+            logger.error(`Recommend stop / start docker to resolve HTTP/2 stream cancellation (attempt ${attempt} of ${maxRetries})`);
+            throw error; // Exit if it's not a retryable error
+          } else {
+            logger.error("Unhandled error during retry operation:", error);
+            throw error; // Exit if it's not a retryable error
+          }
+        } else {
+          logger.error("Caught non-Error object during retry operation:", error);
+          throw new Error("Unknown error encountered during retry operation");
+        }
+  
+  
+        // Apply backoff delay
+        await new Promise((resolve) => setTimeout(resolve, delayMs * attempt));
+      }
+    }
+  }
+
 
   private startTranscription(sessionId: string) {
     this.sessionId = sessionId;
@@ -310,12 +365,14 @@ class TranscribeService {
 
   private handleError = (error: Error) => {
     if (error.name === "ERR_HTTP2_STREAM_CANCEL") {
-      logger.error("AWS Transcribe HTTP/2 stream canceled. Retrying...");
-      // Implement retry logic or clean up resources as needed
-
+      logger.error("AWS Transcribe HTTP/2 stream canceled. This may require manual intervention.", { error });
+    } else if (error.message.includes("ThrottlingException: Rate exceeded")) {
+      logger.error("AWS Transcribe request throttled due to rate limits.", { error });
     } else {
       logger.error("Unhandled transcription service error:", error);
     }
+  
+    // Publish error details to NATS
     if (this.nc) {
       const sc = StringCodec();
       this.nc.publish(
@@ -329,6 +386,7 @@ class TranscribeService {
       );
     }
   };
+
 }
 
 // Start the Transcribe Service
