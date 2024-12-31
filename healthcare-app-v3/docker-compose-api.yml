@@ -20,8 +20,9 @@ services:
       - ./api-gateway/.env #Set environment variables dev only
     
     volumes:
-      - ./shared-interfaces:/app/shared-interfaces
+      - ./shared-interfaces:/app/shared-interfaces # Add this line to mount the source code for watching changes
       - ./api-gateway/src:/app/src # Add this line to mount the source code for watching changes
+      - ./storage/audioTestFiles:/app/storage/audioTestFiles
       - ./logs:/app/logs
     command: ["npm", "run", "dev:docker"]
     logging:
@@ -60,7 +61,6 @@ services:
     volumes:
       - ./storage/recordings:/app/storage/recordings
       - ./storage/transcriptions:/app/storage/transcriptions
-      - ./storage/audioTestFiles:/app/storage/audioTestFiles
       - ./shared-interfaces:/app/shared-interfaces
       - ./services/transcribe-service/src:/app/src
       - ./logs:/app/logs

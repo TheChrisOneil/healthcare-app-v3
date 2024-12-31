@@ -88,6 +88,7 @@ class AOFService {
     const sc = StringCodec();
 
     this.nc.subscribe("transcription.word.transcribed", {
+      queue: "transcribe-worker-queue", // Durable queue group for message handling
       callback: (err: Error | null, msg: Msg) => {
         if (err) {
           logger.error("Error receiving transcribed word event:", err);

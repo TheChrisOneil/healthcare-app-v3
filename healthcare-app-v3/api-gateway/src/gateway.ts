@@ -8,15 +8,18 @@ import axios from "axios";
 import os from "os";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocs from "./swagger-config";
+import * as fs from "fs";
+import path from "path";
 
 // Load environment variables from .env file
 dotenv.config({ path: '.env' }); // Load from root directory
 
-logger.info("Environment Variables Loaded, if empty you will have issues", {
+logger.info("Environment Variables Loaded", {
   NATS_SERVER: process.env.NATS_SERVER,
   AWS_REGION: process.env.AWS_REGION,
   AUDIO_FILE_PATH: process.env.AUDIO_FILE_PATH,
   LOG_LEVEL: process.env.LOG_LEVEL,
+  AUDIO_FILE_NAME: process.env.AUDIO_FILE_NAME,
 });
 
 
@@ -38,7 +41,7 @@ const initNATS = async (): Promise<NatsConnection> => {
   
     while (retries > 0) {
       try {
-        const nc = await connect({ servers: "nats://nats-server:4222" });
+        const nc = await connect({ servers: process.env.NATS_SERVER });
         logger.info("Connected to NATS");
         return nc;
       } catch (error) {
@@ -84,6 +87,62 @@ const getGatewayStatus = (): Record<string, any> => {
     timestamp: new Date().toISOString(),
   };
 };
+
+
+// TESTING Function to stream audio to NATS
+const sessionStates: Record<string, { paused: boolean; stopped: boolean; sequence: number }> = {};
+
+
+
+async function streamAudioToNATS(nc: NatsConnection, sessionId: string) {
+  logger.debug(`Starting audio streaming for session ${sessionId}`);
+  const chunkSize = 1024 * 6; // 4 KB chunk size
+  const audioSubject = "audio.stream.transcribe";
+  const audioFilePath = process.env.AUDIO_FILE_PATH || "/tmp";
+  const filename = process.env.AUDIO_FILE_NAME || "foobar.pcm";
+  const audioFilePathName = path.join(audioFilePath, filename);
+  const sc = StringCodec();
+  const audioStream = fs.createReadStream(audioFilePathName, { highWaterMark: chunkSize });
+  const delay = 10; // Delay between sending chunks in milliseconds
+  let sequence = sessionStates[sessionId]?.sequence || 0;
+  let isHeaderStripped = false;
+  // Initialize session state
+  sessionStates[sessionId] = { paused: false, stopped: false, sequence: 0 };
+
+  for await (const chunk of audioStream) {
+    // Check if the session is stopped
+    if (sessionStates[sessionId]?.stopped) {
+      logger.info(`Streaming stopped for session ${sessionId}`);
+      break;
+    }
+
+    // Wait if the session is paused
+    while (sessionStates[sessionId]?.paused) {
+      logger.debug(`Streaming paused for session ${sessionId}`);
+      await new Promise((resolve) => setTimeout(resolve, 100)); // Polling interval during pause
+    }
+
+    // Publish the chunk
+    const sequence = sessionStates[sessionId]?.sequence || 0;
+
+    logger.debug(`Streaming chunk ${sequence} for session ${sessionId}`);
+    nc.publish(audioSubject, sc.encode(JSON.stringify({
+      sessionId,
+      sequence,
+      chunk: chunk.toString("base64"),
+      timestamp: new Date().toISOString()
+    })));
+
+    // Update sequence and state
+    sessionStates[sessionId].sequence = sequence + 1;
+
+    // Introduce a delay before sending the next chunk
+    await new Promise((resolve) => setTimeout(resolve, delay));
+  }
+
+  logger.info(`Audio streaming complete for session ${sessionId}`);
+  delete sessionStates[sessionId]; // Clean up session state
+}
 
 // Initialize mesaage subscriptions for UX updates
 // Design Note: This is a simple example. In a production system, you would likely have separate queues for each worker.
@@ -191,26 +250,94 @@ const setupRoutes = (nc: NatsConnection) => {
    *                   type: string
    *                   example: "abc123"
    */
-  app.post("/api/controlTranscribeService", (req: Request, res: Response) => {
+  app.post("/api/controlTranscribeService", async (req: Request, res: Response) => {
     const { command, sessionId } = req.body;
-
+  
     if (!command || !sessionId) {
       return res.status(400).json({ error: "Invalid request payload" });
     }
-
+  
     const validCommands = ["start", "pause", "resume", "stop"];
     if (!validCommands.includes(command)) {
       return res
         .status(400)
         .json({ error: `Invalid command. Valid commands: ${validCommands.join(", ")}` });
     }
-
+  
+    const sc = StringCodec();
     const topic = `command.transcribe.${command}`;
-    nc.publish(topic, sc.encode(JSON.stringify({ sessionId, timestamp: new Date().toISOString() })));
-
-    res.status(200).json({ message: `Command '${command}' sent to Transcribe Service`, sessionId });
+    
+    try {
+  
+    // Publish control command to NATS
+    nc?.publish(topic, sc.encode(JSON.stringify({ sessionId, timestamp: new Date().toISOString() })));
     logger.info(`Command '${command}' sent to Transcribe Service`, { sessionId });
+
+    await new Promise((resolve) => setTimeout(resolve, 500)); // wait to ensure the session state is updated
+        // Handle the commands and manage the session states
+    switch (command) {
+      case "start":
+        if (!sessionStates[sessionId]) {
+          sessionStates[sessionId] = { paused: false, stopped: false, sequence: 0 };
+          logger.info(`Initialized session state for ${sessionId}`);
+        }
+        if (sessionStates[sessionId]?.stopped) {
+          sessionStates[sessionId].stopped = false; // Reset stopped flag for restarts
+        }
+        if (nc) {
+          try{
+            await streamAudioToNATS(nc, sessionId);
+          }catch (err) {
+            logger.debug("Ignore Error streaming audio to NATS", err);
+          }
+        }
+        break;
+
+      case "pause":
+        if (sessionStates[sessionId]) {
+          sessionStates[sessionId].paused = true;
+          logger.info(`Paused streaming for session ${sessionId}`);
+        } else {
+          logger.warn(`Pause command received for unknown session ${sessionId}`);
+        }
+        
+        break;
+
+      case "resume":
+        if (sessionStates[sessionId]) {
+          sessionStates[sessionId].paused = false;
+          logger.info(`Resumed streaming for session ${sessionId}`);
+        } else {
+          logger.warn(`Resume command received for unknown session ${sessionId}`);
+        }
+        break;
+
+      case "stop":
+        if (sessionStates[sessionId]) {
+          sessionStates[sessionId].stopped = true;
+          logger.info(`Stopped streaming for session ${sessionId}`);
+          // Clean up the session state
+          delete sessionStates[sessionId];
+        } else {
+          logger.warn(`Stop command received for unknown session ${sessionId}`);
+        }
+        break;
+        logger.info(`Command '${command}' processed now will send to Transcribe Service`, { sessionId });
+    
+
+      default:
+        logger.warn(`Unhandled command received: ${command}`);
+        break;
+    }
+  
+  
+      res.status(200).json({ message: `Command '${command}' sent to Transcribe Service`, sessionId });
+    } catch (err) {
+      logger.error("Error processing transcribe control command", err);
+      res.status(500).json({ error: "Failed to process transcribe command" });
+    }
   });
+  
 
   /**
    * @swagger
