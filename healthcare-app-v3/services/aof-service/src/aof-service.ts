@@ -44,7 +44,7 @@ app.listen(port, () => {
   logger.info(`AOF service status endpoint running on port ${port}`);
 });
 
-class AOFService {
+export class AOFService {
   private nc: NatsConnection | undefined;
   private isRunning: boolean = false;
 
@@ -219,6 +219,9 @@ class AOFService {
     }
   };
 }
+
+// Export the AOFService class for testing
+export default AOFService;
 
 // Start the AOF Service
 new AOFService();
