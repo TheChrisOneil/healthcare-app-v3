@@ -106,7 +106,7 @@ const initSubscriptions = (nc: NatsConnection, ws: WebSocket) => {
           return;
         }
         const data = sc.decode(msg.data);
-        logger.debug("AOF message received", { topic: msg.subject, data });
+        logger.info("AOF message received", { topic: msg.subject, data });
         ws.send(JSON.stringify({ topic: msg.subject, data: JSON.parse(data) }));
       },
     }),
@@ -120,7 +120,7 @@ const initSubscriptions = (nc: NatsConnection, ws: WebSocket) => {
           return;
         }
         const data = sc.decode(msg.data);
-        logger.debug("Transcription message received", { topic: msg.subject, data });
+        logger.info("Transcription message received", { topic: msg.subject, data });
         ws.send(JSON.stringify({ topic: msg.subject, data: JSON.parse(data) }));
       },
     }),

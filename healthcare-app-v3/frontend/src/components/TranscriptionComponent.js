@@ -19,7 +19,7 @@ const TranscriptionComponent = () => {
                 setTranscription((prev) => prev + ' ' + message.data.transcript);
                 break;
             case 'aof.word.highlighted':
-                setHighlightedWords((prev) => [...prev, message.data.word]);
+                setHighlightedWords((prev) => [...prev, message.data.highlightedWord]);
                 break;    
             default:
                 console.warn('Unknown topic:', message.topic);

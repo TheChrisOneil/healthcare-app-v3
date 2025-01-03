@@ -165,7 +165,7 @@ class AOFService:
             # Save updated state back to Redis
             await self.save_session_state(session_id, session_state)
             
-            self.publish_highlighted_word(session_id, "example")
+            await self.publish_highlighted_word(session_id, transcript)
 
             logger.info(f"Processed transcription for session {session_id}: {transcript}")
         except Exception as e:
