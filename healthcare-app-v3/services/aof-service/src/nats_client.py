@@ -1,5 +1,5 @@
 from nats.aio.client import Client as NATS
-from app.logger import logger
+from src.logger import logger
 import os
 import asyncio
 

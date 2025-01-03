@@ -79,7 +79,7 @@ services:
     ports:
       - "3002:3000" # API or app port for transcribe-service BE SURE matches the port in the Dockerfile
       - "9232:9229" # Debugger port for service-one BE SURE matches the port in the Dockerfile & package.json
-    command: ["npm", "run", "dev:docker"]
+    command: ["npm", "run", "dev:docker"] # Change to npm run dev:docker for development
     logging:
       driver: json-file
       options:
@@ -105,6 +105,7 @@ services:
     ports:
       - "3003:3000" # API or app port for aof-service BE SURE matches the port in the Dockerfile
       - "9233:9229" # Debugger port for service-one BE SURE matches the port in the Dockerfile & package.json
+    command: ["watchmedo", "auto-restart", "--patterns=*.py", "--recursive", "python", "run.py"] # Changed for development
     logging:
       driver: json-file
       options:

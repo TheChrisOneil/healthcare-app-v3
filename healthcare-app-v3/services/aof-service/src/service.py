@@ -3,11 +3,11 @@ import json
 import os
 import aioredis  # Redis client
 from dotenv import load_dotenv
-from app.nats_client import NATSClient
-from app.logger import logger
+from src.nats_client import NATSClient
+from src.logger import logger
 from datetime import datetime
 
-# Load environment variables
+# Load the environment variables
 load_dotenv()
 
 
@@ -80,17 +80,19 @@ class AOFService:
             data = json.loads(msg.data.decode())
             session_id = data.get("sessionId")
             timestamp = datetime.now().isoformat()
-            logger.info(f"Processing {command_type} command for session {session_id}.")
+             # Append or prepend the microservice name to the session ID
+            unique_session_id = f"{session_id}:aof-service"  
+            logger.info(f"Processing {command_type} command for this session: {unique_session_id}.")
 
             if not session_id:
                 logger.error(f"Received {command_type} command without sessionId. Discarding.")
                 return
 
-            # Retrieve session state
-            session_state = await self.retrieve_session_state(session_id)
+            # Retrieve the state from Redis using the unique session ID
+            session_state = await self.retrieve_session_state(unique_session_id)
 
             if command_type == "start":
-                logger.info(f"Starting session {session_id}.")
+                logger.info(f"Starting session session-microservice index {unique_session_id}.")
 
                 # Save session initiation data from the start command
                 session_initiation = {
@@ -118,12 +120,12 @@ class AOFService:
             session_state["control"].append(session_control)
 
             if command_type == "stop":
-                logger.info(f"Stopping session {session_id}.")
+                logger.info(f"Stopping session {unique_session_id}.")
                 session_state["endTime"] = timestamp
 
             # Save updated session state
-            await self.save_session_state(session_id, session_state)
-            logger.info(f"Processed {command_type} command for session {session_id}.")
+            await self.save_session_state(unique_session_id, session_state)
+            logger.info(f"Processed {command_type} command for session {unique_session_id}.")
         except Exception as e:
             logger.error(f"Error processing {command_type} command: {e}") 
     

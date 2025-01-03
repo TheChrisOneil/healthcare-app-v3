@@ -1,10 +1,10 @@
-from app import create_app
-from app.routes import routes
-from app.service import AOFService
-from app.nats_client import NATSClient
+from src import create_app
+from src.routes import routes
+from src.service import AOFService
+from src.nats_client import NATSClient
 import asyncio
 import threading
-from app.logger import logger
+from src.logger import logger
 
 # Create and configure the Flask app
 app = create_app()
@@ -13,7 +13,7 @@ app.register_blueprint(routes)
 
 def run_flask_app():
     """Run the Flask app in a separate thread."""
-    app.run(host="0.0.0.0", port=3003)
+    app.run(host="0.0.0.0", port=3003, debug=True, use_reloader=False) # Disable reloader to prevent multiple instances
 
 
 if __name__ == "__main__":

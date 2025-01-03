@@ -6,3 +6,5 @@ pytz==2023.3
 nats-py==2.1.0
 aioredis>=2.0.0
 datetime == 4.3
+watchdog == 2.1.6
+PyYAML == 6.0

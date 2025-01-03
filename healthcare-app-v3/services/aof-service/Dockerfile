@@ -22,7 +22,7 @@ COPY ./services/aof-service/requirements.txt .
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code
+# Copy the rest of the application code (use volume mounts for development)
 COPY ./services/aof-service/ .
 
 # Create the logs directory
