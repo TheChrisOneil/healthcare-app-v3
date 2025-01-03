@@ -100,7 +100,6 @@ class TranscribeService {
       this.nc = await this.initNATS();
       logger.info("Successfully initialized NATS connection.");
       logger.info("Subscribing to transcription events.");
-
       this.subscribeToEvents();
     } catch (error) {
       this.handleError(error instanceof Error ? error : new Error(String(error)));
@@ -187,8 +186,7 @@ class TranscribeService {
         const data = JSON.parse(sc.decode(msg.data)) as { sessionId: string };
         this.stopTranscription(data.sessionId);
   
-        // Notify DAG downstream services of stop
-        this.nc?.publish("service.control.aof", sc.encode("stop"));
+        logger.info(`Recieved Transcription session stop event: ${this.sessionId}`);
       },
     });
   
@@ -200,11 +198,9 @@ class TranscribeService {
           logger.error("Error receiving transcription paused event:", _err);
           return;
         }
-        logger.info(`Transcription session paused: ${this.sessionId}`);
+        logger.info(`Receive transcription session paused event: ${this.sessionId}`);
         this.transcriptionActive = false;
   
-        // Notify DAG downstream services of pause
-        this.nc?.publish("service.control.aof", sc.encode("pause"));
       },
     });
   
@@ -216,12 +212,10 @@ class TranscribeService {
           logger.error("Error receiving transcription resumed event:", _err);
           return;
         }
-        logger.info(`Transcription session resumed: ${this.sessionId}`);
+        logger.info(`Recieved transcription session resumed event: ${this.sessionId}`);
         this.transcriptionActive = true;
         this.streamAudioFile();
-  
-        // Notify DAG downstream services of resume
-        this.nc?.publish("service.control.aof", sc.encode("resume"));
+
       },
     });
   }

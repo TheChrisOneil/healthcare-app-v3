@@ -260,11 +260,11 @@ app.post("/api/controlTranscribeService", (req: Request, res: Response) => {
   nc.publish(topic, sc.encode(JSON.stringify(payload)));
 
   // Log the action
-  logger.info(`Command '${command}' sent to Transcribe Service`, { sessionId: sessionData.sessionId, payload });
+  logger.info(`Command '${command}' published`, { sessionId: sessionData.sessionId, payload });
 
   // Respond to the client
   res.status(200).json({
-    message: `Command '${command}' sent to Transcribe Service`,
+    message: `Command '${command}' published`,
     sessionId: sessionData.sessionId,
   });
 });
