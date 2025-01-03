@@ -4,10 +4,20 @@ services:
     image: nats:2.9.3
     ports:
       - "4222:4222"
-    command: "-js"
+      - "8222:8222"  # Enable monitoring http://localhost:8222/subscriptionsz
+    command: "-js -m 8222"
     networks:
       - app-network
 
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+    restart: always
+  
   api-gateway:
     build:
       context: .
@@ -33,6 +43,7 @@ services:
       - nats-server
       - transcribe-service
       - aof-service
+      - redis
     networks:
       - app-network
 
@@ -57,6 +68,7 @@ services:
     
     depends_on:
       - nats-server
+      - redis
     volumes:
       - ./storage/recordings:/app/storage/recordings
       - ./storage/transcriptions:/app/storage/transcriptions
@@ -85,14 +97,14 @@ services:
     
     depends_on:
       - nats-server
+      - redis
     volumes:
       - ./shared-interfaces:/app/shared-interfaces
-      - ./services/aof-service/src:/app/src
+      - ./services/aof-service:/app
       - ./logs:/app/logs
     ports:
       - "3003:3000" # API or app port for aof-service BE SURE matches the port in the Dockerfile
       - "9233:9229" # Debugger port for service-one BE SURE matches the port in the Dockerfile & package.json
-    command: ["npm", "run", "dev:docker"]
     logging:
       driver: json-file
       options:

@@ -1,36 +1,35 @@
-# Use the Node.js LTS image
-FROM node:18
+# Use the official Python 3.10 slim image as the base
+FROM python:3.10-slim
 
-# Set the working directory
+# Set environment variables to prevent Python from writing pyc files and use unbuffered output
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy only package.json and package-lock.json to leverage caching
-COPY ./services/aof-service/package*.json ./
+# Install system dependencies for building Python packages
+RUN apt-get update && apt-get install -y \
+    gcc \
+    python3-dev \
+    build-essential \
+    --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install dependencies
-RUN npm install --silent
+# Copy the requirements file
+COPY ./services/aof-service/requirements.txt .
 
-# Copy the shared interfaces code
-COPY ./shared-interfaces/src ./shared-interfaces/src
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy applicaiton code
-COPY ./services/aof-service/src ./src
+# Copy the rest of the application code
+COPY ./services/aof-service/ .
 
-# Use Docker-specific tsconfig for build
-COPY services/aof-service/tsconfig.docker.json ./tsconfig.json
+# Create the logs directory
+RUN mkdir -p /app/logs
 
-# Copy nodemon.json for development
-COPY services/aof-service/nodemon.docker.json ./nodemon.json
+# Expose the port the service listens on
+EXPOSE 3003
 
-# Set up logging directory
-RUN mkdir -p /app/logs && chmod 755 /app/logs
-
-# Compile TypeScript to JavaScript
-RUN npm run build
-
-# Expose necessary ports for microservices communication and debugging
-# BE SURE: ports match in the docker-compose.yml and the service's package.json
-EXPOSE 3003 9233
-
-# Command to start the service in watch mode
-CMD ["npm", "run", "dev:watch"]
+# Command to run the application
+CMD ["python", "run.py"]

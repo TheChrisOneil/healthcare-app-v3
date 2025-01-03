@@ -14,7 +14,7 @@ const logger = winston.createLogger({
   transports: [
     new winston.transports.Console(),
     new winston.transports.File({
-      filename: "/app/logs/transcribe-service.log",
+      filename: "/app/logs/api-service.log",
       level: "info",
     }),
   ],

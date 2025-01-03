@@ -17,7 +17,7 @@ const logger = winston.createLogger({
   transports: [
     new winston.transports.Console(),
     new winston.transports.File({
-      filename: "/app/logs/aof-service.log", // <====================== Change this to nameOf-service.log
+      filename: "/app/logs/ts-template-service.log", // <====================== Change this to nameOf-service.log
       level: "info",
     }),
   ],

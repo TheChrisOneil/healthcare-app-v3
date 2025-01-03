@@ -1,3 +1,4 @@
+import { TSTEmplateService } from './ts-template-service';
 import express, { Request, Response } from "express";
 import os from "os";
 import { connect, NatsConnection, Msg, StringCodec } from "nats";
@@ -21,7 +22,7 @@ app.get("/status", (req: Request, res: Response) => {
 
   res.status(200).json({
     service: {
-      name: "aof-service",
+      name: "ts-template-service",
       version: "1.0.0",
       status: "UP",
       uptime,
@@ -41,10 +42,10 @@ app.get("/status", (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
-  logger.info(`AOF service status endpoint running on port ${port}`);
+  logger.info(`ts template service status endpoint running on port ${port}`);
 });
 
-export class AOFService {
+export class TSTEmplateService {
   private nc: NatsConnection | undefined;
   private isRunning: boolean = false;
 
@@ -87,16 +88,16 @@ export class AOFService {
 
     const sc = StringCodec();
 
-    this.nc.subscribe("transcription.word.transcribed", {
-      callback: (err: Error | null, msg: Msg) => {
-        if (err) {
-          logger.error("Error receiving transcribed word event:", err);
-          return;
-        }
-        const data = JSON.parse(sc.decode(msg.data)) as TranscriptionChunk;
-        this.processWord(data.transcript);
-      },
-    });
+    // this.nc.subscribe("transcription.word.transcribed", {
+    //   callback: (err: Error | null, msg: Msg) => {
+    //     if (err) {
+    //       logger.error("Error receiving transcribed word event:", err);
+    //       return;
+    //     }
+    //     const data = JSON.parse(sc.decode(msg.data)) as TranscriptionChunk;
+    //     this.processWord(data.transcript);
+    //   },
+    // });
 
     this.nc.subscribe("command.transcribe.*", {
         queue: "aof-service-queue", // Durable queue group for message handling
@@ -209,7 +210,7 @@ export class AOFService {
   }
 
   private handleError = (error: Error) => {
-    logger.error("AOF service encountered an error:", error);
+    logger.error("TS Template Service encountered an error:", error);
     if (this.nc) {
       const sc = StringCodec();
       this.nc.publish(
@@ -220,8 +221,8 @@ export class AOFService {
   };
 }
 
-// Export the AOFService class for testing
-export default AOFService;
+// Export the TS Template Service class for testing
+export default TSTEmplateService;
 
-// Start the AOF Service
-new AOFService();
+// Start the TS Template Service
+new TSTEmplateService();

@@ -1,7 +1,7 @@
 {
     "watch": ["src", "app/shared-interfaces/src"],
     "ext": "ts",
-    "exec": "ts-node  ./src/aof-service.ts",
+    "exec": "ts-node  ./src/ts-template-service.ts",
     "ignore": ["dist", "node_modules"],
     "env": {
       "NODE_ENV": "development",
