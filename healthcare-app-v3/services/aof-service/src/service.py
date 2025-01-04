@@ -6,7 +6,28 @@ from dotenv import load_dotenv
 from src.nats_client import NATSClient
 from src.logger import logger
 from datetime import datetime
+from src.oaf.ai_agent import analyze_transcript, generate_visualization
 
+async def process_transcription(self, msg):
+    """Process transcription message."""
+    try:
+        data = json.loads(msg.data.decode())
+        session_id = data.get("sessionId")
+        transcript = data.get("transcript")
+        timestamp = data.get("timestamp", datetime.now().isoformat())
+
+        if not session_id or not transcript:
+            logger.error("Received message without sessionId or transcript. Discarding.")
+            return
+
+        logger.info(f"Processing transcription for session {session_id}...")
+
+        # Analyze the transcript using the oaf-poc logic
+        analysis_result = analyze_transcript(transcript, session_id, timestamp)
+        logger.info(f"Analysis result: {analysis_result}")
+
+    except Exception as e:
+        logger.error(f"Error processing transcription message: {e}")
 # Load the environment variables
 load_dotenv()
 
@@ -17,6 +38,9 @@ class AOFService:
         self.redis_url = os.getenv("REDIS_URL", "redis://localhost:6379")
         self.redis_client = None
 
+    def getUniqueSessionId(self, session_id):
+        return f"{session_id}:aof-service"  
+    
     async def start(self):
         """Start the AOF Service."""
         logger.info("Starting AOF Service...")
@@ -59,18 +83,23 @@ class AOFService:
     async def save_session_state(self, session_id, state):
         """Save session state to Redis."""
         try:
-            await self.redis_client.set(session_id, json.dumps(state))
+            # get the unique session id
+            unique_session_id = self.getUniqueSessionId(session_id)
+            timestamp = datetime.now().isoformat()
+            await self.redis_client.set(unique_session_id, json.dumps(state))
             logger.info(f"State saved for session {session_id}.")
         except Exception as e:
-            logger.error(f"Error saving state for session {session_id}: {e}")
+            logger.error(f"Error saving state for session {unique_session_id}: {e}")
 
     async def retrieve_session_state(self, session_id):
         """Retrieve session state from Redis."""
         try:
-            state = await self.redis_client.get(session_id)
+            # get the unique session id
+            unique_session_id = self.getUniqueSessionId(session_id)
+            state = await self.redis_client.get(unique_session_id)
             return json.loads(state) if state else {}
         except Exception as e:
-            logger.error(f"Error retrieving state for session {session_id}: {e}")
+            logger.error(f"Error retrieving state for session {unique_session_id}: {e}")
             return {}
 
             
@@ -80,11 +109,11 @@ class AOFService:
             data = json.loads(msg.data.decode())
             session_id = data.get("sessionId")
             timestamp = datetime.now().isoformat()
-             # Append or prepend the microservice name to the session ID
-            unique_session_id = f"{session_id}:aof-service"  
+            # get the unique session id
+            unique_session_id = self.getUniqueSessionId(session_id)
             logger.info(f"Processing {command_type} command for this session: {unique_session_id}.")
 
-            if not session_id:
+            if not unique_session_id:
                 logger.error(f"Received {command_type} command without sessionId. Discarding.")
                 return
 
@@ -151,25 +180,31 @@ class AOFService:
             data = json.loads(msg.data.decode())
             session_id = data.get("sessionId")
             transcript = data.get("transcript")
-
+            unique_session_id = self.getUniqueSessionId(session_id)
+            timestamp = data.get("timestamp", datetime.now().isoformat())
             if not session_id:
                 logger.error("Received message without sessionId. Discarding.")
                 return
 
-            logger.info(f"Processing transcription for session {session_id}: {transcript}")
+            logger.info(f"Processing transcription for session {unique_session_id}: {transcript}")
             # Retrieve state from Redis
-            session_state = await self.retrieve_session_state(session_id)
+            session_state = await self.retrieve_session_state(unique_session_id)
 
             # Perform processing (e.g., appending transcript to session state)
             session_state["transcriptions"] = session_state.get("transcriptions", [])
             session_state["transcriptions"].append(transcript)
 
-            # Save updated state back to Redis
-            await self.save_session_state(session_id, session_state)
+            # Analyze the transcript
+            analysis_results = analyze_transcript(transcript, session_id, timestamp)
+            logger.info(f"Analysis results: {analysis_results}")
             
-            await self.publish_highlighted_word(session_id, transcript)
+            # Save updated state back to Redis
+            await self.save_session_state(unique_session_id, session_state)
+            
+            # Process the transcript to find highlighted words
+            await self.publish_highlighted_word(session_id, analysis_results)
 
-            logger.info(f"Processed transcription for session {session_id}: {transcript}")
+            logger.info(f"Processed transcription for session {unique_session_id}: {transcript}")
         except Exception as e:
             logger.error(f"Error processing transcription message: {e}")
     

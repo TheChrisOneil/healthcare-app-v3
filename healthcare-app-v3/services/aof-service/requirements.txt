@@ -8,3 +8,5 @@ aioredis>=2.0.0
 datetime == 4.3
 watchdog == 2.1.6
 PyYAML == 6.0
+sentence-transformers==2.2.2
+huggingface_hub==0.10.1

@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED 1
 
 # Set the working directory inside the container
 WORKDIR /app
-
+RUN python -m pip install --upgrade pip
 # Install system dependencies for building Python packages
 RUN apt-get update && apt-get install -y \
     gcc \
@@ -21,6 +21,8 @@ COPY ./services/aof-service/requirements.txt .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
+
+RUN python -m sentence_transformers.SentenceTransformer "sentence-transformers/all-MiniLM-L6-v2"
 
 # Copy the rest of the application code (use volume mounts for development)
 COPY ./services/aof-service/ .
