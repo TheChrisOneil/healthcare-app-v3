@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-      "target": "es6",
-      "module": "commonjs",
-      "lib": ["es2018"],
-      "strict": true,
-      "esModuleInterop": true,
-      "skipLibCheck": true,
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["es2018"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
       "shared-interfaces/*": ["../shared-interfaces/src/*"]

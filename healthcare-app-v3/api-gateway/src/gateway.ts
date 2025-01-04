@@ -8,6 +8,7 @@ import axios from "axios";
 import os from "os";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocs from "./swagger-config";
+import { initWebSocketServer } from "./webSocketServer";
 
 // Load environment variables from .env file
 dotenv.config({ path: '.env' }); // Load from root directory
@@ -18,7 +19,6 @@ logger.info("Environment Variables Loaded, if empty you will have issues", {
   AUDIO_FILE_PATH: process.env.AUDIO_FILE_PATH,
   LOG_LEVEL: process.env.LOG_LEVEL,
 });
-
 
 const app = express();
 const port = 3000;
@@ -90,66 +90,66 @@ const getGatewayStatus = (): Record<string, any> => {
 // Design Note: This service cares providing all the messages espeically the AOF.
 // Design Note: If a queue group member disconnects (e.g., API Gateway restarts), NATS tracks the last delivered message
 //  and resumes delivery to new members of the same queue group when they reconnect.
-const initSubscriptions = (nc: NatsConnection, ws: WebSocket) => {
-  const sc = StringCodec();
+// const initSubscriptions = (nc: NatsConnection, ws: WebSocket, clientId: string) => {
+//   const sc = StringCodec();
 
-  // Define durable queue name
-  const durableQueueName = "api-gateway-durable-workers";
+//   // Define durable queue name
+//   const durableQueueName = "api-gateway-durable-workers";
 
-  const subscriptions: Subscription[] = [
-    // AOF Messages
-    nc.subscribe("aof.word.highlighted", {
-      queue: durableQueueName, // Durable queue group
-      callback: (err: Error | null, msg: Msg) => {
-        if (err) {
-          logger.error("Error in AOF message", err);
-          return;
-        }
-        const data = sc.decode(msg.data);
-        logger.info("AOF message received", { topic: msg.subject, data });
-        ws.send(JSON.stringify({ topic: msg.subject, data: JSON.parse(data) }));
-      },
-    }),
+//   const subscriptions: Subscription[] = [
+//     // AOF Messages
+//     nc.subscribe("aof.word.highlighted", {
+//       queue: durableQueueName, // Durable queue group
+//       callback: (err: Error | null, msg: Msg) => {
+//         if (err) {
+//           logger.error("Error in AOF message", err);
+//           return;
+//         }
+//         const data = sc.decode(msg.data);
+//         logger.info("AOF message received", { topic: msg.subject, data });
+//         ws.send(JSON.stringify({ topic: msg.subject, data: JSON.parse(data) }));
+//       },
+//     }),
 
-    // Transcription Messages
-    nc.subscribe("transcription.word.transcribed", {
-      queue: durableQueueName, // Durable queue group
-      callback: (err: Error | null, msg: Msg) => {
-        if (err) {
-          logger.error("Error in transcription message", err);
-          return;
-        }
-        const data = sc.decode(msg.data);
-        logger.info("Transcription message received", { topic: msg.subject, data });
-        ws.send(JSON.stringify({ topic: msg.subject, data: JSON.parse(data) }));
-      },
-    }),
-  ];
-  return subscriptions;
-  logger.info("Subscriptions initialized with durable queue groups.");
-};
+//     // Transcription Messages
+//     nc.subscribe("transcription.word.transcribed", {
+//       queue: durableQueueName, // Durable queue group
+//       callback: (err: Error | null, msg: Msg) => {
+//         if (err) {
+//           logger.error("Error in transcription message", err);
+//           return;
+//         }
+//         const data = sc.decode(msg.data);
+//         logger.info("Transcription message received", { topic: msg.subject, data });
+//         ws.send(JSON.stringify({ topic: msg.subject, data: JSON.parse(data) }));
+//       },
+//     }),
+//   ];
+//   return subscriptions;
+//   logger.info("Subscriptions initialized with durable queue groups.");
+// };
 
 
-// Initialize WebSocket Server
-const initWebSocketServer = (nc: any) => {
-  const sc = StringCodec();
-  const wss = new WebSocketServer({ port: 8080 });
+// // Initialize WebSocket Server
+// const initWebSocketServer = (nc: any) => {
+//   const sc = StringCodec();
+//   const wss = new WebSocketServer({ port: 8080 });
 
-  wss.on("connection", (ws: WebSocket) => {
-    logger.debug("WebSocket client connected");
+//   wss.on("connection", (ws: WebSocket) => {
+//     logger.debug("WebSocket client connected");
 
-    // Subscribe to transcription topics
-    logger.debug("Subscribing to Transcription events...");
-    const subscriptions = initSubscriptions(nc, ws);
+//     // Subscribe to transcription topics
+//     logger.debug("Subscribing to Transcription events...");
+//     const subscriptions = initSubscriptions(nc, ws);
 
-    ws.on("close", () => {
-      logger.info("WebSocket client disconnected");
-      subscriptions.forEach((sub) => sub.unsubscribe());
-    });
-  });
+//     ws.on("close", () => {
+//       logger.info("WebSocket client disconnected");
+//       subscriptions.forEach((sub) => sub.unsubscribe());
+//     });
+//   });
 
-  logger.info("WebSocket server listening on port 8080");
-};
+//   logger.info("WebSocket server listening on port 8080");
+// };
 
 
 // Set up Express endpoints
