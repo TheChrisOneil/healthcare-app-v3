@@ -22,7 +22,10 @@ COPY ./services/aof-service/requirements.txt .
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN python -m sentence_transformers.SentenceTransformer "sentence-transformers/all-MiniLM-L6-v2"
+# Pre-download the SentenceTransformer model to cache it in the Docker image
+RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
+
+
 
 # Copy the rest of the application code (use volume mounts for development)
 COPY ./services/aof-service/ .

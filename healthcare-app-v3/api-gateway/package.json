@@ -4,10 +4,10 @@
     "description": "API Gateway for managing REST and WebSocket connections",
     "main": "dist/app/src/gateway.js",
     "scripts": {
-        "start": "node dist/app/src/gateway.js",
-        "start:debug": "node --inspect=0.0.0.0:9229 dist/app/src/gateway.js",
+        "start": "node dist/app/src/run-gateway.js",
+        "start:debug": "node --inspect=0.0.0.0:9229 dist/app/src/run-gateway.js",
         "build": "tsc",
-        "dev": "nodemon --watch ./src --watch ../shared-interfaces/src --exec ts-node  ./src/gateway.js",
+        "dev": "nodemon --watch ./src --watch ../shared-interfaces/src --exec ts-node  ./src/run-gateway.js",
         "dev:docker": "kill-port 9232 && nodemon --config nodemon.json",
         "test": "jest"
     },

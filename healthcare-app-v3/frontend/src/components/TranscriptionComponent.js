@@ -7,6 +7,35 @@ const TranscriptionComponent = () => {
     const [legend, setLegend] = useState({});
     const wsUrl = `${window.location.protocol === 'https:' ? 'wss://' : 'ws://'}${window.location.host}/realtime/`;
 
+// Predefined static colors for labels
+const predefinedColors = [
+    '#FF0000', // Bright Red
+    '#00FF00', // Bright Green
+    '#0000FF', // Bright Blue
+    '#FFFF00', // Bright Yellow
+    '#FF00FF', // Bright Magenta
+    '#00FFFF', // Bright Cyan
+    '#FFA500', // Orange
+    '#800080', // Purple
+    '#008080', // Teal
+    '#FFC0CB', // Pink
+    '#A52A2A', // Brown
+    '#8B0000', // Dark Red
+    '#FFD700', // Gold
+    '#4B0082', // Indigo
+    '#000000', // Black
+    '#808080', // Gray
+    '#FFFFFF', // White
+    '#1E90FF', // Dodger Blue
+    '#ADFF2F', // Green Yellow
+    '#DC143C', // Crimson
+];
+
+    const getColorForLabel = (label) => {
+        const hash = [...label].reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        return predefinedColors[hash % predefinedColors.length];
+    };
+
     const handleWebSocketMessage = (message) => {
         if (!message || !message.topic || !message.data) {
             console.warn('Malformed message received:', message);
@@ -36,11 +65,11 @@ const TranscriptionComponent = () => {
                         scores: chunk.scores,
                     },
                 ]);
-                // Add to the legend dynamically
+                // Add to the legend with deterministic colors
                 chunk.scores.forEach((score) => {
                     setLegend((prev) => ({
                         ...prev,
-                        [score.label]: `hsl(${Math.random() * 360}, 70%, 60%)`,
+                        [score.label]: getColorForLabel(score.label),
                     }));
                 });
             });
