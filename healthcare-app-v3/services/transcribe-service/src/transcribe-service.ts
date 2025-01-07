@@ -281,6 +281,7 @@ class TranscribeService {
     LanguageCode:  (this.preferences?.language as LanguageCode) || "en-US",
     MediaEncoding: (this.audioConfig?.encoding as MediaEncoding) || "pcm",
     MediaSampleRateHertz: this.audioConfig?.sampleRate || 16000,
+    ShowSpeakerLabel: this.preferences?.showSpeakerLabel || true,
     AudioStream: audioStreamGenerator(), // Assuming this method is implemented
   });
 
@@ -313,7 +314,6 @@ class TranscribeService {
             transcript: result.Alternatives?.[0]?.Transcript || "",
             words,
             confidence: words.reduce((sum, word) => sum + word.confidence, 0) / words.length || 0,
-            speaker: words[0]?.speaker || undefined,
             metadata: {
               wordCount: words.length,
               hasCorrections: words.some((word) => word.metadata.hasCorrections),

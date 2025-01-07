@@ -1,0 +1,353 @@
+[
+  {
+    "$metadata": {
+      "httpStatusCode": 200,
+      "requestId": "93a2ef11-e64b-424f-8d17-6ea68aba6484",
+      "attempts": 1,
+      "totalRetryDelay": 0
+    },
+    "Entities": [
+      {
+        "BeginOffset": 3,
+        "Category": "PROTECTED_HEALTH_INFORMATION",
+        "EndOffset": 8,
+        "Id": 3,
+        "Score": 0.9979664087295532,
+        "Text": "Sarah",
+        "Traits": [],
+        "Type": "NAME"
+      },
+      {
+        "BeginOffset": 21,
+        "Category": "PROTECTED_HEALTH_INFORMATION",
+        "EndOffset": 29,
+        "Id": 4,
+        "Score": 0.9925811290740967,
+        "Text": "Michaels",
+        "Traits": [],
+        "Type": "NAME"
+      },
+      {
+        "BeginOffset": 56,
+        "Category": "MEDICAL_CONDITION",
+        "EndOffset": 70,
+        "Id": 1,
+        "Score": 0.7950295805931091,
+        "Text": "feeling unwell",
+        "Traits": [
+          {
+            "Name": "SYMPTOM",
+            "Score": 0.8203471899032593
+          }
+        ],
+        "Type": "DX_NAME"
+      },
+      {
+        "Attributes": [
+          {
+            "BeginOffset": 56,
+            "Category": "MEDICAL_CONDITION",
+            "EndOffset": 70,
+            "Id": 1,
+            "RelationshipScore": 0.5068173408508301,
+            "RelationshipType": "OVERLAP",
+            "Score": 0.7950295805931091,
+            "Text": "feeling unwell",
+            "Traits": [
+              {
+                "Name": "SYMPTOM",
+                "Score": 0.8203471899032593
+              }
+            ],
+            "Type": "DX_NAME"
+          }
+        ],
+        "BeginOffset": 75,
+        "Category": "TIME_EXPRESSION",
+        "EndOffset": 84,
+        "Id": 2,
+        "Score": 0.5330596566200256,
+        "Text": "some time",
+        "Traits": [],
+        "Type": "TIME_TO_DX_NAME"
+      }
+    ],
+    "ModelVersion": "3.0.0",
+    "UnmappedAttributes": []
+  },
+  {
+    "$metadata": {
+      "httpStatusCode": 200,
+      "requestId": "8dbc9447-cecb-405d-ae8c-2e9373c5e65f",
+      "attempts": 1,
+      "totalRetryDelay": 0
+    },
+    "Entities": [
+      {
+        "Attributes": [
+          {
+            "BeginOffset": 64,
+            "Category": "MEDICAL_CONDITION",
+            "EndOffset": 76,
+            "Id": 2,
+            "RelationshipScore": 0.5692254304885864,
+            "RelationshipType": "QUALITY",
+            "Score": 0.6603351831436157,
+            "Text": "all the time",
+            "Traits": [],
+            "Type": "QUALITY"
+          }
+        ],
+        "BeginOffset": 58,
+        "Category": "MEDICAL_CONDITION",
+        "EndOffset": 63,
+        "Id": 1,
+        "Score": 0.6603351831436157,
+        "Text": "tired",
+        "Traits": [
+          {
+            "Name": "SYMPTOM",
+            "Score": 0.6768204569816589
+          }
+        ],
+        "Type": "DX_NAME"
+      },
+      {
+        "BeginOffset": 84,
+        "Category": "MEDICAL_CONDITION",
+        "EndOffset": 105,
+        "Id": 3,
+        "Score": 0.6603351831436157,
+        "Text": "barely get out of bed",
+        "Traits": [
+          {
+            "Name": "SYMPTOM",
+            "Score": 0.7299559712409973
+          }
+        ],
+        "Type": "DX_NAME"
+      },
+      {
+        "Attributes": [
+          {
+            "BeginOffset": 84,
+            "Category": "MEDICAL_CONDITION",
+            "EndOffset": 105,
+            "Id": 3,
+            "RelationshipScore": 0.5068173408508301,
+            "RelationshipType": "OVERLAP",
+            "Score": 0.6603351831436157,
+            "Text": "barely get out of bed",
+            "Traits": [
+              {
+                "Name": "SYMPTOM",
+                "Score": 0.7299559712409973
+              }
+            ],
+            "Type": "DX_NAME"
+          }
+        ],
+        "BeginOffset": 106,
+        "Category": "TIME_EXPRESSION",
+        "EndOffset": 119,
+        "Id": 4,
+        "Score": 0.5330596566200256,
+        "Text": "some mornings",
+        "Traits": [],
+        "Type": "TIME_TO_DX_NAME"
+      },
+      {
+        "BeginOffset": 124,
+        "Category": "MEDICAL_CONDITION",
+        "EndOffset": 138,
+        "Id": 5,
+        "Score": 0.7950295805931091,
+        "Text": "energy crashes",
+        "Traits": [
+          {
+            "Name": "SYMPTOM",
+            "Score": 0.8530592322349548
+          }
+        ],
+        "Type": "DX_NAME"
+      },
+      {
+        "Attributes": [
+          {
+            "BeginOffset": 124,
+            "Category": "MEDICAL_CONDITION",
+            "EndOffset": 138,
+            "Id": 5,
+            "RelationshipScore": 0.6270833611488342,
+            "RelationshipType": "OVERLAP",
+            "Score": 0.7950295805931091,
+            "Text": "energy crashes",
+            "Traits": [
+              {
+                "Name": "SYMPTOM",
+                "Score": 0.8530592322349548
+              }
+            ],
+            "Type": "DX_NAME"
+          }
+        ],
+        "BeginOffset": 146,
+        "Category": "TIME_EXPRESSION",
+        "EndOffset": 155,
+        "Id": 6,
+        "Score": 0.6603351831436157,
+        "Text": "afternoon",
+        "Traits": [],
+        "Type": "TIME_TO_DX_NAME"
+      },
+      {
+        "Attributes": [
+          {
+            "BeginOffset": 124,
+            "Category": "MEDICAL_CONDITION",
+            "EndOffset": 138,
+            "Id": 5,
+            "RelationshipScore": 0.5068173408508301,
+            "RelationshipType": "OVERLAP",
+            "Score": 0.7950295805931091,
+            "Text": "energy crashes",
+            "Traits": [
+              {
+                "Name": "SYMPTOM",
+                "Score": 0.8530592322349548
+              }
+            ],
+            "Type": "DX_NAME"
+          }
+        ],
+        "BeginOffset": 164,
+        "Category": "TIME_EXPRESSION",
+        "EndOffset": 171,
+        "Id": 7,
+        "Score": 0.5971075296401978,
+        "Text": "evening",
+        "Traits": [],
+        "Type": "TIME_TO_DX_NAME"
+      },
+      {
+        "BeginOffset": 197,
+        "Category": "PROTECTED_HEALTH_INFORMATION",
+        "EndOffset": 218,
+        "Id": 14,
+        "Score": 0.11282205581665039,
+        "Text": "love running and yoga",
+        "Traits": [],
+        "Type": "ADDRESS"
+      },
+      {
+        "BeginOffset": 299,
+        "Category": "MEDICAL_CONDITION",
+        "EndOffset": 306,
+        "Id": 8,
+        "Score": 0.5330596566200256,
+        "Text": "fatigue",
+        "Traits": [
+          {
+            "Name": "SYMPTOM",
+            "Score": 0.5296252369880676
+          }
+        ],
+        "Type": "DX_NAME"
+      },
+      {
+        "Attributes": [
+          {
+            "BeginOffset": 331,
+            "Category": "MEDICAL_CONDITION",
+            "EndOffset": 336,
+            "Id": 9,
+            "RelationshipScore": 0.6270833611488342,
+            "RelationshipType": "QUALITY",
+            "Score": 0.6603351831436157,
+            "Text": "awful",
+            "Traits": [],
+            "Type": "QUALITY"
+          },
+          {
+            "BeginOffset": 353,
+            "Category": "ANATOMY",
+            "EndOffset": 360,
+            "Id": 11,
+            "RelationshipScore": 0.6270833611488342,
+            "RelationshipType": "SYSTEM_ORGAN_SITE",
+            "Score": 0.90631103515625,
+            "Text": "stomach",
+            "Traits": [],
+            "Type": "SYSTEM_ORGAN_SITE"
+          }
+        ],
+        "BeginOffset": 337,
+        "Category": "MEDICAL_CONDITION",
+        "EndOffset": 346,
+        "Id": 10,
+        "Score": 0.9201511740684509,
+        "Text": "headaches",
+        "Traits": [
+          {
+            "Name": "SYMPTOM",
+            "Score": 0.9596198797225952
+          }
+        ],
+        "Type": "DX_NAME"
+      },
+      {
+        "BeginOffset": 353,
+        "Category": "ANATOMY",
+        "EndOffset": 360,
+        "Id": 11,
+        "Score": 0.90631103515625,
+        "Text": "stomach",
+        "Traits": [],
+        "Type": "SYSTEM_ORGAN_SITE"
+      },
+      {
+        "BeginOffset": 408,
+        "Category": "MEDICAL_CONDITION",
+        "EndOffset": 415,
+        "Id": 12,
+        "Score": 0.5971075296401978,
+        "Text": "bloated",
+        "Traits": [
+          {
+            "Name": "SYMPTOM",
+            "Score": 0.6248409748077393
+          }
+        ],
+        "Type": "DX_NAME"
+      },
+      {
+        "BeginOffset": 419,
+        "Category": "MEDICAL_CONDITION",
+        "EndOffset": 428,
+        "Id": 13,
+        "Score": 0.6603351831436157,
+        "Text": "feel sick",
+        "Traits": [
+          {
+            "Name": "SYMPTOM",
+            "Score": 0.6248409748077393
+          }
+        ],
+        "Type": "DX_NAME"
+      }
+    ],
+    "ModelVersion": "3.0.0",
+    "UnmappedAttributes": []
+  },
+  {
+    "$metadata": {
+      "httpStatusCode": 200,
+      "requestId": "7f0471cf-1978-4e14-8f9c-66a26e739757",
+      "attempts": 1,
+      "totalRetryDelay": 0
+    },
+    "Entities": [],
+    "ModelVersion": "3.0.0",
+    "UnmappedAttributes": []
+  }
+]

@@ -67,6 +67,8 @@ export interface TranscriptionEvent {
       language: string;       // Preferred language for transcription
       autoHighlight: boolean; // Whether to auto-highlight recognized terms
       saveAudio: boolean;     // Whether to persist audio recording
+      showSpeakerLabel?: boolean; // Enable speaker diarization
+
   };
 
 // Real-time chunk output
@@ -77,7 +79,6 @@ export interface TranscriptionChunk {
   transcript: string;         // Transcribed text
   words: Transcribed[];       // String of transcribed words
   confidence: number;         // Confidence score of transcription
-  speaker?: string;           // Speaker identifier if available
   metadata: {
       wordCount: number;      // Number of words in chunk
       hasCorrections: boolean;// Whether chunk contains corrections

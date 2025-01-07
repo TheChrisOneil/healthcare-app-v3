@@ -106,6 +106,19 @@ const initSubscriptions = (nc: NatsConnection, ws: WebSocket, clientId: string) 
         await sendMessage(message);
       },
     }),
+
+    nc.subscribe("diagnosis.text.processed", {
+        queue: durableQueueName,
+        callback: async (err: Error | null, msg: Msg) => {
+          if (err) {
+            console.error("Error in transcription message", err);
+            return;
+          }
+          const data = sc.decode(msg.data);
+          const message = { id: Date.now(), topic: msg.subject, data: JSON.parse(data) };
+          await sendMessage(message);
+        },
+      }),
   ];
 
   ws.on('message', async (data: string) => {

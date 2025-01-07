@@ -1,0 +1,30 @@
+[
+  {
+    "category": "PROTECTED_HEALTH_INFORMATION",
+    "attributes": "Sarah, Michaels, love running and yoga"
+  },
+  {
+    "category": "MEDICAL_CONDITION",
+    "attributes": "feeling unwell, tired, all the time, barely get out of bed, energy crashes, fatigue, headaches, awful, stomach, bloated, feel sick"
+  },
+  {
+    "category": "TIME_EXPRESSION",
+    "attributes": "some time, some mornings, afternoon, evening"
+  },
+  {
+    "category": "ANATOMY",
+    "attributes": "stomach"
+  },
+  {
+    "category": "PROTECTED_HEALTH_INFORMATION",
+    "attributes": "Sarah, Michaels"
+  },
+  {
+    "category": "MEDICAL_CONDITION",
+    "attributes": "feeling unwell"
+  },
+  {
+    "category": "TIME_EXPRESSION",
+    "attributes": "some time"
+  }
+]

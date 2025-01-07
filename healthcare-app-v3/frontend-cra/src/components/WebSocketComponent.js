@@ -56,7 +56,7 @@
  *     - **React**: Utilizes React hooks (`useEffect`, `useState`, `useRef`) for managing component lifecycle and state.
  *     - **WebSocket API**: Native browser API for real-time client-server communication.
  */
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from "react";
 
 const WebSocketComponent = ({ wsUrl, onMessage }) => {
     const [isConnected, setIsConnected] = useState(false);
