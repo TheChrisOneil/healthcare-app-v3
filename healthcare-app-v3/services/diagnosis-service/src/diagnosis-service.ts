@@ -197,13 +197,35 @@ export class DiagnosisService {
 
       // const processedMedTextChunk = processDiagnosisStream(sessionData.medicalTexts);
       const processedMedTextChunk = aggregateEntitiesByCategory(sessionData.medicalTexts);
-      sessionData.processMedText = sessionData.processMedText || [];
       sessionData.processMedText = [...processedMedTextChunk.flat(), ...sessionData.processMedText];
 
       // Deduplicate the combined data based on unique `category` and `attributes`
+      type ProcessMedTextItem = { 
+        category: string; 
+        attributes: string; 
+      };
+      
+      type AggregatedItem = { 
+        category: string; 
+        attributes: string[]; 
+      };
+      
       sessionData.processMedText = Array.from(
-        new Map<string, typeof sessionData.processMedText[0]>(
-          sessionData.processMedText.map((item: { category: string; attributes: any }) => [`${item.category}:${item.attributes}`, item])
+        sessionData.processMedText.reduce(
+          (map: Map<string, AggregatedItem>, item: ProcessMedTextItem) => {
+            const key = item.category; // Use category as the unique key
+            if (!map.has(key)) {
+              // Initialize with a new category and an empty attribute array
+              map.set(key, { category: key, attributes: [] });
+            }
+            // Append attributes to the existing category
+            const current = map.get(key)!;
+            if (!current.attributes.includes(item.attributes)) {
+              current.attributes.push(item.attributes);
+            }
+            return map;
+          },
+          new Map<string, AggregatedItem>()
         ).values()
       );
       logger.info("Processed medical text analysis:", sessionData.processMedText);

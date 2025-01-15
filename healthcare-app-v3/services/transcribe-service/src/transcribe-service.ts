@@ -20,7 +20,7 @@ import {
   AudioConfig,
   Transcribed
 } from "shared-interfaces/transcription"; // Using compiler options to manage local vs docker paths
-import { log } from "console";
+
 
 // Load environment variables from .env file
 dotenv.config({ path: '.env' }); // Load from root directory

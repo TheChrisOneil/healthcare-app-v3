@@ -4,10 +4,20 @@ services:
     image: nats:2.9.3
     ports:
       - "4222:4222"
-    command: "-js"
+      - "8222:8222"  # Enable monitoring http://localhost:8222/subscriptionsz
+    command: "-js -m 8222"
     networks:
       - app-network
 
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+    restart: always
+  
   api-gateway:
     build:
       context: .
@@ -21,7 +31,9 @@ services:
     
     volumes:
       - ./shared-interfaces:/app/shared-interfaces
+      - ./api-gateway/src:/app/src # Add this line to mount the source code for watching changes
       - ./logs:/app/logs
+    command: ["npm", "run", "dev:docker"]
     logging:
       driver: json-file
       options:
@@ -30,6 +42,9 @@ services:
     depends_on:
       - nats-server
       - transcribe-service
+      - aof-service
+      - diagnosis-service
+      - redis
     networks:
       - app-network
 
@@ -41,7 +56,7 @@ services:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - api-gateway
-      - frontend
+      - frontend-cra
     networks:
       - app-network
   
@@ -54,18 +69,18 @@ services:
     
     depends_on:
       - nats-server
+      - redis
     volumes:
       - ./storage/recordings:/app/storage/recordings
       - ./storage/transcriptions:/app/storage/transcriptions
       - ./storage/audioTestFiles:/app/storage/audioTestFiles
       - ./shared-interfaces:/app/shared-interfaces
+      - ./services/transcribe-service/src:/app/src
       - ./logs:/app/logs
     ports:
       - "3002:3000" # API or app port for transcribe-service BE SURE matches the port in the Dockerfile
       - "9232:9229" # Debugger port for service-one BE SURE matches the port in the Dockerfile & package.json
-    command: ["npm", "run", "dev:docker"]
-    environment:
-      NODE_OPTIONS: "--inspect=0.0.0.0:9232"
+    command: ["npm", "run", "dev:docker"] # Change to npm run dev:docker for development
     logging:
       driver: json-file
       options:
@@ -74,11 +89,71 @@ services:
     networks:
       - app-network
 
-  frontend:
+  aof-service:
     build:
-      context: ./frontend
+      context: .
+      dockerfile: ./services/aof-service/Dockerfile
+    env_file: 
+      - ./services/aof-service/.env #Set environment variables dev only
+    
+    depends_on:
+      - nats-server
+      - redis
+    volumes:
+      - ./shared-interfaces:/app/shared-interfaces
+      - ./services/aof-service:/app
+      - ./logs:/app/logs
     ports:
-      - "3001:3000"
+      - "3003:3000" # API or app port for aof-service BE SURE matches the port in the Dockerfile
+      - "9233:9229" # Debugger port for service-one BE SURE matches the port in the Dockerfile & package.json
+    command: ["watchmedo", "auto-restart", "--patterns=*.py", "--recursive", "python", "run.py"] # Changed for development
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - app-network
+
+
+  diagnosis-service:
+    build:
+      context: .
+      dockerfile: ./services/diagnosis-service/Dockerfile
+    env_file: 
+      - ./services/diagnosis-service/.env #Set environment variables dev only
+    
+    depends_on:
+      - nats-server
+      - redis
+    volumes:
+      - ./storage/medicalTexts:/app/storage/medicalTexts  
+      - ./shared-interfaces:/app/shared-interfaces
+      - ./services/diagnosis-service/src:/app/src
+      - ./logs:/app/logs
+    ports:
+      - "3004:3000" # API or app port for diagnosis-service BE SURE matches the port in the Dockerfile
+      - "9234:9229" # Debugger port for service-one BE SURE matches the port in the Dockerfile & package.json
+    command: ["npm", "run", "dev:docker"] # Change to npm run dev:docker for development
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - app-network
+
+
+  frontend-cra:
+    build:
+      context: ./frontend-cra
+    ports:
+      - "3001:3000" # Expose container port 3000 to host port 3001
+    volumes:
+    - ./frontend-cra:/app # Mount local code into the container
+    - /app/node_modules # Prevent overwriting of node_modules   
+    environment:
+    - CHOKIDAR_USEPOLLING=true
     depends_on:
       - api-gateway
     networks:
