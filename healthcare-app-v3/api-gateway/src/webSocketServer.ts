@@ -1,3 +1,4 @@
+
 /**
  * WebSocketService Design Notes
  *
@@ -60,11 +61,13 @@
  */
 
 import WebSocket, { WebSocketServer } from 'ws';
-import { StringCodec, NatsConnection, Msg } from 'nats';
+import { StringCodec, JSONCodec, NatsConnection, Msg } from 'nats';
 import redis from './redis'; // Import the Redis instance from redis.ts
+import logger from './logger';
 
 const initSubscriptions = (nc: NatsConnection, ws: WebSocket, clientId: string) => {
   const sc = StringCodec();
+  const jc = JSONCodec();
 
   const durableQueueName = "api-gateway-durable-workers";
 
@@ -106,7 +109,6 @@ const initSubscriptions = (nc: NatsConnection, ws: WebSocket, clientId: string) 
         await sendMessage(message);
       },
     }),
-
     nc.subscribe("diagnosis.text.processed", {
         queue: durableQueueName,
         callback: async (err: Error | null, msg: Msg) => {
@@ -121,23 +123,76 @@ const initSubscriptions = (nc: NatsConnection, ws: WebSocket, clientId: string) 
       }),
   ];
 
-  ws.on('message', async (data: string) => {
-    const parsedData = JSON.parse(data);
+  ws.on('message', async (data: string | Buffer | ArrayBuffer ) => {
+    try {
+      // Ensure data is a string
+      const message = typeof data === "string" ? data : data.toString();
+  
+      if (!message.trim()) {
+        // Close the WebSocket connection if data is empty
+        ws.close(1008, "Empty data received"); // 1008 indicates a policy violation
+        console.error("WebSocket closed due to empty data");
+        return;
+      }
+  
+      // Parse the incoming message
+      const parsedData = JSON.parse(message);
+  
+      if (parsedData.type === "audioBuffer") {
+        // Check for empty audio data
+        // if (!parsedData.audioData || parsedData.audioData.trim() === "") {
+        //   // Close the WebSocket connection for empty audio buffer
+        //   ws.close(1008, "Empty audio buffer received");
+        //   console.error("WebSocket closed due to empty audio buffer");
+        //   return;
+        // }
+        //logger.info("Audio buffer audio chunk event:", parsedData);
+        //parsedData.audioData = Buffer.from(parsedData.audioData, 'base64');
+        //logger.info("Audio data decoded:", parsedData.audioData);
+        // Publish valid audio data to NATS
+        nc.publish(
+          "transcription.audio.chunks",
+          jc.encode(parsedData),
+        );
+        // let test  = jc.encode(parsedData);
+        //logger.info("Audio buffer :", jc.encode(parsedData.audioData));
+        //logger.info("Audio buffer NATS jc decoded", jc.decode(test));
+      }
 
-    // Handle acknowledgment
-    if (parsedData.type === 'ack' && parsedData.messageId) {
-      await redis.lrem(`pending:${clientId}`, 1, JSON.stringify(parsedData.messageId));
-    }
+      // Handle acknowledgment
+      if (parsedData.type === 'ack' && parsedData.messageId) {
+        logger.info("Ack msg")
+        await redis.lrem(`pending:${clientId}`, 1, JSON.stringify(parsedData.messageId));
+      }
+  
+      // Handle heartbeat (pong response)
+      if (parsedData.type === 'ping') {
+        logger.info("Ping msg")
+        ws.send(JSON.stringify({ type: 'pong' }));
+      }
 
-    // Handle heartbeat (pong response)
-    if (parsedData.type === 'ping') {
-      ws.send(JSON.stringify({ type: 'pong' }));
+      // Handle close socket
+      if (parsedData.type === 'cmd') {
+        logger.info("cmd msg received");
+      
+        // Optional: Log any specific command or message details
+        if (parsedData.action === 'close') {
+          logger.info("Closing WebSocket as per cmd action");
+      
+          // Close the WebSocket connection
+          ws.close(1000, "Closed by client command"); // Use code 1000 for normal closure
+        }
+      }
+
+    } catch (error) {
+      console.error("Error processing WebSocket message:", error);
     }
   });
 
   // Retry unsent messages from Redis on reconnect
   ws.on('open', async () => {
     const pendingMessages = await redis.lrange(`pending:${clientId}`, 0, -1);
+    logger.info('Websocket Open: Msgs: ', pendingMessages);
     for (const msg of pendingMessages) {
       await sendMessage(JSON.parse(msg));
     }
@@ -151,18 +206,24 @@ const initWebSocketServer = (nc: NatsConnection) => {
   const wss = new WebSocketServer({ port: 8080 });
 
   wss.on('connection', (ws: WebSocket, req: any) => {
+    // TODO implement a signature strategy
     const clientId = req.headers['sec-websocket-key'];
-    console.log("WebSocket client connected:", clientId);
+    logger.info("WebSocket client connected:", clientId);
 
     const subscriptions = initSubscriptions(nc, ws, clientId);
 
-    ws.on('close', () => {
-      console.log("WebSocket client disconnected:", clientId);
+    wss.on('close', () => {
+      logger.info("WebSocket client disconnected:", clientId);
       subscriptions.forEach((sub) => sub.unsubscribe());
+    });
+
+    wss.on('error', (err) => {
+      logger.error('WebSocket error:', err);
+      ws.send(JSON.stringify({ type: 'error', message: 'An unexpected error occurred' }));
     });
   });
 
-  console.log("WebSocket server listening on port 8080");
+  logger.info("WebSocket server listening on port 8080");
 };
 
 export { initWebSocketServer };

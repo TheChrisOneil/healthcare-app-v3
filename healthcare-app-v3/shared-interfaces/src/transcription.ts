@@ -35,11 +35,19 @@ export interface TranscriptionEvent {
   }
 
   export interface AudioChunk {
+    type: string;
     sessionId: string;          // Reference to session
     timestamp: Date;           // Timestamp of this chunk
-    audioData: ArrayBuffer;    // Raw audio data
+    audioData: JsonEncodedAudioData;    // Raw audio data
     sequence: number;          // Sequence number for ordering
+    audioConfig: AudioConfig;   // Audio configuration
+    transcriptPreferences: TranscriptPreferences;   // User preferences
 }
+
+  export interface JsonEncodedAudioData {
+    type: string;
+    data: number[];
+  }
 
   export interface SessionControl {
     sessionId: string;          // Reference to session
@@ -68,8 +76,13 @@ export interface TranscriptionEvent {
       autoHighlight: boolean; // Whether to auto-highlight recognized terms
       saveAudio: boolean;     // Whether to persist audio recording
       showSpeakerLabel?: boolean; // Enable speaker diarization
-
   };
+
+// Transcription document
+export interface TranscriptionDocument {
+  sessionData: SessionInitiation;          // Reference to session
+  transcript: TranscriptionChunk[];         // Full transcription
+};
 
 // Real-time chunk output
 export interface TranscriptionChunk {

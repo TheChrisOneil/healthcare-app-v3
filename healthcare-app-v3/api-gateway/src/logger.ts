@@ -12,7 +12,7 @@ const logger = winston.createLogger({
     })
   ),
   transports: [
-    new winston.transports.Console(),
+    new winston.transports.Console({level: "debug" }),
     new winston.transports.File({
       filename: "/app/logs/api-service.log",
       level: "info",

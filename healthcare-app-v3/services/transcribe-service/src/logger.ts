@@ -33,30 +33,12 @@ const logger = winston.createLogger({
     })
   ),
   transports: [
-    new winston.transports.Console(),
+    new winston.transports.Console({level: "debug" }),
     new winston.transports.File({
       filename: "/app/logs/transcribe-service.log",
       level: "debug", // Ensure debug level is logged
     }),
   ],
 });
-
-/**
- * Log debug information with raw transcript and message payload
- * @param {string} rawTranscript - The raw transcript text
- * @param {Object} messagePayload - The message payload object
- */
-function logDebug(rawTranscript: string, messagePayload: MessagePayload) {
-  logger.debug("Processing transcript and message payload", {
-    rawTranscript,
-    messagePayload,
-  });
-}
-
-// Example usage
-const rawTranscript = "This is a raw transcript example.";
-const messagePayload = { id: 123, text: "Sample message payload" };
-
-logDebug(rawTranscript, messagePayload);
 
 export default logger;
