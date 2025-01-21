@@ -1,10 +1,10 @@
 import dotenv from "dotenv";
-import { startServer } from "./routes";
+import { startApiServer } from "./routes";
 import { DiagnosisService } from "./diagnosis-service";
 
 // Load environment variables
 dotenv.config();
 
 // Start server and services
-startServer();
+startApiServer();
 new DiagnosisService();

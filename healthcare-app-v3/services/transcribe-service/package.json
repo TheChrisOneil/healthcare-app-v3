@@ -1,13 +1,13 @@
 {
   "name": "transcribe-service",
   "version": "1.0.0",
-  "description": "AWS Transcribe-based transcription service integrated with NATS messaging.",
-  "main": "dist/app/src/transcribe-service.js",
+  "description": "AWS Transcribe-based transcription service",
+  "main": "dist/app/src/app.js",
   "scripts": {
-    "start": "node dist/app/src/transcribe-service.js",
-    "start:debug": "node --inspect=0.0.0.0:9232 dist/app/src/transcribe-service.js",
+    "start": "node dist/app/src/app.js",
+    "start:debug": "node --inspect=0.0.0.0:9232 dist/app/src/app.js",
     "build": "tsc",
-    "dev": "nodemon --watch ./src --watch ../../shared-interfaces/src --exec ts-node  ./src/transcribe-service.ts",
+    "dev": "nodemon --watch ./src --watch ../../shared-interfaces/src --exec ts-node  ./src/app.ts",
     "dev:docker": "kill-port 9232 && nodemon --config nodemon.json",
     "test": "jest"
   },

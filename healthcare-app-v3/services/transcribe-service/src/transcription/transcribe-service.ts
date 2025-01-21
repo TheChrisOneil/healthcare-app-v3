@@ -1,8 +1,6 @@
 
-import express, { Request, Response } from "express";
-import { createClient, RedisClientType } from "redis";
-import { promisify } from "util";
-import os from "os";
+import { initializeRedis } from "../redis/redis-client";
+import { saveToRedis, getFromRedis, deleteFromRedis, saveAsFifoToRedis } from "../redis/redis-utils";
 import { connect, NatsConnection, Msg, StringCodec, JSONCodec } from "nats";
 import { PassThrough, Readable } from "stream";
 import {
@@ -10,13 +8,12 @@ import {
   StartStreamTranscriptionCommand,
   LanguageCode,
   MediaEncoding,
-  TranscriptResultStream
 } from "@aws-sdk/client-transcribe-streaming";
 import * as fs from "fs";
 import * as stream from "stream";
 import * as dotenv from "dotenv";
 import path from "path";
-import logger from "./logger";
+import logger from "../utils/logger";
 import {
   AudioChunk,
   SessionInitiation,
@@ -26,12 +23,18 @@ import {
   Transcribed,
   JsonEncodedAudioData
 } from "shared-interfaces/transcription"; // Using compiler options to manage local vs docker paths
+import { createClient, RedisClientType, RedisModules, RedisFunctions, RedisScripts } from "redis";
 
+/**
+ * Define the type for the Redis client.
+ * This includes extensions like Redis Graph if applicable.
+ */
+type CustomRedisClient = RedisClientType<RedisModules, RedisFunctions, RedisScripts>;
 
 // Load environment variables from .env file
 dotenv.config({ path: '.env' }); // Load from root directory
 
-logger.info("Environment Variables Loaded, if empty you have an issue", {
+logger.info("Environment Variables Loaded", {
   NATS_SERVER: process.env.NATS_SERVER,
   AWS_REGION: process.env.AWS_REGION,
   AUDIO_FILE_PATH: process.env.AUDIO_FILE_PATH,
@@ -39,51 +42,13 @@ logger.info("Environment Variables Loaded, if empty you have an issue", {
   LOG_LEVEL: process.env.LOG_LEVEL,
 });
 
-// Set up Express app for the /status endpoint
-const app = express();
-const port = 3002; // HTTP server port for the service
-
-app.get("/status", (req: Request, res: Response) => {
-  const memoryUsage = process.memoryUsage();
-  const uptime = process.uptime();
-
-  res.status(200).json({
-    service: {
-      name: "transcribe-service",
-      version: "1.0.0",
-      status: "UP",
-      uptime,
-    },
-    system: {
-      loadAverage: os.loadavg(),
-      totalMemory: os.totalmem(),
-      freeMemory: os.freemem(),
-      memoryUsage: {
-        rss: memoryUsage.rss,
-        heapTotal: memoryUsage.heapTotal,
-        heapUsed: memoryUsage.heapUsed,
-        external: memoryUsage.external,
-      },
-    },
-  });
-});
-
-// Start the Express server
-app.listen(port, () => {
-  logger.info(`Transcribe service status endpoint running on port ${port}`);
-});
-
-class TranscribeService {
+export class TranscribeService {
   private nc: NatsConnection | undefined;
   private transcribeClient: TranscribeStreamingClient;
   private audioFilePath: string;
   private transcriptFilePath: string;
-  private redisClient!: RedisClientType;
-  // private setAsync!: (key: string, value: string) => Promise<void>;
-  // private getAsync!: (key: string) => Promise<string | null>;
-  // private lpushAsync!: (key: string, value: string) => Promise<number>;
-  // private lrangeAsync!: (key: string, start: number, stop: number) => Promise<string[]>;
-
+  private redisClient!: CustomRedisClient;
+ 
   constructor() {
     this.transcribeClient = new TranscribeStreamingClient({
       region: process.env.AWS_REGION || "us-east-1",
@@ -113,42 +78,40 @@ class TranscribeService {
   private async initRedis() {
     try {
       // Create a Redis client
-      this.redisClient = createClient({
-        url: process.env.REDIS_URL || "redis://localhost:6379",
-      });
+      this.redisClient = await initializeRedis();
+      logger.info("Successfully initialized Redis connection");
+      // // Handle Redis events
+      // this.redisClient.on("connect", () => {
+      //   console.log("Connected to Redis");
+      // });
 
-      // Handle Redis events
-      this.redisClient.on("connect", () => {
-        console.log("Connected to Redis");
-      });
+      // this.redisClient.on("ready", () => {
+      //   console.log("Redis client is ready");
+      // });
 
-      this.redisClient.on("ready", () => {
-        console.log("Redis client is ready");
-      });
+      // this.redisClient.on("error", (err) => {
+      //   console.error("Redis connection error:", err);
+      // });
 
-      this.redisClient.on("error", (err) => {
-        console.error("Redis connection error:", err);
-      });
+      // this.redisClient.on("end", () => {
+      //   console.log("Redis client connection has closed");
+      // });
 
-      this.redisClient.on("end", () => {
-        console.log("Redis client connection has closed");
-      });
+      // // Connect to Redis
+      // await this.redisClient.connect();
 
-      // Connect to Redis
-      await this.redisClient.connect();
-
-      // Graceful shutdown handling
-      process.on("SIGINT", async () => {
-        try {
-          console.log("SIGINT received. Closing Redis connection...");
-          await this.redisClient.quit();
-          console.log("Redis client disconnected gracefully");
-          process.exit(0);
-        } catch (error) {
-          console.error("Error while disconnecting Redis:", error);
-          process.exit(1);
-        }
-      });
+      // // Graceful shutdown handling
+      // process.on("SIGINT", async () => {
+      //   try {
+      //     console.log("SIGINT received. Closing Redis connection...");
+      //     await this.redisClient.quit();
+      //     console.log("Redis client disconnected gracefully");
+      //     process.exit(0);
+      //   } catch (error) {
+      //     console.error("Error while disconnecting Redis:", error);
+      //     process.exit(1);
+      //   }
+      // });
     } catch (error) {
       console.error("Failed to initialize Redis:", error);
       throw error;
@@ -630,9 +593,12 @@ private async getListRange(key: string, start: number, stop: number): Promise<st
  * @param sessionId 
  */
   private async deleteSessionStateFromRedis(sessionId: string) {
-    await this.redisClient.del(`session:${sessionId}:state`);
-    await this.redisClient.del(`session:${sessionId}:transcriptChunk`);
-    await this.redisClient.del(`session:${sessionId}:audioChunk`);
+    await deleteFromRedis(this.redisClient, `session:${sessionId}:state`);
+    await deleteFromRedis(this.redisClient, `session:${sessionId}:transcriptChunk`);
+    await deleteFromRedis(this.redisClient, `session:${sessionId}:audioChunk`);
+    // await this.redisClient.del(`session:${sessionId}:state`);
+    // await this.redisClient.del(`session:${sessionId}:transcriptChunk`);
+    // await this.redisClient.del(`session:${sessionId}:audioChunk`);
     logger.debug(`Deleted session state from Redis for session ${sessionId}`);
   }
 
@@ -658,7 +624,7 @@ private async getListRange(key: string, start: number, stop: number): Promise<st
 private async recallSessionStateFromRedis(sessionId: string): Promise<any> {
   try {
     // Retrieve session metadata from Redis
-    const sessionStateString = await this.redisClient.get(`session:${sessionId}:state`);
+    const sessionStateString = await getFromRedis(this.redisClient,`session:${sessionId}:state`) //await this.redisClient.get(`session:${sessionId}:state`);
     if (!sessionStateString) {
       throw new Error(`No session state found for session ${sessionId}`);
     }
@@ -682,10 +648,11 @@ private async saveTranscriptChunkToRedis(audioMetadata: AudioChunk, chunk: Trans
   let sessionId = audioMetadata.sessionId;
   try {
     // Add the new chunk to the Redis list
-    await this.redisClient.rPush(
-      `session:${sessionId}:transcriptChunk`,
-      JSON.stringify(chunk)
-    );
+    await saveAsFifoToRedis(this.redisClient, `session:${sessionId}:transcriptChunk`, JSON.stringify(chunk));
+    // await this.redisClient.rPush(
+    //   `session:${sessionId}:transcriptChunk`,
+    //   JSON.stringify(chunk)
+    // );
 
   } catch (error) {
     logger.error(
@@ -701,9 +668,11 @@ private async saveTranscriptChunkToRedis(audioMetadata: AudioChunk, chunk: Trans
  */
   private async saveSessionStateToRedis(sessionData: SessionInitiation) {
     try {
+      const key = `session:${sessionData.sessionId}:state`;
+      await saveToRedis(this.redisClient, key, JSON.stringify(sessionData));
 
-      // Save session metadata to Redis
-      await this.redisClient.set(`session:${sessionData.sessionId}:state`, JSON.stringify(sessionData));
+      // // Save session metadata to Redis
+      // await this.redisClient.set(`session:${sessionData.sessionId}:state`, JSON.stringify(sessionData));
       logger.debug(`Session state saved to Redis for session ${sessionData.sessionId}`);
     } catch (error) {
       logger.error(`Error saving session state to Redis for session ${sessionData.sessionId}:`, error);
@@ -731,14 +700,12 @@ private async saveTranscriptChunkToRedis(audioMetadata: AudioChunk, chunk: Trans
         } else {
           throw new Error(`Unsupported chunk type: ${typeof chunk}`);
         }
-        // Save to Redis                                         
-        await this.redisClient.rPush(`session:${audioMetadata.sessionId}:audioChunk`, base64Chunk);
+        // Save to Redis
+        await saveAsFifoToRedis(this.redisClient, `session:${audioMetadata.sessionId}:audioChunk`, base64Chunk);                                         
+        // await this.redisClient.rPush(`session:${audioMetadata.sessionId}:audioChunk`, base64Chunk);
       
     } catch (error) {
       logger.error(`Error saving session state to Redis for session ${audioMetadata.sessionId}:`, error);
     }
   }
 }
-
-// Start the Transcribe Service
-new TranscribeService();

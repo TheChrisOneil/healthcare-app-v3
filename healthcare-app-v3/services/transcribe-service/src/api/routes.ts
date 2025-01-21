@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import os from "os";
-import logger from "./logger";
+import logger from "../utils/logger";
 
 const app = express();
 const port = process.env.REST_API_PORT; // HTTP server port for the service
@@ -12,7 +12,7 @@ app.get("/status", (req: Request, res: Response) => {
 
   res.status(200).json({
     service: {
-      name: "diagnosis-service",
+      name: "transcribe-service",
       version: "1.0.0",
       status: "UP",
       uptime,
@@ -34,6 +34,6 @@ app.get("/status", (req: Request, res: Response) => {
 // Start the Express server
 export const startApiServer = () => {
   app.listen(port, () => {
-    logger.info(`Diagnosis service status endpoint running on port ${port}`);
+    logger.info(`Transcribe service status endpoint running on port ${port}`);
   });
 };

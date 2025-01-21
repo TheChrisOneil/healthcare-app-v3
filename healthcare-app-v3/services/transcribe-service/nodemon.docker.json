@@ -1,7 +1,7 @@
 {
     "watch": ["src", "app/shared-interfaces/src"],
     "ext": "ts",
-    "exec": "ts-node  ./src/transcribe-service.ts",
+    "exec": "ts-node  ./src/app.ts",
     "ignore": ["dist", "node_modules"],
     "env": {
       "NODE_ENV": "development",
