@@ -11,11 +11,11 @@ type CustomRedisClient = RedisClientType<RedisModules, RedisFunctions, RedisScri
  * Initializes a Redis client connection.
  * @returns A connected Redis client instance.
  */
-export const initializeRedis = async (): Promise<CustomRedisClient> => {
-  const redisClient = createClient({ url: process.env.REDIS_URL || "redis://localhost:6379" });
-  try { 
-  //redisClient.on("connect", () => logger.info("Connected to Redis"));
-  //redisClient.on("error", (err) => logger.error("Redis connection error:", err));
+export async function initializeRedis(): Promise<CustomRedisClient> {
+  try {
+    const redisClient = createClient({ url: process.env.REDIS_URL || "redis://localhost:6379" });
+
+
      // Handle Redis events
      redisClient.on("connect", () => {
       logger.info("Connected to Redis");
@@ -48,9 +48,9 @@ export const initializeRedis = async (): Promise<CustomRedisClient> => {
         process.exit(1);
       }
     });
+    return redisClient;
   } catch (error) {
     console.error("Failed to initialize Redis:", error);
     throw error;
   }
-  return redisClient;
 };

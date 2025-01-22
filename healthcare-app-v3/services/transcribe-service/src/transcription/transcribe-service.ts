@@ -23,6 +23,7 @@ import {
   Transcribed,
   JsonEncodedAudioData
 } from "shared-interfaces/transcription"; // Using compiler options to manage local vs docker paths
+import { parseAudioBuffer, createAudioStream } from "../utils/audio-utils";
 import { createClient, RedisClientType, RedisModules, RedisFunctions, RedisScripts } from "redis";
 
 /**
@@ -47,9 +48,11 @@ export class TranscribeService {
   private transcribeClient: TranscribeStreamingClient;
   private audioFilePath: string;
   private transcriptFilePath: string;
-  private redisClient!: CustomRedisClient;
+  private redisClient: CustomRedisClient;
  
-  constructor() {
+  constructor(redisClient: CustomRedisClient, natsClient: NatsConnection) {
+    this.redisClient = redisClient;
+    this.nc = natsClient;
     this.transcribeClient = new TranscribeStreamingClient({
       region: process.env.AWS_REGION || "us-east-1",
       credentials: {
@@ -60,226 +63,217 @@ export class TranscribeService {
       // Add a buffer to store audio chunks
     this.audioFilePath = process.env.AUDIO_FILE_PATH || "/tmp";
     this.transcriptFilePath = process.env.TRANSCRIBE_FILE_PATH || "/tmp";
-    this.init();
+    //this.init();
   }
 
-  private async init() {
-    try {
-      await this.initRedis();
-      logger.info("Successfully initialized REDIS connection")
-      this.nc = await this.initNATS();
-      logger.info("Successfully initialized NATS connection.");
-      this.subscribeToEvents();
-      logger.info("Successfully subscribed to transcription events.");        
-    } catch (error) {
-      this.handleError(error instanceof Error ? error : new Error(String(error)), "");
-    }
-  }
-  private async initRedis() {
-    try {
-      // Create a Redis client
-      this.redisClient = await initializeRedis();
-      logger.info("Successfully initialized Redis connection");
-      // // Handle Redis events
-      // this.redisClient.on("connect", () => {
-      //   console.log("Connected to Redis");
-      // });
-
-      // this.redisClient.on("ready", () => {
-      //   console.log("Redis client is ready");
-      // });
-
-      // this.redisClient.on("error", (err) => {
-      //   console.error("Redis connection error:", err);
-      // });
-
-      // this.redisClient.on("end", () => {
-      //   console.log("Redis client connection has closed");
-      // });
-
-      // // Connect to Redis
-      // await this.redisClient.connect();
-
-      // // Graceful shutdown handling
-      // process.on("SIGINT", async () => {
-      //   try {
-      //     console.log("SIGINT received. Closing Redis connection...");
-      //     await this.redisClient.quit();
-      //     console.log("Redis client disconnected gracefully");
-      //     process.exit(0);
-      //   } catch (error) {
-      //     console.error("Error while disconnecting Redis:", error);
-      //     process.exit(1);
-      //   }
-      // });
-    } catch (error) {
-      console.error("Failed to initialize Redis:", error);
-      throw error;
-    }
-  }
-  private async initNATS(): Promise<NatsConnection> {
-    let retries = 5;
-    while (retries > 0) {
-      try {
-        const nc = await connect({ servers: process.env.NATS_SERVER || "nats://nats-server:4222" });
-        logger.info("Connected to NATS.");
-        return nc;
-      } catch (error) {
-        logger.warn(`Failed to connect to NATS. Retries left: ${retries - 1}`, error);
-        retries--;
-        await new Promise((res) => setTimeout(res, 5000));
-      }
-    }
-    throw new Error("Unable to connect to NATS after multiple attempts.");
-  }
+  // private async init() {
+  //   try {
+  //     // await this.initRedis();
+  //     // logger.info("Successfully initialized REDIS connection")
+  //     // this.nc = await this.initNATS();
+  //     logger.info("Successfully initialized NATS connection.");
+  //     this.subscribeToEvents();
+  //     logger.info("Successfully subscribed to transcription events.");        
+  //   } catch (error) {
+  //     this.handleError(error instanceof Error ? error : new Error(String(error)), "");
+  //   }
+  // }
+  // private async initRedis() {
+  //   try {
+  //     // Create a Redis client
+  //     this.redisClient = await initializeRedis();
+  //     logger.info("Successfully initialized Redis connection");
+  //   } catch (error) {
+  //     console.error("Failed to initialize Redis:", error);
+  //     throw error;
+  //   }
+  // }
+  // private async initNATS(): Promise<NatsConnection> {
+  //   let retries = 5;
+  //   while (retries > 0) {
+  //     try {
+  //       const nc = await connect({ servers: process.env.NATS_SERVER || "nats://nats-server:4222" });
+  //       logger.info("Connected to NATS.");
+  //       return nc;
+  //     } catch (error) {
+  //       logger.warn(`Failed to connect to NATS. Retries left: ${retries - 1}`, error);
+  //       retries--;
+  //       await new Promise((res) => setTimeout(res, 5000));
+  //     }
+  //   }
+  //   throw new Error("Unable to connect to NATS after multiple attempts.");
+  // }
   
 
-  private subscribeToEvents() {
-    if (!this.nc) {
-      logger.error("NATS connection not established.");
-      return;
-    }
+//   private subscribeToEvents() {
+//     if (!this.nc) {
+//       logger.error("NATS connection not established.");
+//       return;
+//     }
   
-    const sc = StringCodec();
-    const jc = JSONCodec();
-    const queueGroup = "transcribe-workers"; // Define the queue group name
+//     const sc = StringCodec();
+//     const jc = JSONCodec();
+//     const queueGroup = "transcribe-workers"; // Define the queue group name
   
-    // Subscription: transcription.audio.chunks
-    this.nc.subscribe("transcription.audio.chunks", {
-      queue: queueGroup,
-      callback: async (_err, msg) => {
-        if (_err) {
-          logger.error("Error receiving audio chunk event:", _err);
-          return;
-        }
-        try {
-          // Decode and parse the message
-          const audioMessage: AudioChunk = jc.decode(msg.data) as AudioChunk;
-          const chunkToProcess = this.parseAudioBuffer(audioMessage.audioData)
+//     // Subscription: transcription.audio.chunks
+//     this.nc.subscribe("transcription.audio.chunks", {
+//       queue: queueGroup,
+//       callback: async (_err, msg) => {
+//         if (_err) {
+//           logger.error("Error receiving audio chunk event:", _err);
+//           return;
+//         }
+//         try {
+//           // Decode and parse the message
+//           const audioMessage: AudioChunk = jc.decode(msg.data) as AudioChunk;
+//           const chunkToProcess = this.parseAudioBuffer(audioMessage.audioData)
           
-          // logger.debug("chunk to process", chunkToProcess);
-          const audioStream = this.createAudioStream(chunkToProcess); // Create a stream from the chunk
+//           // logger.debug("chunk to process", chunkToProcess);
+//           const audioStream = this.createAudioStream(chunkToProcess); // Create a stream from the chunk
 
-          await this.processAudioChunk(audioStream, audioMessage); // Process the chunk
+//           await this.processAudioChunk(audioStream, audioMessage); // Process the chunk
     
-          // // Accumulate the audio data for the transcribe service
-          // this.audioBufferAccumulator = Buffer.concat([
-          //   this.audioBufferAccumulator,
-          //   this.parseAudioBuffer(audioMessage.sessionId, audioMessage.audioData), 
-          // ]);
-          // // Process if the accumulator reaches threshold size
-          // if (this.audioBufferAccumulator.length >= 16 * 1024) {
-          //   const chunkToProcess = this.audioBufferAccumulator.slice(0, 16 * 1024); // Extract chunks to process
-          //   this.audioBufferAccumulator = this.audioBufferAccumulator.slice(16 * 1024); // Retain the rest            
-          //   const audioStream = this.createAudioStream(chunkToProcess); // Create a stream from the chunk
-          //   await this.processAudioChunk(audioStream); // Process the chunk
-          // }
+//           // // Accumulate the audio data for the transcribe service
+//           // this.audioBufferAccumulator = Buffer.concat([
+//           //   this.audioBufferAccumulator,
+//           //   this.parseAudioBuffer(audioMessage.sessionId, audioMessage.audioData), 
+//           // ]);
+//           // // Process if the accumulator reaches threshold size
+//           // if (this.audioBufferAccumulator.length >= 16 * 1024) {
+//           //   const chunkToProcess = this.audioBufferAccumulator.slice(0, 16 * 1024); // Extract chunks to process
+//           //   this.audioBufferAccumulator = this.audioBufferAccumulator.slice(16 * 1024); // Retain the rest            
+//           //   const audioStream = this.createAudioStream(chunkToProcess); // Create a stream from the chunk
+//           //   await this.processAudioChunk(audioStream); // Process the chunk
+//           // }
 
 
-        } catch (error) {
-          logger.error("Error processing audio chunk event:", error);
-        }
-      },
-    });
+//         } catch (error) {
+//           logger.error("Error processing audio chunk event:", error);
+//         }
+//       },
+//     });
     
+
+// // /**
+// //  * Subscription: transcription.session.started
+// //  */
+// // this.nc.subscribe("command.transcribe.start", {
+// //   queue: queueGroup,
+// //   callback: (_err, msg) => {
+// //     if (_err) {
+// //       logger.error("Error receiving transcription started event:", _err);
+// //       return;
+// //     }
+
+// //     try {
+// //       // Decode and parse the message data
+// //       const sessionData = JSON.parse(sc.decode(msg.data)) as SessionInitiation;
+
+// //       // Validate the sessionData structure
+// //       const {
+// //         sessionId,
+// //         patientDID,
+// //         clinicianDID,
+// //         clinicName,
+// //         startTime,
+// //         audioConfig,
+// //         transcriptPreferences,
+// //       } = sessionData;
+
+// //       if (
+// //         !sessionId ||
+// //         !patientDID ||
+// //         !clinicianDID ||
+// //         !clinicName ||
+// //         !startTime ||
+// //         !audioConfig?.sampleRate ||
+// //         !audioConfig?.channels ||
+// //         !audioConfig?.encoding ||
+// //         !transcriptPreferences?.language ||
+// //         transcriptPreferences.autoHighlight === undefined ||
+// //         transcriptPreferences.saveAudio === undefined
+// //       ) {
+// //         logger.error("Invalid session data received:", sessionData);
+// //         return;
+// //       }
+
+// //       // Log the received session data
+// //       logger.debug("Received transcription start event:", sessionData);
+// //       // Start transcription with the full session data
+// //       this.startTranscription(sessionData);
+// //     } catch (error) {
+// //       logger.error("Error processing transcription start event:", error);
+// //     }
+// //   },
+// // });
+// //     // Subscription: transcription.session.stopped
+// //     this.nc.subscribe("command.transcribe.stop", {
+// //       queue: queueGroup,
+// //       callback: (_err, msg) => {
+// //         if (_err) {
+// //           logger.error("Error receiving transcription stopped event:", _err);
+// //           return;
+// //         }
+// //         const data = JSON.parse(sc.decode(msg.data)) as { sessionId: string };
+// //         this.stopTranscription(data.sessionId);
+  
+// //         logger.debug(`Recieved Transcription session stop event: ${data.sessionId}`);
+// //       },
+// //     });
+  
+// //     // Subscription: transcription.session.paused
+// //     this.nc.subscribe("command.transcribe.pause", {
+// //       queue: queueGroup,
+// //       callback: (_err, msg) => {
+// //         if (_err) {
+// //           logger.error("Error receiving transcription paused event:", _err);
+// //           return;
+// //         }
+  
+// //       },
+// //     });
+  
+// //     // Subscription: transcription.session.resumed
+// //     this.nc.subscribe("command.transcribe.resume", {
+// //       queue: queueGroup,
+// //       callback: (_err, msg) => {
+// //         if (_err) {
+// //           logger.error("Error receiving transcription resumed event:", _err);
+// //           return;
+// //         }
+// //       },
+// //     });
+//   }
+
+
+  /**
+   * Process audio chunks. This function is called when the audio buffer reaches a certain size.
+   */
+  public async processAudioChunk(audioChunk: AudioChunk) {
+
+    const chunkToProcess = parseAudioBuffer(audioChunk.audioData)
+            
+    // logger.debug("chunk to process", chunkToProcess);
+    const audioStream = createAudioStream(chunkToProcess); // Create a stream from the chunk
+
+    await this.processAudioChunkUsingAWSTranscribe(audioStream, audioChunk); // Process the chunk
+  }
+
 
 /**
- * Subscription: transcription.session.started
+ * Start a new transcription session.
+ * @param sessionData 
  */
-this.nc.subscribe("command.transcribe.start", {
-  queue: queueGroup,
-  callback: (_err, msg) => {
-    if (_err) {
-      logger.error("Error receiving transcription started event:", _err);
-      return;
-    }
-
-    try {
-      // Decode and parse the message data
-      const sessionData = JSON.parse(sc.decode(msg.data)) as SessionInitiation;
-
-      // Validate the sessionData structure
-      const {
-        sessionId,
-        patientDID,
-        clinicianDID,
-        clinicName,
-        startTime,
-        audioConfig,
-        transcriptPreferences,
-      } = sessionData;
-
-      if (
-        !sessionId ||
-        !patientDID ||
-        !clinicianDID ||
-        !clinicName ||
-        !startTime ||
-        !audioConfig?.sampleRate ||
-        !audioConfig?.channels ||
-        !audioConfig?.encoding ||
-        !transcriptPreferences?.language ||
-        transcriptPreferences.autoHighlight === undefined ||
-        transcriptPreferences.saveAudio === undefined
-      ) {
-        logger.error("Invalid session data received:", sessionData);
-        return;
-      }
-
-      // Log the received session data
-      logger.debug("Received transcription start event:", sessionData);
-      // Start transcription with the full session data
-      this.startTranscription(sessionData);
-    } catch (error) {
-      logger.error("Error processing transcription start event:", error);
-    }
-  },
-});
-    // Subscription: transcription.session.stopped
-    this.nc.subscribe("command.transcribe.stop", {
-      queue: queueGroup,
-      callback: (_err, msg) => {
-        if (_err) {
-          logger.error("Error receiving transcription stopped event:", _err);
-          return;
-        }
-        const data = JSON.parse(sc.decode(msg.data)) as { sessionId: string };
-        this.stopTranscription(data.sessionId);
-  
-        logger.debug(`Recieved Transcription session stop event: ${data.sessionId}`);
-      },
-    });
-  
-    // Subscription: transcription.session.paused
-    this.nc.subscribe("command.transcribe.pause", {
-      queue: queueGroup,
-      callback: (_err, msg) => {
-        if (_err) {
-          logger.error("Error receiving transcription paused event:", _err);
-          return;
-        }
-  
-      },
-    });
-  
-    // Subscription: transcription.session.resumed
-    this.nc.subscribe("command.transcribe.resume", {
-      queue: queueGroup,
-      callback: (_err, msg) => {
-        if (_err) {
-          logger.error("Error receiving transcription resumed event:", _err);
-          return;
-        }
-      },
-    });
-  }
-
-  private startTranscription(sessionData: SessionInitiation) {
+  public startTranscription(sessionData: SessionInitiation) {
     // store session state
     this.saveSessionStateToRedis(sessionData);
   }
 
-  private async stopTranscription(sessionId: string) {
+  /**
+   * Stops transcription session, saves the transcript audio to a file, and
+   * cleans up the Redis session state.
+   */
+  public async stopTranscription(sessionId: string) {
     try {
       // Finalize and save the transcript to a file or persistent storage
       await this.finalizeAndSave(sessionId);
@@ -313,11 +307,11 @@ this.nc.subscribe("command.transcribe.start", {
    * @param jsonData 
    * @returns Buffer
    */
-  private parseAudioBuffer(jsonData: JsonEncodedAudioData) {
-    const byteArray = jsonData.data; // Extract the byte array from JSON
-    const buffer = Buffer.from(byteArray); // Convert the byte array to a Buffer
-    return buffer;
-  }
+  // private parseAudioBuffer(jsonData: JsonEncodedAudioData) {
+  //   const byteArray = jsonData.data; // Extract the byte array from JSON
+  //   const buffer = Buffer.from(byteArray); // Convert the byte array to a Buffer
+  //   return buffer;
+  // }
 
   /**
    * Provides a throttled stream to the Transcribe service.
@@ -326,22 +320,22 @@ this.nc.subscribe("command.transcribe.start", {
    * @param buffer 
    * @returns 
    */
-  private createAudioStream(buffer: Buffer) {
+  // private createAudioStream(buffer: Buffer) {
     
-    // Create a readable stream from the buffer
-    const sourceStream = new Readable({
-      read() {
-        this.push(buffer);
-        this.push(null); // End the stream
-      },
-    });
+  //   // Create a readable stream from the buffer
+  //   const sourceStream = new Readable({
+  //     read() {
+  //       this.push(buffer);
+  //       this.push(null); // End the stream
+  //     },
+  //   });
 
-    // Add a PassThrough stream to control flow
-    const throttledStream = new PassThrough({ highWaterMark: 4 * 1024 }); // 4KB chunks
-    sourceStream.pipe(throttledStream);
+  //   // Add a PassThrough stream to control flow
+  //   const throttledStream = new PassThrough({ highWaterMark: 4 * 1024 }); // 4KB chunks
+  //   sourceStream.pipe(throttledStream);
 
-    return throttledStream;
-  }
+  //   return throttledStream;
+  // }
 
   /**
    * Process audio chunks. This function is called when the audio buffer reaches a certain size.
@@ -350,7 +344,7 @@ this.nc.subscribe("command.transcribe.start", {
    * @param audioStream
    * @returns 
    */
-  private async processAudioChunk(audioStream: PassThrough, audioMetadata: AudioChunk) {
+  private async processAudioChunkUsingAWSTranscribe(audioStream: PassThrough, audioMetadata: AudioChunk) {
     logger.debug('Started processing chunks from audio message.');
     try {
       await this.saveAudioChunksToRedis(audioMetadata);
@@ -407,7 +401,7 @@ this.nc.subscribe("command.transcribe.start", {
             },
           };
           // Send the transcription chunk to NATS
-          // this.sendTranscriptionToNATS(transcriptChunk);
+          this.sendTranscriptionToNATS(transcriptChunk);
           logger.debug(`Processed words count per audio chunk: ${words.length}`);
           // Save the audio and transcript chunks to Redis
           await this.saveTranscriptChunkToRedis(audioMetadata, transcriptChunk);
@@ -468,7 +462,9 @@ private async retryWithExponentialBackoff<T>(
   }
   throw new Error("Retries exhausted");
 }
-
+/**
+ * Finalize and save the transcript and audio to files.
+ */
 private async finalizeAndSave(sessionId: string) {
   try {
     // Recall audio and transcript chunks from Redis
@@ -682,7 +678,7 @@ private async saveTranscriptChunkToRedis(audioMetadata: AudioChunk, chunk: Trans
    * Save audio chunks to Redis
    */
   private async saveAudioChunksToRedis(audioMetadata: AudioChunk) {
-      const chunk = this.parseAudioBuffer(audioMetadata.audioData);
+      const chunk = parseAudioBuffer(audioMetadata.audioData);
         let base64Chunk: string;
       try {
         if (Array.isArray(chunk)) {

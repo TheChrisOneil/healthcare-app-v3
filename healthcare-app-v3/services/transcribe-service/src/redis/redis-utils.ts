@@ -46,7 +46,6 @@ export const getFromRedis = async (client: CustomRedisClient, key: string): Prom
 export const deleteFromRedis = async (client: CustomRedisClient, key: string): Promise<void> => {
   try {
     await client.del(key);
-    logger.debug(`Deleted Redis key: ${key}`);
   } catch (error) {
     logger.error(`Error deleting from Redis: ${key}`, error);
   }
@@ -60,7 +59,6 @@ export const deleteFromRedis = async (client: CustomRedisClient, key: string): P
 export const saveAsFifoToRedis = async (client: CustomRedisClient, key: string, value: string): Promise<void> => {
   try {
     await client.rPush(key, value);
-    logger.debug(`Deleted Redis key: ${key}`);
   } catch (error) {
     logger.error(`Error deleting from Redis: ${key}`, error);
   }
